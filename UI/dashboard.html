@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banka App</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="#home" class="active">Home</a>
+        <a class="icon" onclick="navToggle()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="right">
+            <a href="signin.html">Logout</a>
+        </div>
+    </div>
+<main>
+  <section class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="dashboard-header-item-1">
+            <div class="user-photo">
+                <img class="profilepic" src="https://via.placeholder.com/150">
+            </div>
+        </div>
+
+        <div class="dashboard-header-item-2" style="align-self: center">
+            <h4>Damilola Adekoya</h4>
+        </div>
+
+
+        <ul class="dashboard-header-item-3">
+            <li class="list-inline-item list-small">0<br><small>Savings Balance</small></li>
+            <li class="list-inline-item list-small">0<br><small>Current Balance</small></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-main">
+        <div class="dashboard-main-item-1">
+            <h5>CONTROL PANEL</h5>
+            <ul class="list-inline-item">
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update email</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+            </ul>
+        </div>
+        <div class="dashboard-main-item-2" >
+            <h5>ACTIONS</h5>
+            <ul class="list-inline">
+                <li><a class="dashboard-button" href="index.html">Create Account</a></li>
+                <li><a class="dashboard-button" href="index.html">Transactions</a></li>
+                <li><a class="dashboard-button" href="index.html">Deposit</a></li>
+                <li><a class="dashboard-button" href="index.html">Withdraw</a></li>
+            </ul>
+        </div>
+    </div>
+  </section>    
+</main>
+
+<script src="js/navbar.js"></script>
+</body>
+</html>
