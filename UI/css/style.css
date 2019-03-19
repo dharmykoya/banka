@@ -1,0 +1,31 @@
+body {
+  background: url("../img/banner.jpg");
+  font-family: "Comic Sans MS";
+}
+
+.index-text-container {
+  margin-top: 150px;
+  width: 33.33333333%;
+  margin-left: 100px;
+}
+.index-text-1 {
+  line-height: 80px;
+  font-size: 55px;
+  color: #dd4f05;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.index-text-2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #8a2e00;
+  font-size: 20px;
+}
+
+.index-text-3 {
+  font-size: 35px; 
+  color: peachpuff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
