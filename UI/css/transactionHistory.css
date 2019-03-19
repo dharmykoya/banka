@@ -22,3 +22,7 @@ th, td {
 .transaction-date {
   width: 15%;
 }
+
+.transaction-table {
+  overflow: auto;
+}
