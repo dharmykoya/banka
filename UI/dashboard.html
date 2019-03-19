@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="css/signin.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -23,17 +23,26 @@
             <a href="signup.html">Signup</a>
         </div>
     </div>
-<main>  
-    <div class="login-container">
-      <form class="register-form">
-        <div class="form">
-          <input type="text" placeholder="Email address" name="email" required/>
-          <input type="password" placeholder="password" name="password" required/>
-          <a href="dashboard.html"><button>Login</button></a>
-          <p class="message">Not Registered? <a href="signup.html">Signup</a></p>
+<main>
+  <section class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="dashboard-header-item-1">
+            <div class="user-photo">
+                <img class="profilepic" src="https://via.placeholder.com/150">
+            </div>
         </div>
-      </form>
+
+        <div class="dashboard-header-item-2" style="align-self: center">
+            <h4>Damilola Adekoya</h4>
+        </div>
+
+
+        <ul class="dashboard-header-item-3">
+            <li class="list-inline-item list-small">0<br><small>Savings Balance</small></li>
+            <li class="list-inline-item list-small">0<br><small>Current Balance</small></li>
+        </ul>
     </div>
+  </section>    
 </main>
 
 <script src="js/navbar.js"></script>
