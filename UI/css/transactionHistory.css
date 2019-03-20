@@ -1,0 +1,28 @@
+body {
+  font-family: "Comic Sans MS";
+}
+.transaction-main {
+  margin: 20px auto;
+  width: 80%;
+}
+table#transaction-details, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+table#transaction-summary, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+
+.transaction-date {
+  width: 15%;
+}
+
+.transaction-table {
+  overflow: auto;
+}

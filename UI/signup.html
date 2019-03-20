@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/signup.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -23,19 +23,20 @@
             <a href="signup.html">Signup</a>
         </div>
     </div>
-<main>
-  <div class="index-container">
-    <div class="index-text-container">
-        <h2 class="index-text-1">Your safest Online Bank</h2>
-        <h4 class="index-text-2">Where we make dreams bigger and achievable.</h4>
-        <h5 class="index-text-3">BAnk with Us Today.</h5>
+<main>  
+    <div class="signup-container">
+      <form class="register-form">
+        <div class="form">
+          <input type="text" placeholder="Name" name="name" required/>
+          <input type="text" placeholder="Phone Number" name="phone" required/>
+          <input type="text" placeholder="Email address" name="email" required/>
+          <input type="password" placeholder="password" name="password" required/>
+          <input type="password" placeholder="confirm password" name="password2" required/>
+          <a href="dashboard.html"><button>Sign UP</button></a>
+          <p class="message">Registered? <a href="login.html">Login</a></p>
+        </div>
+      </form>
     </div>
-
-    <div>
-
-    </div>
-  </div>
-    
 </main>
 
 <script src="js/navbar.js"></script>
