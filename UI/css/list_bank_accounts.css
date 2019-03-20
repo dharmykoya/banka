@@ -1,0 +1,72 @@
+body {
+  font-family: "Comic Sans MS";
+}
+.list-account-main {
+  margin: 20px auto;
+  width: 80%;
+}
+/* table#listAccount-details, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+} */
+
+/* table#listAccount-details > td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+} */
+
+
+.tab-list-account {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab-list-account button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab-list-account button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab-list-account button.active {
+  background-color: #dd4f05;
+  color: white;
+}
+
+
+/* Style the tab content */
+.tabcontent-list-account {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+  overflow: auto;
+}
+
+.list-tr-hover:hover {background-color: #dd4f05;}
+
+.list-account-table {
+  border-collapse: collapse;
+  margin: 0px auto;
+  width: 90%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
