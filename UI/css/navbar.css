@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
@@ -75,4 +79,8 @@
     display: block;
     text-align: left;
   }
+}
+
+.mr-btm-20 {
+  margin-bottom: 20px;
 }
