@@ -14,7 +14,6 @@ body {
   box-shadow: 2px 2px 10px #DADADA;
   margin: 5px;
   padding: 10px 10px;
-  height: 100px;
   border-radius: 5px;
   transition: .3s linear all;
 }
@@ -55,10 +54,6 @@ body {
 
   .account-credit, .account-debit, .account-delete, .account-status {
     font-size: 10px;
-  }
-
-  .account-cards {
-    height: 30px;
   }
 
 }
