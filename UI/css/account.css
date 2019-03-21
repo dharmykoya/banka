@@ -7,7 +7,6 @@ body {
   grid-template-columns: repeat(4, auto);
   width: 80%;
   margin: 0px auto;
-  grid-column-gap: 10px;
 }
 
 
@@ -46,4 +45,20 @@ body {
   color: white;
   text-align: center;
   font-size: 35px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media(max-width: 600px) {
+  .account-card-container {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .account-credit, .account-debit, .account-delete, .account-status {
+    font-size: 10px;
+  }
+
+  .account-cards {
+    height: 30px;
+  }
+
 }
