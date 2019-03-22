@@ -5,6 +5,8 @@
     <title>Banka App</title>
 
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/list_bank_accounts.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -22,7 +24,7 @@
             <a href="signin.html">Logout</a>
         </div>
     </div>
-<main>
+<main class="list-account-main">
   <section class="dashboard-container">
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
@@ -42,39 +44,125 @@
         </ul>
     </div>
 
-    <div class="dashboard-profile">
-        <div class="dashboard-profile-item" >
-            <h5>ACCOUNT DETAILS</h5>
-            <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>Account No:</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>Email:</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Address:</a></li>
-            </ul>
+    <section>
+        <div class="">
+          <div class="account-card-container">
+            <a href="delete.html">
+              <div class="">
+                <div class="account-cards account-credit">
+                  <i class="fa fa-plus"></i>
+                  <span class="account-card-name">STAFF</span>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
-    </div>
-
-    <div class="dashboard-main">
-        <div class="dashboard-main-item-1">
-            <h5>CONTROL PANEL</h5>
-            <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update email</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
-            </ul>
+    </section>
+      
+    <section class="list-account-container">
+        <!-- Tab links -->
+        <div class="tab-list-account">
+            <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staffs/Admin</button>
+            <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Bank Users</button>
         </div>
-        <div class="dashboard-main-item-2" >
-            <h5>ACTIONS</h5>
-            <ul class="list-inline">
-                <li><a class="dashboard-button" href="index.html">Create Account</a></li>
-                <li><a class="dashboard-button" href="index.html">Transactions</a></li>
-                <li><a class="dashboard-button" href="index.html">Deposit</a></li>
-                <li><a class="dashboard-button" href="index.html">Withdraw</a></li>
-            </ul>
+  
+        <!-- Tab content -->
+        <div id="savings_account" class="tabcontent-list-account">
+            <table id="savings-account-table" class="list-account-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Staff ID</th>
+                    <th>Date Created</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+  
+                <tbody>
+                <tr  class="list-tr-hover">
+                    <td>Yinka Ogunsola</td>
+                    <td>0000000001</td>
+                    <td>22nd Jan, 2019</td>
+                    <td>3,000,000</td>
+                    <td>Active</td>
+                    <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                </tr>
+                <tr class="list-tr-hover">
+                  <td>Segun Obasanjo</td>
+                  <td>0000000002</td>
+                  <td>29th Jan, 2019</td>
+                  <td>2,000,000</td>
+                  <td>Active</td>
+                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+              <tr class="list-tr-hover">
+                  <td>Daniel Ogundipe</td>
+                  <td>0000000003</td>
+                  <td>22nd Feb, 2019</td>
+                  <td>1,000,000</td>
+                  <td>Active</td>
+                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                </tr>
+                </tfoot>
+            </table>
         </div>
-    </div>
+  
+        <div id="current_account" class="tabcontent-list-account">
+          <table id="current-account-table" class="list-account-table">
+              <thead>
+              <tr>
+                  <th>Account Name</th>
+                  <th>Account No.</th>
+                  <th>Date Created</th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+  
+              <tbody>
+              <tr  class="list-tr-hover">
+                  <td>Shittu Abubaka</td>
+                  <td>0100000001</td>
+                  <td>31st Jan, 2019</td>
+                  <td>0.00</td>
+                  <td>Not Active</td>
+                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+              <tr  class="list-tr-hover">
+                <td>Doyin Peters</td>
+                <td>0200000002</td>
+                <td>14th Jan, 2019</td>
+                <td>400,000</td>
+                <td>Active</td>
+                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+            </tr>
+              <tr class="list-tr-hover">
+                <td>John Igwe</td>
+                <td>0300000003</td>
+                <td>5th Feb, 2019</td>
+                <td>300,000</td>
+                <td>Active</td>
+                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+            </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+              </tr>
+              </tfoot>
+          </table>
+        </div>
+    </section>
   </section>    
 </main>
 
 <script src="js/navbar.js"></script>
+<script src="../js/listBankAccounts.js"></script> 
 </body>
 </html>
