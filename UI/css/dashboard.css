@@ -171,6 +171,21 @@ body {
   color: red;
 }
 
+.admin-card-container {
+  width: 80%;
+  margin: 0px auto;
+}
+.admin-card-item {
+  width: 20%;
+}
+
+.admin-dashboard-staff {
+  background-color: #66bb6a;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {
    main {
@@ -209,6 +224,7 @@ body {
     padding: 5px;
   }
 }
+
 
 @media (min-width: 601px) and (max-width: 968px) {
   /* .dashboard-main-item-1 > h5 {

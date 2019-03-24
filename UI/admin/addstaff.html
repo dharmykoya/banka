@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="../css/signin.css">
+    <link rel="stylesheet" href="../css/signup.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
@@ -15,7 +15,7 @@
     <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
-    <link rel="manifest" href="./img/site.webmanifest.json">  
+    <link rel="manifest" href="../img/site.webmanifest">
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -24,25 +24,37 @@
 <body>
     <div class="topnav" id="myTopnav">
         <a href="#home" class="active">Home</a>
+        <a href="adminDashboard.html">Dashboard</a>
+        <a href="account.html">All Account</a>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
-            <a href="signin.html">Login</a>
+            <a href="">Admin</a>
+            <a href="index.html">Logout</a>
         </div>
     </div>
 <main>  
-    <div class="login-container">
+    <div class="signup-container">
+      <h2>Add User</h2>
       <form class="register-form">
         <div class="form">
-          <input type="text" placeholder="Staff ID" name="staff_id" required/>
+          <input type="text" placeholder="Name" name="name" required/>
+          <input type="text" placeholder="Phone Number" name="phone" required/>
+          <input type="text" placeholder="Email address" name="email" required/>
+          <select name="role" aria-placeholder="Role Level">
+              <option selected="selected">Select Role level</option>
+              <option value="admin">Admin</option>
+              <option value="staff">Staff</option>
+          </select>
           <input type="password" placeholder="password" name="password" required/>
-          <a href="dashboard.html"><button>Login</button></a>
+          <input type="password" placeholder="confirm password" name="password2" required/>
+          <a href="adminDashboard.html"><button>Create User</button></a>
         </div>
       </form>
     </div>
 </main>
 
-<script src="../js/navbar.js"></script>
+<script src="js/navbar.js"></script>
 </body>
 </html>

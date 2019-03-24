@@ -10,6 +10,17 @@
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+
+    <!-- // favicon Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <link rel="manifest" href="./img/manifest.json">
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,10 +32,11 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
+            <a href="signin.html">Admin</a>
             <a href="signin.html">Logout</a>
         </div>
     </div>
-<main class="list-account-main">
+<main>
   <section class="dashboard-container">
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
@@ -34,32 +46,29 @@
         </div>
 
         <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Damilola Adekoya</h4>
+            <h4>Doyin Samuel</h4>
         </div>
 
 
         <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">0<br><small>Savings Balance</small></li>
-            <li class="list-inline-item list-small">0<br><small>Current Balance</small></li>
+            <li class="list-inline-item list-small">ADMIN<br><small>Role</small></li>
         </ul>
     </div>
 
-    <section>
-        <div class="">
-          <div class="account-card-container">
-            <a href="delete.html">
-              <div class="">
-                <div class="account-cards account-credit">
-                  <i class="fa fa-plus"></i>
-                  <span class="account-card-name">STAFF</span>
-                </div>
-              </div>
-            </a>
+    <section class="admin-card-container">        
+      <div class="admin-card-item">
+        <a href="addstaff.html">
+          <div class="">
+            <div class="account-cards admin-dashboard-staff">
+              <i class="fa fa-plus"></i>
+              <span class="account-card-name">ADD STAFF</span>
+            </div>
           </div>
-        </div>
+        </a>
+      </div>
     </section>
       
-    <section class="list-account-container">
+    <section class="list-staff-container">
         <!-- Tab links -->
         <div class="tab-list-account">
             <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staffs/Admin</button>
@@ -72,7 +81,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Email</th>
+                    <th>Role</th>
                     <th>Staff ID</th>
                     <th>Date Created</th>
                     <th>Status</th>
@@ -83,25 +92,25 @@
                 <tbody>
                 <tr  class="list-tr-hover">
                     <td>Yinka Ogunsola</td>
-                    <td>0000000001</td>
+                    <td>Admin</td>
+                    <td>021</td>
                     <td>22nd Jan, 2019</td>
-                    <td>3,000,000</td>
                     <td>Active</td>
                     <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
                 </tr>
                 <tr class="list-tr-hover">
                   <td>Segun Obasanjo</td>
-                  <td>0000000002</td>
+                  <td>Staff</td>
+                  <td>034</td>
                   <td>29th Jan, 2019</td>
-                  <td>2,000,000</td>
                   <td>Active</td>
                   <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
               </tr>
               <tr class="list-tr-hover">
                   <td>Daniel Ogundipe</td>
-                  <td>0000000003</td>
+                  <td>Staff</td>
+                  <td>051</td>
                   <td>22nd Feb, 2019</td>
-                  <td>1,000,000</td>
                   <td>Active</td>
                   <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
               </tr>
@@ -139,7 +148,7 @@
                 <td>Doyin Peters</td>
                 <td>0200000002</td>
                 <td>14th Jan, 2019</td>
-                <td>400,000</td>
+                <td>400,000.00</td>
                 <td>Active</td>
                 <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
             </tr>
@@ -147,7 +156,7 @@
                 <td>John Igwe</td>
                 <td>0300000003</td>
                 <td>5th Feb, 2019</td>
-                <td>300,000</td>
+                <td>300,000.00</td>
                 <td>Active</td>
                 <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
             </tr>

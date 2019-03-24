@@ -5,6 +5,11 @@ body {
   margin: 20px auto;
   width: 80%;
 }
+
+.list-staff-container {
+  width: 80%;
+  margin: 0px auto;
+}
 table#listAccount-details, table#listAccount-details th, table#listAccount-details td {
   border: 1px solid black;
   border-collapse: collapse;
