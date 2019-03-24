@@ -1,5 +1,5 @@
 body {
-  /* background: url("../img/banner.jpg"); */
+  /* background: url("../img/banner.jpg"); kelly slab*/
   font-family: "Comic Sans MS";
   /* background: repeating-linear-gradient(
   22deg,
@@ -7,6 +7,11 @@ body {
   #8a2e00 1px,
   #8a2e00 5px
 ); */
+}
+
+.index-logo {
+  width: 30px;
+  height: 22px;
 }
 
 .index-container {
