@@ -68,6 +68,7 @@ body {
   .index-text-container {
     width: 100%;
     margin: 0px;
+    text-align: center;
   } 
   .index-text-1 {
     line-height: 15px;
