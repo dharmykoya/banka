@@ -7,6 +7,9 @@ body {
   background-color: #dd4f05;
   overflow: hidden;
 }
+.pointer-none {
+  pointer-events: none;
+}
 
 a {
   text-decoration: none;
@@ -27,9 +30,10 @@ a {
   display: block;
   color: #8a2e00;
   text-align: center;
-  padding: 14px 16px;
+  padding: 10px 16px;
   text-decoration: none;
   font-size: 17px;
+  height: 28px;
 }
 
 /* Change the color of links on hover */
