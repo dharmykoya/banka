@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banka App</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/list_bank_accounts.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+    <!-- // favicon Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <link rel="manifest" href="./img/manifest.json">
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="index.html"><img class="index-logo" src="../img/logo5.png">anka</a>
+        <a href="staffDashboard.html" class="active">Profile</a>
+        <a href="transaction.html">Transaction</a>
+        <a href="listBankAccounts.html">All Account</a>
+        <a class="icon" onclick="navToggle()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="right">
+            <a class="pointer-none">Staff</a>
+            <a href="signin.html">Logout</a>
+        </div>
+    </div>
+<main>
+  <section class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="dashboard-header-item-1">
+            <div class="user-photo">
+                <img class="profilepic" src="https://via.placeholder.com/150">
+            </div>
+        </div>
+
+        <div class="dashboard-header-item-2" style="align-self: center">
+            <h4>Yinka Ogunsola</h4>
+        </div>
+
+
+        <ul class="dashboard-header-item-3">
+            <li class="list-inline-item list-small">STAFF<br><small>Role</small></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-profile">
+        <div class="dashboard-profile-item" >
+            <h5>ACCOUNT DETAILS</h5>
+            <ul class="list-account-item">
+                <li class="list-inline-item">Email: yinka@banka.com</li>                
+                <li class="list-inline-item">Staff ID: 178</li>
+                <li class="list-inline-item">Phone No: 0708934564</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dashboard-main">
+        <div class="dashboard-main-item-1">
+            <h5>CONTROL PANEL</h5>
+            <ul class="list-inline-item">
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section>
+        <div class="">
+          <div class="account-card-container">
+            <div id="account-status">
+              <div id="">
+                <div class="account-cards account-status">
+                  <i class="fa fa-check"></i>
+                  <span class="count-name">ACTIVE</span>
+                </div>
+              </div>
+            </div>
+    
+            <div id="account-delete">
+              <div class="">
+                <div class="account-cards account-delete">
+                  <i class="fa fa-trash"></i>
+                  <span class="count-name">DELETE</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+    </section>
+  </section>    
+</main>
+<div class="modal" id="myModal">
+    <div class="container modal-content">
+            <span class="close">&times;</span>
+        <form action="/action_page.php" class="form">   
+            <div class="container">
+              <p>Change Status.</p>
+              <hr>
+            <div>
+                <!-- <label for="status"><b>Select</b></label> -->
+                <input type="radio" name="status" value="activate" checked="checked"> Activate <br>
+                <input type="radio" name="status" value="deactivate"> Deactivate
+            </div>             
+    
+                <div class="clearfix">
+                    <button type="submit" class="account-confirm confirm">Confirm</button>
+                </div>
+            </div>
+        </form>
+    </div>    
+</div>
+
+
+<div class="modal" id="myModal2">
+    <div class="container modal-content">
+            <span class="close">&times;</span>
+        <form action="/action_page.php" class="form">   
+            <div class="container">
+              <p>Delete</p>
+              <hr>
+            <div>
+                <p> Are you sure you want to delete this account. </p>
+            </div>             
+    
+                <div class="clearfix">
+                    <button type="submit" class="account-confirm confirm">Confirm</button>
+                </div>
+            </div>
+        </form>
+    </div>    
+</div>
+
+
+<script src="js/navbar.js"></script>
+<script src="../js/account.js"></script> 
+<script src="../js/listBankAccounts.js"></script> 
+</body>
+</html>

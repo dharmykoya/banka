@@ -8,17 +8,30 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+    <!-- // favicon Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/manifest.json">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
+        <a href="index.html"><img class="index-logo" src="./img/logo5.png">anka</a>
+        <a class="" href="createAccount.html">Create Account</a></li>
+        <a class="active" href="dashboard.html">Profile</a></li>
+        <a class="" href="transactionHistory.html">My Transactions</a>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
+            <a class="pointer-none">Client</a>
             <a href="signin.html">Logout</a>
         </div>
     </div>
@@ -37,18 +50,18 @@
 
 
         <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">0<br><small>Savings Balance</small></li>
-            <li class="list-inline-item list-small">0<br><small>Current Balance</small></li>
+            <li class="list-inline-item list-small">&#8358; 280,000.00<br><small>Savings Balance</small></li>
         </ul>
     </div>
 
     <div class="dashboard-profile">
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
-            <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>Account No:</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>Email:</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Address:</a></li>
+            <ul class="list-account-item">
+                <li class="list-inline-item">Account No: 0003423233</li>
+                <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
+                <li class="list-inline-item">Phone No: 08037145164</li>
+                <!-- <li class="list-inline-item">Address: 12 Oluwole street, Akoka, Yaba, Lagos.</li> -->
             </ul>
         </div>
     </div>
@@ -57,22 +70,49 @@
         <div class="dashboard-main-item-1">
             <h5>CONTROL PANEL</h5>
             <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update email</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
                 <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
                 <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
             </ul>
         </div>
-        <div class="dashboard-main-item-2" >
-            <h5>ACTIONS</h5>
-            <ul class="list-inline">
-                <li><a class="dashboard-button" href="index.html">Create Account</a></li>
-                <li><a class="dashboard-button" href="index.html">Transactions</a></li>
-                <li><a class="dashboard-button" href="index.html">Deposit</a></li>
-                <li><a class="dashboard-button" href="index.html">Withdraw</a></li>
-            </ul>
-        </div>
     </div>
-  </section>    
+  </section> 
+  <section>
+      <div class="recent-transaction">
+          <div class="recent-tran-head">
+              <p>Recent Transactions</p>
+          </div>
+          <div class="recent-tran-body">
+                <div class="recent-date">
+                    <p class="date">Jan 20, 2019</p>
+                    <div class="transaction">
+                        <p>ACCOUNT MAINTENANCE</p>
+                        <p class="transaction-debit">&#8358 550.00</p>
+                    </div>
+                    <div class="transaction">
+                        <p>POS PAYMENT AT SHOPRITE</p>
+                        <p class="transaction-credit">&#8358 1400.00</p>
+                    </div>
+                </div>
+          </div>
+          <div class="recent-tran-body">
+                <div class="recent-date">
+                    <p class="date">Jan 9, 2019</p>
+                    <div class="transaction">
+                        <p>ATM WITHDRAWAL AT YABA</p>
+                        <p class="transaction-debit">&#8358 10,000.00</p>
+                    </div>
+                    <div class="transaction">
+                        <p>COUNTER WITHDRAWAL BY DAMILOLA ADEKOYA</p>
+                        <p class="transaction-credit">&#8358 5,000.00</p>
+                    </div>
+                </div>
+          </div>
+          <div class="recent-tran-footer">
+            <a href="transactionHistory.html">More >>></a>
+          </div>
+      </div>
+  </section>   
 </main>
 
 <script src="js/navbar.js"></script>
