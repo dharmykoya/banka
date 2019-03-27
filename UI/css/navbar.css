@@ -1,5 +1,8 @@
 /*Styling of the navbar*/
 /* Add a black background color to the top navigation */
+body {
+  margin: 0px;
+}
 .topnav {
   background-color: #dd4f05;
   overflow: hidden;
@@ -8,6 +11,11 @@
 a {
   text-decoration: none;
 }
+
+.index-logo {
+  width: 30px;
+  height: 22px;
+  }
 
 .page-title {
   text-align: center;

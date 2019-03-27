@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
+        <a href="index.html" class="active"><img class="index-logo" src="./img/logo5.png">anka</a>
         <a class="" href="createAccount.html">Create Account</a></li>
         <a class="" href="dashboard.html">Profile</a></li>
         <a class="" href="transactionHistory.html">Transactions</a>
@@ -32,6 +32,7 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
+            <a>Client</a>
             <a href="signin.html">Logout</a>
         </div>
     </div>
@@ -58,9 +59,9 @@
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item"><a href="index.html">Account No: 0003423233</a></li>
-                <li class="list-inline-item"><a href="index.html">Account Type: Savings</a></li>
-                <li class="list-inline-item"><a href="index.html">Phone No: 08037145164</a></li>
+                <li class="list-inline-item">Account No: 0003423233</li>
+                <li class="list-inline-item">Account Type: Savings</li>
+                <li class="list-inline-item">Phone No: 08037145164</li>
             </ul>
         </div>
     </div>
@@ -74,9 +75,9 @@
             <tr>
                 <th class="transaction-date">Date</th>
                 <th>Transaction By</th>
-                <th>Debits</th>
-                <th>Credits</th>
-                <th>Balance</th>
+                <th>Debits (&#8358;)</th>
+                <th>Credits (&#8358;)</th>
+                <th>Balance (&#8358;)</th>
                 <th>Branch</th>
                 <th>Remarks</th>
             </tr>
@@ -148,6 +149,13 @@
             
             </tfoot>
         </table>
+        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#"  class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">&raquo;</a>
+        </div>
       </div>
     </section>
 </main>

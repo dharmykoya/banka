@@ -27,12 +27,15 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
+            <a href="index.html" class="active"><img class="index-logo" src="../img/logo5.png">anka</a>
+            <a class="" href="adminDashboard.html">Profile</a></li>
+            <a class="" href="transaction.html">Transaction</a>
+            <a href="account.html">All Account</a>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
-            <a href="signin.html">Admin</a>
+            <a>Admin</a>
             <a href="signin.html">Logout</a>
         </div>
     </div>
@@ -55,6 +58,28 @@
         </ul>
     </div>
 
+    <div class="dashboard-profile">
+        <div class="dashboard-profile-item" >
+            <h5>ACCOUNT DETAILS</h5>
+            <ul class="list-account-item">
+                <li class="list-inline-item">Email: doyinsamuel@banka.com</li>                
+                <li class="list-inline-item">Admin ID: 231</li>
+                <li class="list-inline-item">Phone No: 08039224233</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dashboard-main">
+        <div class="dashboard-main-item-1">
+            <h5>CONTROL PANEL</h5>
+            <ul class="list-inline-item">
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+            </ul>
+        </div>
+    </div>
+
     <section class="admin-card-container">        
       <div class="admin-card-item">
         <a href="addstaff.html">
@@ -69,9 +94,10 @@
     </section>
       
     <section class="list-staff-container">
+      <p>NB: To Change activate or deactivate a staff please click on the view button.</p>
         <!-- Tab links -->
         <div class="tab-list-account">
-            <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staffs/Admin</button>
+            <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staff/Admin</button>
             <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Bank Users</button>
         </div>
   
@@ -96,7 +122,7 @@
                     <td>021</td>
                     <td>22nd Jan, 2019</td>
                     <td>Active</td>
-                    <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                    <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
                 </tr>
                 <tr class="list-tr-hover">
                   <td>Segun Obasanjo</td>
@@ -104,7 +130,7 @@
                   <td>034</td>
                   <td>29th Jan, 2019</td>
                   <td>Active</td>
-                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
               </tr>
               <tr class="list-tr-hover">
                   <td>Daniel Ogundipe</td>
@@ -112,7 +138,7 @@
                   <td>051</td>
                   <td>22nd Feb, 2019</td>
                   <td>Active</td>
-                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
               </tr>
                 </tbody>
                 <tfoot>
@@ -120,6 +146,13 @@
                 </tr>
                 </tfoot>
             </table>
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#"  class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
         </div>
   
         <div id="current_account" class="tabcontent-list-account">
@@ -163,9 +196,17 @@
               </tbody>
               <tfoot>
               <tr>
+                    
               </tr>
               </tfoot>
           </table>
+          <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#"  class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
         </div>
     </section>
   </section>    

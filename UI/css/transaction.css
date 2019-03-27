@@ -1,0 +1,84 @@
+body {
+  font-family: "Comic Sans MS";
+}
+.transaction-container {
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.account-search {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+.check-form {
+  display: flex;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  padding: 20px;
+}
+.check-button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #dd4f05;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.check-form button:hover {
+  background: #ab3d04;
+}
+.check-input {
+  padding: 10px;
+  margin: 10px;
+}
+
+.account-found {
+  display: flex;
+  margin: 0px auto;
+  width: 80%;
+  justify-content: space-evenly;
+}
+.credit-debit-form {
+  width: 30%;
+}
+
+.transaction-narration {
+  margin: 0px;
+  width: 100%;
+  height: 76px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .credit-debit-form {
+    width: 100%;
+  }
+  .check-form {
+    flex-direction: column;
+    margin: 0px auto;
+  }
+
+  .account-found {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 968px) {
+  .credit-debit-form {
+    width: 53%;
+  }
+
+  .transaction-container {
+    margin: 20px;
+  }
+}

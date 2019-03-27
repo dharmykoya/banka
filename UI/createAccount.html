@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="css/create_account.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/signup.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- Required meta tags -->
@@ -14,13 +15,13 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
-        <a href="#home" class="active">Dashboard</a>
-        <a href="#home" class="active">Transactions</a>
+        <a href="index.html" class="active"><img class="index-logo" src="./img/logo5.png">anka</a>
+        <a href="dashboard.html" class="active">Profile</a>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right">
+            <a>Client</a>
             <a href="signin.html">Logout</a>
         </div>
     </div>
@@ -31,10 +32,11 @@
           <input type="text" placeholder="First Name" name="name" required/>
           <input type="text" placeholder="Last Name" name="name" required/>
           <input type="text" placeholder="Email address" name="email" required/>
-          <div class="account-type-radio">
-            <input class="account-type-radio" type="radio" name="account_type" value="savings"> Savings Account
-            <input type="radio" name="account_type" value="current"> Current Account
-          </div>
+          <select name="role" aria-placeholder="Transaction type">
+            <option selected="selected">Account type</option>
+            <option value="savings">Savings</option>
+            <option value="current">Current</option>
+          </select>
           <p>By creating an account you agree to our <a href="#" style="color:#dd4f05">Terms & Privacy</a>.</p>
           <a href="dashboard.html"><button>Create</button></a>
         </div>

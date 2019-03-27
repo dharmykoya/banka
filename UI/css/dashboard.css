@@ -69,7 +69,7 @@ body {
 
 .list-account-item {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 300px auto auto;
   list-style: none;
 }
 
@@ -151,6 +151,15 @@ body {
 .recent-tran-body {
   padding: 15px 40px;
 }
+.recent-tran-footer {
+  padding: 10px 40px;
+  display: flex;
+  border-top: 1px solid #eaeaea;
+  flex-direction: row-reverse;
+  color: #dd4f05;
+  cursor: pointer;
+}
+
 .date {
   font-size: 13px;
 }
@@ -186,6 +195,31 @@ body {
   font-size: 14px;
 }
 
+/* pagination */
+.pagination {
+  display: inline-block;
+  float: right;
+  margin: 10px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #dd4f05;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {
    main {
@@ -214,33 +248,39 @@ body {
     grid-template-columns: auto;
     list-style: none;
     padding-inline-start: 20px;
+    padding-left: 0px;
   }
   
   .dashboard-header-item-3 {
     padding-inline-start: 0px;
+    padding-left: 0px;
   }
 
   .list-inline-item {
     padding: 5px;
   }
+
+  .recent-date > .transaction {
+    font-size: 7px;
+  }
+  .admin-card-item {
+    width: 45%;
+  }
+  .admin-dashboard-staff {
+    font-size: 10px;
+  }
+  .pagination {
+    margin: 6px;
+  }
 }
 
 
 @media (min-width: 601px) and (max-width: 968px) {
-  /* .dashboard-main-item-1 > h5 {
-      width: auto;
-      text-align: left;
-      padding: 10px;
-      border-bottom: 4px solid rgba(0,0,0,.1);    
-  }
-  li {
-      text-decoration: none;
-      color: #dd4f05;
-      padding: 10px;
-  } */
+  
   .list-account-item {    
     grid-template-columns: auto;
     padding-inline-start: 0px;
+    padding-left: 0px;
   }
   .list-inline-item {
     padding: 5px;
@@ -258,5 +298,8 @@ body {
     text-decoration: none;
     margin-bottom: 10px;
     text-align: center;
+  }
+  .admin-card-item {
+    width: 30%;
   }
 }
