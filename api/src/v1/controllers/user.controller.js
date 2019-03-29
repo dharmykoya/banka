@@ -9,7 +9,12 @@ import UserService from '../services/user.service';
 
  class UserController {
      /**
-      * 
+      * @description Create a User
+      * @static method
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
       */
      static signUp(req, res) {
         const { user } = req.body;
