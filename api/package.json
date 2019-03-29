@@ -4,11 +4,14 @@
   "description": "A simple banking app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "nodemon --exec babel-node src/index.js"
   },
   "author": "Damilola Adekoya",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.4.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
@@ -20,6 +23,7 @@
     "@babel/register": "^7.4.0",
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "nodemon": "^1.18.10"
   }
 }
