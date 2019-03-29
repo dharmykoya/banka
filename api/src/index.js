@@ -2,6 +2,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
+// Routes for the app
+import User from './v1/routes/user.route';
+
 
 const app = express();
 
