@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banka App</title>
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/account.css">
+    <link rel="stylesheet" href="../css/list_bank_accounts.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+    <!-- // favicon Icons -->
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <link rel="manifest" href="./img/manifest.json">
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+            <a href="index.html" class=""><img class="index-logo" src="../img/logo5.png">anka</a>
+            <a class="active" href="adminDashboard.html">Profile</a></li>
+            <a class="" href="transaction.html">Transaction</a>
+            <a href="account.html">All Account</a>
+        <a class="icon" onclick="navToggle()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="right">
+            <a class="pointer-none">Admin</a>
+            <a href="signin.html">Logout</a>
+        </div>
+    </div>
+<main>
+  <section class="dashboard-container">
+    <div class="dashboard-header">
+        <div class="dashboard-header-item-1">
+            <div class="user-photo">
+                <img class="profilepic" src="https://via.placeholder.com/150">
+            </div>
+        </div>
+
+        <div class="dashboard-header-item-2" style="align-self: center">
+            <h4>Doyin Samuel</h4>
+        </div>
+
+
+        <ul class="dashboard-header-item-3">
+            <li class="list-inline-item list-small">ADMIN<br><small>Role</small></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-profile">
+        <div class="dashboard-profile-item" >
+            <h5>ACCOUNT DETAILS</h5>
+            <ul class="list-account-item">
+                <li class="list-inline-item">Email: doyinsamuel@banka.com</li>                
+                <li class="list-inline-item">Admin ID: 231</li>
+                <li class="list-inline-item">Phone No: 08039224233</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dashboard-main">
+        <div class="dashboard-main-item-1">
+            <h5>CONTROL PANEL</h5>
+            <ul class="list-inline-item">
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
+                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="admin-card-container">        
+      <div class="admin-card-item">
+        <a href="addstaff.html">
+          <div class="">
+            <div class="account-cards admin-dashboard-staff">
+              <i class="fa fa-plus"></i>
+              <span class="account-card-name">ADD STAFF</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+      
+    <section class="list-staff-container">
+      <p>NB: To Change activate or deactivate a staff please click on the view button.</p>
+        <!-- Tab links -->
+        <div class="tab-list-account">
+            <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staff/Admin</button>
+            <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Bank Users</button>
+        </div>
+  
+        <!-- Tab content -->
+        <div id="savings_account" class="tabcontent-list-account">
+            <table id="savings-account-table" class="list-account-table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Staff ID</th>
+                    <th>Date Created</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+  
+                <tbody>
+                <tr  class="list-tr-hover">
+                    <td>Yinka Ogunsola</td>
+                    <td>Admin</td>
+                    <td>021</td>
+                    <td>22nd Jan, 2019</td>
+                    <td>Active</td>
+                    <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+                </tr>
+                <tr class="list-tr-hover">
+                  <td>Segun Obasanjo</td>
+                  <td>Staff</td>
+                  <td>034</td>
+                  <td>29th Jan, 2019</td>
+                  <td>Active</td>
+                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+              <tr class="list-tr-hover">
+                  <td>Daniel Ogundipe</td>
+                  <td>Staff</td>
+                  <td>051</td>
+                  <td>22nd Feb, 2019</td>
+                  <td>Active</td>
+                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                </tr>
+                </tfoot>
+            </table>
+            <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#"  class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </div>
+  
+        <div id="current_account" class="tabcontent-list-account">
+          <table id="current-account-table" class="list-account-table">
+              <thead>
+              <tr>
+                  <th>Account Name</th>
+                  <th>Account No.</th>
+                  <th>Date Created</th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+  
+              <tbody>
+              <tr  class="list-tr-hover">
+                  <td>Shittu Abubaka</td>
+                  <td>0100000001</td>
+                  <td>31st Jan, 2019</td>
+                  <td>0.00</td>
+                  <td>Not Active</td>
+                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              </tr>
+              <tr  class="list-tr-hover">
+                <td>Doyin Peters</td>
+                <td>0200000002</td>
+                <td>14th Jan, 2019</td>
+                <td>400,000.00</td>
+                <td>Active</td>
+                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+            </tr>
+              <tr class="list-tr-hover">
+                <td>John Igwe</td>
+                <td>0300000003</td>
+                <td>5th Feb, 2019</td>
+                <td>300,000.00</td>
+                <td>Active</td>
+                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+            </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                    
+              </tr>
+              </tfoot>
+          </table>
+          <div class="pagination">
+                <a href="#">&laquo;</a>
+                <a href="#"  class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">&raquo;</a>
+            </div>
+        </div>
+    </section>
+  </section>    
+</main>
+
+<script src="js/navbar.js"></script>
+<script src="../js/listBankAccounts.js"></script> 
+</body>
+</html>

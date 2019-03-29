@@ -10,19 +10,27 @@ table#transaction-details, th, td {
   border-collapse: collapse;
   margin-bottom: 20px;
 }
-table#transaction-summary, th, td {
+.transaction-table {
+  overflow: auto;
+  width: 80%;
+  margin: 20px auto;
+  background: white;
+}
+table#transaction-summary {
   border: 1px solid black;
   border-collapse: collapse;
 }
-th, td {
-  padding: 5px;
+#transaction-summary th, #transaction-summary td {
+  border: 1px solid #dddddd;
   text-align: left;
+  padding: 8px;
+}
+
+#transaction-summary tr:nth-child(even) {
+  background-color: #dddddd;
 }
 
 .transaction-date {
   width: 15%;
 }
 
-.transaction-table {
-  overflow: auto;
-}

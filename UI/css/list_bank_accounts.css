@@ -5,13 +5,24 @@ body {
   margin: 20px auto;
   width: 80%;
 }
-/* table#listAccount-details, th, td {
+
+.list-staff-container {
+  width: 80%;
+  margin: 0px auto;
+}
+table#listAccount-details, table#listAccount-details th, table#listAccount-details td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* table#listAccount-details > td {
   border: 1px solid black;
   border-collapse: collapse;
   margin-bottom: 20px;
 } */
 
-/* table#listAccount-details > td {
+/* .list-account-details th, list-account-details td {
   border: 1px solid black;
   border-collapse: collapse;
   margin-bottom: 20px;
@@ -65,7 +76,12 @@ body {
   width: 90%;
 }
 
-th, td {
+table#current-account-table th, table#current-account-table td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+table#savings-account-table  th, table#savings-account-table  td {
   padding: 8px;
   text-align: center;
   border-bottom: 1px solid #ddd;
