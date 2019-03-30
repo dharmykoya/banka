@@ -7,13 +7,29 @@ import AccountService from '../services/account.service';
  */
 
  class AccountController {
+    /**
+      * @description Admin view all bank accounts
+      * @static 
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+     static allAccounts(req, res) {
+        const allAccountsFound = AccountService.fetchAllAccounts();
+         return res.status(200).send({
+          status: 200,
+          data: allAccountsFound,  
+        });
+     }
+
      /**
       * @description User can create a bank account
       * @static 
       * @param {Object} req
       * @param {Object} res
       * @returns {Object} API response
-      * @memberof UserController
+      * @memberof AccountController
       */
      static createAccount(req, res) {
       const accountDetails = req.body;
@@ -29,6 +45,29 @@ import AccountService from '../services/account.service';
        data: newAccount,  
      });
     }
+
+    /**
+      * @description Admin/staff can activate or deactivate a bank account
+      * @static 
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+     static changeStatus(req, res) {
+       const { id, state } = req.body;
+       const accountUpdated = AccountService.changeStatus(id, state);
+       if(accountUpdated.error) {
+        return res.status(201).send({
+          status: 400,
+          error: accountUpdated.message,
+        });
+       }
+       return res.status(201).send({
+        status: 201,
+        data: accountUpdated,  
+      });
+     }
  }
 
  export default AccountController;
