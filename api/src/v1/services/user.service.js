@@ -17,7 +17,11 @@ class UserService {
    * @memberof UserService
    */
   static getUsers() {
-    
+    const allUsers = UserData.users.map((user) => {
+      const userInstance = new User(user.id, user.email, user.firstName, user.lastName, user.password, user.type, user.isAdmin);
+      return userInstance;
+    });
+    return allUsers;
   }
 
   /**
@@ -54,8 +58,14 @@ class UserService {
    * @returns {Object} API response
    * @memberof UserService
    */
-  static signIn(user) {
+  static loginUser(user) {
     const { email, password } = user;
+    const foundUser = UserData.users.find(user => email === user.email && password === user.password)
+    if(!foundUser) {
+        const response = {error: true, message: 'No user found/Incorrect email or password'};
+        return response;
+    }
+    return foundUser;        
   }
 }
 

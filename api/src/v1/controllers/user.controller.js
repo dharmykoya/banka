@@ -38,9 +38,9 @@ import UserService from '../services/user.service';
       * @returns {Object} API response
       * @memberof UserController
       */
-     static singIn(req, res) {
+     static signIn(req, res) {
        const user = req.body;
-       const loginUser = UserService.singIn(user);
+       const newUser = UserService.loginUser(user);
        if(newUser.error) {
         return res.status(201).send({
           status: 401,
