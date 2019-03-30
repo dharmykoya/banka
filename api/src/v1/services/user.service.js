@@ -41,6 +41,7 @@ class UserService {
   //   return Users;
   // }
   static signUp(user) {
+    console.log(user);
     const { email, firstName, lastName, password, type, isAdmin } = user;
     const usersLength = UserData.users.length;
     const lastId = UserData.users[usersLength - 1].id;

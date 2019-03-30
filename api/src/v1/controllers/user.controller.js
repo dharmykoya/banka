@@ -20,7 +20,7 @@ import UserService from '../services/user.service';
         const newUser = UserService.signUp(user);
         if(newUser.error) {
             return res.status(201).send({
-              status: 401,
+              status: 400,
               error: newUser.message,  
             });
         }
@@ -48,7 +48,7 @@ import UserService from '../services/user.service';
         });
        }
        return res.status(201).send({
-        status: 201,
+        status: 200,
         data: newUser,  
       });
      }
