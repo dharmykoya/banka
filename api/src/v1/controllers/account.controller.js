@@ -68,6 +68,29 @@ import AccountService from '../services/account.service';
         data: accountUpdated,  
       });
      }
+
+     /**
+      * @description Admin/staff can delete a bank account
+      * @static 
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+     static deleteAccount(req, res) {
+      const { id } = req.params;
+      const deleteAccount = AccountService.deleteAccount(id);
+      if(deleteAccount.error) {
+        return res.status(201).send({
+          status: 400,
+          error: deleteAccount.message,
+        });
+       }
+       return res.status(201).send({
+        status: 201,
+        data: deleteAccount,  
+      });
+     }
  }
 
  export default AccountController;

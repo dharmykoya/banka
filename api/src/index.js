@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 // Routes for the app
 import User from './v1/routes/user.route';
 import Account from './v1/routes/account.route';
+import Transaction from './v1/routes/transaction.route';
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', User);
 app.use('/api/v1/account', Account);
+app.use('/api/v1/transaction', Transaction);
 
 app.listen(PORT, () => {
     console.log(`server is listening on port:${PORT}`);
