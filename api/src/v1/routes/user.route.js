@@ -7,3 +7,5 @@ const router = Router();
  * 
  */
 router.post('/signup', UserController.signUp);
+
+export default router;

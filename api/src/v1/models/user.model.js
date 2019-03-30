@@ -1,5 +1,5 @@
-export default class Users {
-    constructor() {
+export default class User {
+    constructor(id, email, firstName, lastName, password, type, isAdmin) {
         this.id = null;
         this.email = null;
         this.firstName = null;

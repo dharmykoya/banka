@@ -1,4 +1,3 @@
-import UserData from '../data/user.json';
 import UserService from '../services/user.service';
 
 /**
@@ -10,14 +9,14 @@ import UserService from '../services/user.service';
  class UserController {
      /**
       * @description Create a User
-      * @static method
+      * @static 
       * @param {Object} req
       * @param {Object} res
       * @returns {Object} API response
       * @memberof UserController
       */
      static signUp(req, res) {
-        const { user } = req.body;
+        const user = req.body;
         const newUser = UserService.signUp(user);
         if(newUser.error) {
             return res.status(201).send({
@@ -31,3 +30,5 @@ import UserService from '../services/user.service';
         });
      }
  }
+
+ export default UserController;
