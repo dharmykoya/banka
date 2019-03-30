@@ -20,7 +20,7 @@ import UserService from '../services/user.service';
         const newUser = UserService.signUp(user);
         if(newUser.error) {
             return res.status(201).send({
-              status: 401,
+              status: 400,
               error: newUser.message,  
             });
         }
@@ -38,9 +38,9 @@ import UserService from '../services/user.service';
       * @returns {Object} API response
       * @memberof UserController
       */
-     static singIn(req, res) {
+     static signIn(req, res) {
        const user = req.body;
-       const loginUser = UserService.singIn(user);
+       const newUser = UserService.loginUser(user);
        if(newUser.error) {
         return res.status(201).send({
           status: 401,
@@ -48,7 +48,7 @@ import UserService from '../services/user.service';
         });
        }
        return res.status(201).send({
-        status: 201,
+        status: 200,
         data: newUser,  
       });
      }
