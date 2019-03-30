@@ -29,6 +29,29 @@ import UserService from '../services/user.service';
             data: newUser,  
         });
      }
+
+     /**
+      * @description User can signin
+      * @static 
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
+      */
+     static singIn(req, res) {
+       const user = req.body;
+       const loginUser = UserService.singIn(user);
+       if(newUser.error) {
+        return res.status(201).send({
+          status: 401,
+          error: newUser.message,  
+        });
+       }
+       return res.status(201).send({
+        status: 201,
+        data: newUser,  
+      });
+     }
  }
 
  export default UserController;
