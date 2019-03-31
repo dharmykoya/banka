@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon --exec babel-node src/index.js"
+    "start-dev": "nodemon --exec babel-node src/index.js",
+    "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit || true",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "author": "Damilola Adekoya",
   "license": "ISC",
