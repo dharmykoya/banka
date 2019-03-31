@@ -74,6 +74,7 @@ class TransactionService {
    * @memberof TransactionService
    */
   static debitAccount(accountNumber, amount) { 
+    const minBalance = parseFloat(1000);
     const newamount = parseFloat(amount)   ;
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
@@ -105,6 +106,11 @@ class TransactionService {
 
     const oldBalance = parseFloat(foundAccount.balance);
     const newBalance = oldBalance - newamount;
+
+    if (newBalance < minBalance){
+      const response = {error: true, message: `You can not have less than ${minBalance} in your account.`};
+      return response;
+    }
     // creating a new instance of the Transaction
     const transaction = new Transaction (
       id, 

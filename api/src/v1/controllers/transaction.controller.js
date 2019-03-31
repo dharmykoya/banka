@@ -20,13 +20,13 @@ import TransactionService from '../services/transaction.service';
        const accountNumber = req.params.accountNumber;
        const creditedAccount = TransactionService.creditAccount(accountNumber, amount);
        if(creditedAccount.error) {
-        return res.status(401).send({
-          status: 401,
+        return res.status(400).send({
+          status: 400,
           error: creditedAccount.message,  
         });
        }
        return res.status(201).send({
-        status: 200,
+        status: 201,
         data: creditedAccount,  
       });
      }
@@ -44,8 +44,8 @@ import TransactionService from '../services/transaction.service';
       const accountNumber = req.params.accountNumber;
       const debitedAccount = TransactionService.debitAccount(accountNumber, amount);
       if(debitedAccount.error) {
-       return res.status(401).send({
-         status: 401,
+       return res.status(400).send({
+         status: 400,
          error: debitedAccount.message,  
        });
       }
