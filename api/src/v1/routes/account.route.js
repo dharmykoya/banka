@@ -13,6 +13,6 @@ router.get('/', AccountController.allAccounts);
 router.patch('/:accountNumber', AccountController.changeStatus);
 
 // this route delete a bank account
-router.delete('/:id', AccountController.deleteAccount);
+router.delete('/:accountNumber', AccountController.deleteAccount);
 
 export default router;

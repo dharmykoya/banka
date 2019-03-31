@@ -64,8 +64,8 @@ import AccountService from '../services/account.service';
           error: accountUpdated.message,
         });
        }
-       return res.status(201).send({
-        status: 201,
+       return res.status(204).send({
+        status: 204,
         data: accountUpdated,  
       });
      }
@@ -79,16 +79,16 @@ import AccountService from '../services/account.service';
       * @memberof AccountController
       */
      static deleteAccount(req, res) {
-      const { id } = req.params;
-      const deleteAccount = AccountService.deleteAccount(id);
+      const { accountNumber } = req.params;
+      const deleteAccount = AccountService.deleteAccount(accountNumber);
       if(deleteAccount.error) {
-        return res.status(201).send({
+        return res.status(400).send({
           status: 400,
           error: deleteAccount.message,
         });
        }
-       return res.status(201).send({
-        status: 201,
+       return res.status(202).send({
+        status: 202,
         data: deleteAccount,  
       });
      }
