@@ -1,4 +1,5 @@
-// import '@babel/polyfill';
+import '@babel/polyfill';
+require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -23,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', User);
-app.use('/api/v1/account', Account);
+app.use('/api/v1/accounts', Account);
 app.use('/api/v1/transactions', Transaction);
 
 app.listen(PORT, () => {

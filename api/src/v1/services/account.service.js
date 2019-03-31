@@ -9,6 +9,25 @@ import Account from '../models/account.model';
 
 class AccountService {
   /**
+   * @description generates an account number
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static generateAccountNumber() {
+    let accountNumber = 2000000000;
+    const accountUsersLength = AccountData.accounts.length;
+    if(!accountUsersLength) {
+      return accountNumber;
+    }
+    const lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
+    accountNumber = lastAccountNumber++;    
+    return accountNumber;
+  }
+
+  /**
    * @description User can create account
    * @static
    * @param {Object} req
@@ -40,14 +59,14 @@ class AccountService {
    * @memberof AccountService
    */
   static createAccount(accountDetails) {
-    const { accountNumber, owner, type, status, balance } = accountDetails;
+    const { owner, type, status, balance } = accountDetails;
     const createdOn = new Date();
     const accountUsersLength = AccountData.accounts.length;
     const lastAccountCreatedId = AccountData.accounts[accountUsersLength - 1].id;
     const id = lastAccountCreatedId + 1;
     const newAccount = new Account(id, accountNumber, createdOn, owner, type, status, balance);
-    const Accounts = [...AccountData.accounts, newAccount];    
-    return Accounts;
+    const Accounts = [...AccountData.accounts, newAccount];   
+    return newAccount;
   }
 
   /**

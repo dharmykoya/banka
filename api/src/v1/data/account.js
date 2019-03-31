@@ -2,7 +2,7 @@ export default {
   accounts:  [
   {
       id : 1,
-      accountNumber: 100001,
+      accountNumber: 2000000000,
       createdOn: "22-09-2018",
       owner: 2,
       type: "savings",
@@ -12,7 +12,7 @@ export default {
 
   {
     id : 2,
-    accountNumber: 100002,
+    accountNumber: 2000000001,
     createdOn: "22-02-2019",
     owner: 1,
     type: "savings",
@@ -22,7 +22,7 @@ export default {
 
   {
     id : 3,
-    accountNumber: 100003,
+    accountNumber: 2000000002,
     createdOn: "22-03-2019",
     owner: 2,
     type: "current",
