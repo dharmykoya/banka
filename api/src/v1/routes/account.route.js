@@ -10,7 +10,7 @@ router.post('/', AccountController.createAccount);
 router.get('/', AccountController.allAccounts);
 
 // this route changes the status of an account
-router.put('/:id', AccountController.changeStatus);
+router.patch('/:accountNumber', AccountController.changeStatus);
 
 // this route delete a bank account
 router.delete('/:id', AccountController.deleteAccount);

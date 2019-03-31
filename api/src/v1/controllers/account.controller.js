@@ -35,7 +35,7 @@ import AccountService from '../services/account.service';
       const accountDetails = req.body;
       const newAccount = AccountService.createAccount(accountDetails);
       if(newAccount.error) {
-       return res.status(201).send({
+       return res.status(400).send({
          status: 400,
          error: newAccount.message,  
        });
@@ -55,10 +55,11 @@ import AccountService from '../services/account.service';
       * @memberof AccountController
       */
      static changeStatus(req, res) {
-       const { id, state } = req.body;
-       const accountUpdated = AccountService.changeStatus(id, state);
+       const { status } = req.body;
+       const { accountNumber } = req.params;
+       const accountUpdated = AccountService.changeStatus(status, accountNumber);
        if(accountUpdated.error) {
-        return res.status(201).send({
+        return res.status(400).send({
           status: 400,
           error: accountUpdated.message,
         });

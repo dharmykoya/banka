@@ -19,11 +19,11 @@ class AccountService {
   static generateAccountNumber() {
     let accountNumber = 2000000000;
     const accountUsersLength = AccountData.accounts.length;
-    if(!accountUsersLength) {
+    if(accountUsersLength === 0) {
       return accountNumber;
     }
-    const lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
-    accountNumber = lastAccountNumber++;    
+    let lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
+    accountNumber = ++lastAccountNumber;    
     return accountNumber;
   }
 
@@ -59,14 +59,29 @@ class AccountService {
    * @memberof AccountService
    */
   static createAccount(accountDetails) {
-    const { owner, type, status, balance } = accountDetails;
+    const { firstName, lastName, email, owner, type, status, balance } = accountDetails;
+    if(!firstName || !lastName || !email || !type) {
+      const response = {error: true, message: 'missing parameters, please fill all fields'};
+      return response;
+    }
     const createdOn = new Date();
     const accountUsersLength = AccountData.accounts.length;
     const lastAccountCreatedId = AccountData.accounts[accountUsersLength - 1].id;
     const id = lastAccountCreatedId + 1;
+    const accountNumber = this.generateAccountNumber();
     const newAccount = new Account(id, accountNumber, createdOn, owner, type, status, balance);
     const Accounts = [...AccountData.accounts, newAccount];   
-    return newAccount;
+    
+    const response = {
+      accountNumber: newAccount.accountNumber,
+      firstName,
+      lastName,
+      email,
+      type,
+      openingBalance: parseFloat(newAccount.balance),
+      status,
+    }
+    return response;
   }
 
   /**
@@ -77,14 +92,33 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static changeStatus (id, state) {
-    const foundAccount = AccountData.accounts.find(account => id === account.id);
+  static changeStatus (status, accountNumber) {
+    // if(status !== 'active') {
+    //   const response = {error: true, message: 'Invalid status'};
+    //   return response;
+    // } else if (status !== 'dormant') {
+    //   const response = {error: true, message: 'Invalid status'};
+    //   return response;
+    // }
+    const statuses = ['active', 'dormant'];
+    if(!statuses.includes(status)) {
+      const response = {error: true, message: 'Invalid status'};
+      return response;
+    }
+    
+    const parseAccountNumber = parseInt(accountNumber, Number);
+    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
     if(!foundAccount) {
       const response = {error: true, message: 'Account does not exist and status can not be updated'};
       return response;
     }
-    foundAccount.status = state;
-    return foundAccount;
+    foundAccount.status = status;
+    // return foundAccount;
+    const response = { 
+      accountNumber: foundAccount.accountNumber,
+      status,
+    }
+    return response;
   }
 
   /**
