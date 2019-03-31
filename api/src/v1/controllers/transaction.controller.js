@@ -1,4 +1,4 @@
-import TransactionService from '../services/user.service';
+import TransactionService from '../services/transaction.service';
 
 /**
  * @class TransactionController
@@ -15,6 +15,22 @@ import TransactionService from '../services/user.service';
       * @returns {Object} API response
       * @memberof TransactionController
       */
+     static creditAccount(req, res) {
+       const transactionDetails = req.body;
+       const accountNumber = req.params;
+       console.log(accountNumber);
+       const creditedAccount = TransactionService.creditAccount(accountNumber, transactionDetails);
+       if(creditedAccount.error) {
+        return res.status(201).send({
+          status: 401,
+          error: creditedAccount.message,  
+        });
+       }
+       return res.status(201).send({
+        status: 201,
+        data: creditedAccount,  
+      });
+     }
      
  }
 

@@ -3,7 +3,7 @@ import TransactionController from '../controllers/transaction.controller';
 
 const router = Router();
 
-router.post('/credit', TransactionController.creditAccount);
-router.post('/debit', TransactionController.debitAccount);
+router.post('/:accountNumber/credit', TransactionController.creditAccount);
+//router.post('/:account-number/debit', TransactionController.debitAccount);
 
 export default router;

@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/auth', User);
 app.use('/api/v1/account', Account);
-app.use('/api/v1/transaction', Transaction);
+app.use('/api/v1/transactions', Transaction);
 
 app.listen(PORT, () => {
     console.log(`server is listening on port:${PORT}`);
