@@ -23,6 +23,8 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -30,6 +32,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "nodemon": "^1.18.10"
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
   }
 }
