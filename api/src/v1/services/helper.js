@@ -1,5 +1,7 @@
-require('dotenv').config();
 import jwt from 'jsonwebtoken';
+
+
+require('dotenv').config();
 
 
 const Helper = {
@@ -8,18 +10,18 @@ const Helper = {
    * @param {string} password
    * @returns {string} returns hashed password
    */
-  hashPassword(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-  },
+  // hashPassword(password) {
+  //   return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
+  // },
   /**
    * comparePassword
    * @param {string} hashPassword
    * @param {string} password
    * @returns {Boolean} return True or False
    */
-  comparePassword(password, hashPassword) {
-    return bcrypt.compareSync(password, hashPassword);
-  },
+  // comparePassword(password, hashPassword) {
+  //   return bcrypt.compareSync(password, hashPassword);
+  // },
   /**
    * isValidEmail helper method
    * @param {string} email
@@ -34,8 +36,7 @@ const Helper = {
    * @returns {string} token
    */
   generateToken(user) {
-    console.log(process.env.JWT_SECRET)
-    const token = jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: '7h' });
+    const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '7h' });
     return token;
   },
 };

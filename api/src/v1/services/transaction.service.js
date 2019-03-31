@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import AccountData from '../data/account';
 import TransactionData from '../data/transaction';
 import Transaction from '../models/transaction.model';
@@ -17,20 +18,20 @@ class TransactionService {
    * @returns {Object} API response
    * @memberof TransactionService
    */
-  static creditAccount(accountNumber, amount) { 
-    const newamount = parseFloat(amount)   ;
+  static creditAccount(accountNumber, amount) {
+    const newamount = parseFloat(amount);
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-    
+
     // checks if the account does not exist
-    if(!foundAccount) {
-      const response = {error: true, message: 'No account found/Incorrect account number'};
+    if (!foundAccount) {
+      const response = { error: true, message: 'No account found/Incorrect account number' };
       return response;
-    } 
+    }
 
     // checks if the account is dormant
     if (foundAccount.status === 'dormant') {
-      const response = {error: true, message: 'Account is dormant. Please reactivate.'};
+      const response = { error: true, message: 'Account is dormant. Please reactivate.' };
       return response;
     }
 
@@ -44,24 +45,24 @@ class TransactionService {
     const oldBalance = parseFloat(foundAccount.balance);
     const newBalance = oldBalance + newamount;
     // creating a new instance of the Transaction
-    const transaction = new Transaction (
-      id, 
-      createdOn, 
-      type, 
-      accountNumber, 
-      cashier, 
-      amount, 
-      oldBalance, 
-      newBalance
+    const transaction = new Transaction(
+      id,
+      createdOn,
+      type,
+      accountNumber,
+      cashier,
+      amount,
+      oldBalance,
+      newBalance,
     );
     const response = {
       transactionId: id,
-      accountNumber: accountNumber,
+      accountNumber,
       amount,
       cashier,
       transactionType: type,
-      accountBalance: newBalance.toString()
-    }
+      accountBalance: newBalance.toString(),
+    };
     return response;
   }
 
@@ -73,27 +74,27 @@ class TransactionService {
    * @returns {Object} API response
    * @memberof TransactionService
    */
-  static debitAccount(accountNumber, amount) { 
+  static debitAccount(accountNumber, amount) {
     const minBalance = parseFloat(1000);
-    const newamount = parseFloat(amount)   ;
+    const newamount = parseFloat(amount);
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-    
+
     // checks if the account does not exist
-    if(!foundAccount) {
-      const response = {error: true, message: 'No account found/Incorrect account number'};
+    if (!foundAccount) {
+      const response = { error: true, message: 'No account found/Incorrect account number' };
       return response;
-    } 
+    }
 
     // checks if the account is dormant
     if (foundAccount.status === 'dormant') {
-      const response = {error: true, message: 'Account is dormant. Please reactivate.'};
+      const response = { error: true, message: 'Account is dormant. Please reactivate.' };
       return response;
     }
 
     // checks if the amount to withdraw is greater than the account balance
-    if (foundAccount.balance < newamount){
-      const response = {error: true, message: 'Insufficient Balance.'};
+    if (foundAccount.balance < newamount) {
+      const response = { error: true, message: 'Insufficient Balance.' };
       return response;
     }
 
@@ -107,32 +108,31 @@ class TransactionService {
     const oldBalance = parseFloat(foundAccount.balance);
     const newBalance = oldBalance - newamount;
 
-    if (newBalance < minBalance){
-      const response = {error: true, message: `You can not have less than ${minBalance} in your account.`};
+    if (newBalance < minBalance) {
+      const response = { error: true, message: `You can not have less than ${minBalance} in your account.` };
       return response;
     }
     // creating a new instance of the Transaction
-    const transaction = new Transaction (
-      id, 
-      createdOn, 
-      type, 
-      accountNumber, 
-      cashier, 
-      amount, 
-      oldBalance, 
-      newBalance
+    const transaction = new Transaction(
+      id,
+      createdOn,
+      type,
+      accountNumber,
+      cashier,
+      amount,
+      oldBalance,
+      newBalance,
     );
     const response = {
       transactionId: id,
-      accountNumber: accountNumber,
+      accountNumber,
       amount,
       cashier,
       transactionType: type,
-      accountBalance: newBalance.toString()
-    }
+      accountBalance: newBalance.toString(),
+    };
     return response;
   }
-  
 }
 
 export default TransactionService;
