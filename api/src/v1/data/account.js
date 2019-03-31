@@ -6,7 +6,7 @@ export default {
       createdOn: "22-09-2018",
       owner: 2,
       type: "savings",
-      status: "draft",
+      status: "active",
       balance: 200000,
   },
 
