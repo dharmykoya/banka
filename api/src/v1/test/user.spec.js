@@ -31,5 +31,25 @@ describe('The authentication endpoint test', () => {
           done();
         });
     });
+
+    it('should return missing parameters, please fill all fields if no firstName is provided', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'dami.gmail.com',
+          firstName: '',
+          lastName: 'Koya',
+          password: 'bankappclient',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal('missing parameters, please fill all fields');
+
+          done();
+        });
+    });
   });
 });

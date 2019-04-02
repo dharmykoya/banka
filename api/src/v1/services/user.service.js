@@ -38,6 +38,10 @@ class UserService {
     const {
       email, firstName, lastName, password, type, isAdmin,
     } = user;
+    // if (!firstName || !lastName || !email || !type) {
+    //   const response = { error: true, message: 'missing parameters, please fill all fields' };
+    //   return response;
+    // }
     const usersLength = UserData.users.length;
     const lastId = UserData.users[usersLength - 1].id;
     const id = lastId + 1;

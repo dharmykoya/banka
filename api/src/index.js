@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import expressValidator from 'express-validator';
 
 // Routes for the app
 import User from './v1/routes/user.route';
@@ -13,6 +14,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 const PORT = process.env.PORT || 2500;
 
