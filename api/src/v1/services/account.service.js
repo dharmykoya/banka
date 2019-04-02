@@ -96,14 +96,15 @@ class AccountService {
    * @memberof AccountService
    */
   static changeStatus(status, accountNumber) {
-    const statuses = ['active', 'dormant'];
-    if (!statuses.includes(status)) {
-      const response = { error: true, message: 'Invalid status' };
-      return response;
-    }
+    // const statuses = ['active', 'dormant'];
+    // if (!statuses.includes(status)) {
+    //   const response = { error: true, message: 'Invalid status' };
+    //   return response;
+    // }
 
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
+  
     if (!foundAccount) {
       const response = { error: true, message: 'Account does not exist and status can not be updated' };
       return response;
