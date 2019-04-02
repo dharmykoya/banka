@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import { validationResult } from 'express-validator/check';
 import UserService from '../services/user.service';
 
 /**
