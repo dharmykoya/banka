@@ -70,7 +70,7 @@ class AccountController {
       data: accountUpdated,
     });
   }
-  
+
   /**
       * @description Admin/staff can delete a bank account
       * @static

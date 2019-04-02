@@ -88,4 +88,32 @@ describe('The endpoint for Account Resource', () => {
         });
     });
   });
+
+  describe('DELETE account endpoint', () => {
+    it('should delete a user bank account', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/accounts/2000000001')
+        .end((err, res) => {
+          expect(res).to.have.status(202);
+          expect(res.body.status).to.be.equal(202);
+          expect(res.body.data.message).to.be.equal('Account successfully deleted');
+
+          done();
+        });
+    });
+
+    it('should return Account does not exist and can not be deleted', (done) => {
+      chai
+        .request(app)
+        .delete('/api/v1/accounts/200000000133')
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal('Account does not exist and can not be deleted');
+
+          done();
+        });
+    });
+  });
 });
