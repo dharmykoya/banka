@@ -96,7 +96,7 @@ class AccountService {
    * @memberof AccountService
    */
   static changeStatus(status, accountNumber) {
-    // if(status !== 'active') {
+    // if(status !== 'active' || status !== 'dormant') {
     //   const response = {error: true, message: 'Invalid status'};
     //   return response;
     // } else if (status !== 'dormant') {
