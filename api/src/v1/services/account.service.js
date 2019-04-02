@@ -73,7 +73,7 @@ class AccountService {
     const id = lastAccountCreatedId + 1;
     const accountNumber = this.generateAccountNumber();
     const newAccount = new Account(id, accountNumber, createdOn, owner, type, status, balance);
-    // const Accounts = [...AccountData.accounts, newAccount];
+    AccountData.accounts = [...AccountData.accounts, newAccount];
 
     const response = {
       accountNumber: newAccount.accountNumber,
@@ -96,21 +96,15 @@ class AccountService {
    * @memberof AccountService
    */
   static changeStatus(status, accountNumber) {
-    // if(status !== 'active' || status !== 'dormant') {
-    //   const response = {error: true, message: 'Invalid status'};
-    //   return response;
-    // } else if (status !== 'dormant') {
-    //   const response = {error: true, message: 'Invalid status'};
+    // const statuses = ['active', 'dormant'];
+    // if (!statuses.includes(status)) {
+    //   const response = { error: true, message: 'Invalid status' };
     //   return response;
     // }
-    const statuses = ['active', 'dormant'];
-    if (!statuses.includes(status)) {
-      const response = { error: true, message: 'Invalid status' };
-      return response;
-    }
 
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
+  
     if (!foundAccount) {
       const response = { error: true, message: 'Account does not exist and status can not be updated' };
       return response;

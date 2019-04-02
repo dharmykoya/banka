@@ -46,6 +46,7 @@ class UserService {
     const lastId = UserData.users[usersLength - 1].id;
     const id = lastId + 1;
     const newUser = new User(id, email, firstName, lastName, password, type, isAdmin);
+    UserData.users = [...UserData.users, newUser];
     // generating token
     const token = Helper.generateToken(newUser);
     return { token, ...newUser };
