@@ -104,7 +104,7 @@ class AccountService {
 
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-  
+
     if (!foundAccount) {
       const response = { error: true, message: 'Account does not exist and status can not be updated' };
       return response;
