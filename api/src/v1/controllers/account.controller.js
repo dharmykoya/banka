@@ -65,12 +65,12 @@ class AccountController {
         error: accountUpdated.message,
       });
     }
-    return res.status(204).send({
-      status: 204,
+    return res.status(200).send({
+      status: 200,
       data: accountUpdated,
     });
   }
-
+  
   /**
       * @description Admin/staff can delete a bank account
       * @static

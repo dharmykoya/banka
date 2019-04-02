@@ -11,7 +11,7 @@ router.post('/', AccountValidator.createAccountValidator, AccountController.crea
 router.get('/', AccountController.allAccounts);
 
 // this route changes the status of an account
-router.patch('/:accountNumber', AccountController.changeStatus);
+router.patch('/:accountNumber', AccountValidator.changeAccountStatusValidator, AccountController.changeStatus);
 
 // this route delete a bank account
 router.delete('/:accountNumber', AccountController.deleteAccount);

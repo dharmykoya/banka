@@ -16,6 +16,18 @@ const AccountValidator = {
     next();
   },
 
-  
+  changeAccountStatusValidator(req, res, next) {
+    req.check('status').isIn(['active', 'dormant']).withMessage('Please select an appropriate status');
+
+    // checks for the validation errors
+    const error = req.validationErrors(true);
+    if (error) {
+      res.status(422).send({
+        status: 422,
+        error,
+      });
+    }
+    next();
+  },
 };
 export default AccountValidator;

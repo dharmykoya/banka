@@ -54,5 +54,38 @@ describe('The endpoint for Account Resource', () => {
         });
     });
   });
-  
+
+  describe('PATCH account endpoint', () => {
+    it('should change the status of an account', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/accounts/2000000002')
+        .send({
+          status: 'active',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.be.equal(200);
+          expect(res.body.data).to.have.key('accountNumber', 'status');
+          done();
+        });
+    });
+
+    it('should return Please select an appropriate status if the status is not a valid status', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/accounts/2000000002')
+        .send({
+          status: 'wrongstatus',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error).to.have.key('status');
+          expect(res.body.error.status.msg).to.be.equal('Please select an appropriate status');
+
+          done();
+        });
+    });
+  });
 });
