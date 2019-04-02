@@ -18,7 +18,7 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .post('/api/v1/auth/signup')
         .send({
-          email: 'dami.gmail.com',
+          email: 'dami@gmail.com',
           firstName: 'damilola',
           lastName: 'Koya',
           password: 'bankappclient',
@@ -32,7 +32,7 @@ describe('The authentication endpoint test', () => {
         });
     });
 
-    it('should return missing parameters, please fill all fields if no firstName is provided', (done) => {
+    it('should return the missing fields, fields failing validation and their messages', (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -44,10 +44,50 @@ describe('The authentication endpoint test', () => {
           type: 'client',
         })
         .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.status).to.be.equal(400);
-          expect(res.body.error).to.be.equal('missing parameters, please fill all fields');
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error).to.have.key('firstName', 'email');
+          expect(res.body.error.firstName.msg).to.be.equal('Please enter your first name');
+          expect(res.body.error.email.msg).to.be.equal('Please enter a valid email');
 
+          done();
+        });
+    });
+  });
+
+  /**
+   * test for SignIn endpoint
+   * to see if the res body is an object
+   */
+  describe('Signin user endpoint', () => {
+    it('should let a user gain access to the app and create a token', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send({
+          email: 'doyin@gmail.com',
+          password: 'bankappstaff',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.be.equal(200);
+          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'password', 'type', 'isAdmin');
+          done();
+        });
+    });
+
+    it('should return Please enter a valid mail', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send({
+          email: 'doyin.gmail.com',
+          password: 'bankappstaff',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error.email.msg).to.be.equal('Please enter a valid email');
           done();
         });
     });
