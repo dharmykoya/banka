@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import AccountController from '../controllers/account.controller';
+import AccountValidator from '../validators/account.validator';
 
 const router = Router();
 
 // this routes creates an account for a user
-router.post('/', AccountController.createAccount);
+router.post('/', AccountValidator.createAccountValidator, AccountController.createAccount);
 
 // this route get all the account
 router.get('/', AccountController.allAccounts);
