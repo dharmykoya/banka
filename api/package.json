@@ -5,15 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon --exec babel-node src/index.js"
+    "start-dev": "nodemon --exec babel-node src/index.js",
+    "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit || true",
+    "test-watch": "nodemon --exec \"npm test\""
   },
   "author": "Damilola Adekoya",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -21,10 +25,17 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.4.2",
     "@babel/register": "^7.4.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "nodemon": "^1.18.10"
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4"
   }
 }

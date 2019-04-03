@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+import Helper from './helper';
 import UserData from '../data/user';
 import User from '../models/user.model';
 
@@ -32,22 +34,22 @@ class UserService {
    * @returns {Object} API response
    * @memberof UserService
    */
-  // static signUp(user) {
-  //   const usersLength = UserData.users.length;
-  //   const lastId = UserData.users[usersLength - 1].id;
-  //   const id = lastId + 1;
-  //   const newUser = { id, ...user };
-  //   const Users = [...UserData.users, newUser];
-  //   return Users;
-  // }
   static signUp(user) {
-    const { email, firstName, lastName, password, type, isAdmin } = user;
+    const {
+      email, firstName, lastName, password, type, isAdmin,
+    } = user;
+    // if (!firstName || !lastName || !email || !type) {
+    //   const response = { error: true, message: 'missing parameters, please fill all fields' };
+    //   return response;
+    // }
     const usersLength = UserData.users.length;
     const lastId = UserData.users[usersLength - 1].id;
     const id = lastId + 1;
-    const newUser =  new User(id, email, firstName, lastName, password, type, isAdmin);
-    const Users = [...UserData.users, newUser];
-    return Users;
+    const newUser = new User(id, email, firstName, lastName, password, type, isAdmin);
+    UserData.users = [...UserData.users, newUser];
+    // generating token
+    const token = Helper.generateToken(newUser);
+    return { token, ...newUser };
   }
 
   /**
@@ -60,12 +62,14 @@ class UserService {
    */
   static loginUser(user) {
     const { email, password } = user;
-    const foundUser = UserData.users.find(user => email === user.email && password === user.password)
-    if(!foundUser) {
-        const response = {error: true, message: 'No user found/Incorrect email or password'};
-        return response;
+    const foundUser = UserData.users.find(userDetails => email === user.email && password === userDetails.password);
+    if (!foundUser) {
+      const response = { error: true, message: 'No user found/Incorrect email or password' };
+      return response;
     }
-    return foundUser;        
+    // generating token
+    const token = Helper.generateToken(foundUser);
+    return { token, ...foundUser };
   }
 }
 
