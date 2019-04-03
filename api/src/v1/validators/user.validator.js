@@ -12,8 +12,9 @@ const UserValidator = {
         status: 422,
         error,
       });
+    } else {
+      next();
     }
-    next();
   },
 
   signInValidator(req, res, next) {
@@ -26,8 +27,9 @@ const UserValidator = {
         status: 422,
         error,
       });
+    } else {
+      next();
     }
-    next();
   },
 };
 export default UserValidator;

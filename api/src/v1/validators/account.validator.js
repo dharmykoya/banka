@@ -12,8 +12,9 @@ const AccountValidator = {
         status: 422,
         error,
       });
+    } else {
+      next();
     }
-    next();
   },
 
   changeAccountStatusValidator(req, res, next) {
@@ -26,8 +27,9 @@ const AccountValidator = {
         status: 422,
         error,
       });
+    } else {
+      next();
     }
-    next();
   },
 };
 export default AccountValidator;

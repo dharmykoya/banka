@@ -55,6 +55,8 @@ class TransactionService {
       oldBalance,
       newBalance,
     );
+
+    TransactionData.transactions = [...TransactionData.transactions, transaction];
     const response = {
       transactionId: id,
       accountNumber,
@@ -123,6 +125,7 @@ class TransactionService {
       oldBalance,
       newBalance,
     );
+    TransactionData.transactions = [...TransactionData.transactions, transaction];
     const response = {
       transactionId: id,
       accountNumber,

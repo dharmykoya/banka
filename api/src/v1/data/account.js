@@ -27,7 +27,7 @@ export default {
       owner: 2,
       type: 'current',
       status: 'dormant',
-      balance: 2000,
+      balance: 200000,
     },
   ],
 };

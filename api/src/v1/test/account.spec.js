@@ -7,7 +7,7 @@ const { expect } = chai;
 
 chai.use(chaiHttp);
 
-describe('The endpoint for Account Resource', () => {
+describe('The endpoint for Accounts Resource', () => {
   describe('POST account end point', () => {
     it('should create an account for a user', (done) => {
       chai
