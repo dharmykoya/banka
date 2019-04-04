@@ -2,9 +2,7 @@ language: node_js
 node_js: 
   - "node"
 env:
-  global: 
-    - CODECLIMATE_REPO_TOKEN=eb1d19652a04b63c35488a0f191667d307108e7673792f96269145d7d29ea542
-    - NODE_ENV=test
+  
 install:
   - cd api
   - npm install   
