@@ -9,29 +9,13 @@ import AccountService from '../services/account.service';
 
 class AccountController {
   /**
-      * @description Admin view all bank accounts
-      * @static
-      * @param {Object} req
-      * @param {Object} res
-      * @returns {Object} API response
-      * @memberof AccountController
-      */
-  static allAccounts(req, res) {
-    const allAccountsFound = AccountService.fetchAllAccounts();
-    return res.status(200).send({
-      status: 200,
-      data: allAccountsFound,
-    });
-  }
-
-  /**
-      * @description User can create a bank account
-      * @static
-      * @param {Object} req
-      * @param {Object} res
-      * @returns {Object} API response
-      * @memberof AccountController
-      */
+  * @description User can create a bank account
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} API response
+  * @memberof AccountController
+  */
   static createAccount(req, res) {
     const accountDetails = req.body;
     const newAccount = AccountService.createAccount(accountDetails);

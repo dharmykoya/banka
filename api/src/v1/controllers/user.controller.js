@@ -43,7 +43,7 @@ class UserController {
     const user = req.body;
     const newUser = UserService.loginUser(user);
     if (newUser.error) {
-      return res.status(201).send({
+      return res.status(401).send({
         status: 401,
         error: newUser.message,
       });
