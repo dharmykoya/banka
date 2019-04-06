@@ -8,7 +8,11 @@
     "start-dev": "nodemon --exec babel-node src/index.js",
     "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit",
     "test-watch": "nodemon --exec \"npm test\"",
-    "test:travis": "mocha **/*.spec.js --require @babel/register --exit"
+    "test:travis": "mocha **/*.spec.js --require @babel/register --exit",
+    "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
+    "coveralls-coverage": "coveralls < lcov.info",
+    "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
+    "coverage": "nyc npm run test:travis && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
   },
   "author": "Damilola Adekoya",
   "license": "ISC",
@@ -18,7 +22,8 @@
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -28,6 +33,8 @@
     "@babel/register": "^7.4.0",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "codeclimate-test-reporter": "^0.5.1",
+    "coveralls": "^3.0.3",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -36,7 +43,9 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.0.2",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
     "prettier": "^1.16.4"
   }
 }

@@ -19,12 +19,6 @@ class UserController {
   static signUp(req, res) {
     const user = req.body;
     const newUser = UserService.signUp(user);
-    if (newUser.error) {
-      return res.status(400).send({
-        status: 400,
-        error: newUser.message,
-      });
-    }
     return res.status(201).send({
       status: 201,
       data: newUser,
@@ -43,7 +37,7 @@ class UserController {
     const user = req.body;
     const newUser = UserService.loginUser(user);
     if (newUser.error) {
-      return res.status(201).send({
+      return res.status(401).send({
         status: 401,
         error: newUser.message,
       });

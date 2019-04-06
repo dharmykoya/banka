@@ -7,9 +7,6 @@ const router = Router();
 // this routes creates an account for a user
 router.post('/', AccountValidator.createAccountValidator, AccountController.createAccount);
 
-// this route get all the account
-router.get('/', AccountController.allAccounts);
-
 // this route changes the status of an account
 router.patch('/:accountNumber', AccountValidator.changeAccountStatusValidator, AccountController.changeStatus);
 

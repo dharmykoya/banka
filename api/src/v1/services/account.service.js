@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import moment from 'moment';
 import AccountData from '../data/account';
 import Account from '../models/account.model';
 
@@ -21,7 +22,7 @@ class AccountService {
     let accountNumber = 2000000000;
     const accountUsersLength = AccountData.accounts.length;
     if (accountUsersLength === 0) {
-      return accountNumber;
+      accountNumber = 2000000000;
     }
     const lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
     accountNumber = lastAccountNumber + 1;
@@ -29,26 +30,41 @@ class AccountService {
   }
 
   /**
-   * @description User can create account
+   * @description finds a bank account with accountNumber
    * @static
    * @param {Object} req
    * @param {Object} res
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static fetchAllAccounts() {
-    return AccountData.accounts.map((account) => {
-      const accounts = new Account(
-        account.id,
-        account.accountNumber,
-        account.createdOn,
-        account.owner,
-        account.type,
-        account.status,
-        account.balance,
-      );
-      return accounts;
-    });
+  static findAccountByAccountNumber(accountNumber) {
+    const parseAccountNumber = parseInt(accountNumber, Number);
+
+    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
+
+    // checks if the account does not exist
+    if (!foundAccount) {
+      const response = { error: true, message: 'No account found/Incorrect account number' };
+      return response;
+    }
+    return foundAccount;
+  }
+
+  /**
+   * @description finds a bank account with accountNumber
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static checkDormantAccount(accountNumber) {
+    const foundAccount = this.findAccountByAccountNumber(accountNumber);
+    // checks if the account is dormant
+    if (foundAccount.status === 'dormant') {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -63,11 +79,8 @@ class AccountService {
     const {
       firstName, lastName, email, owner, type, status, balance,
     } = accountDetails;
-    if (!firstName || !lastName || !email || !type) {
-      const response = { error: true, message: 'missing parameters, please fill all fields' };
-      return response;
-    }
-    const createdOn = new Date();
+
+    const createdOn = moment().format('DD-MM-YYYY');
     const accountUsersLength = AccountData.accounts.length;
     const lastAccountCreatedId = AccountData.accounts[accountUsersLength - 1].id;
     const id = lastAccountCreatedId + 1;
@@ -96,21 +109,12 @@ class AccountService {
    * @memberof AccountService
    */
   static changeStatus(status, accountNumber) {
-    // const statuses = ['active', 'dormant'];
-    // if (!statuses.includes(status)) {
-    //   const response = { error: true, message: 'Invalid status' };
-    //   return response;
-    // }
-
     const parseAccountNumber = parseInt(accountNumber, Number);
-    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-
-    if (!foundAccount) {
-      const response = { error: true, message: 'Account does not exist and status can not be updated' };
-      return response;
+    const foundAccount = this.findAccountByAccountNumber(parseAccountNumber);
+    if (foundAccount.error) {
+      return foundAccount;
     }
     foundAccount.status = status;
-    // return foundAccount;
     const response = {
       accountNumber: foundAccount.accountNumber,
       status,
@@ -129,15 +133,14 @@ class AccountService {
   static deleteAccount(accountNumber) {
     const parseAccountNumber = parseInt(accountNumber, Number);
 
-    // this checks if the account exist by using the id
-    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-    if (!foundAccount) {
-      const response = { error: true, message: 'Account does not exist and can not be deleted' };
-      return response;
+    // this checks if the account exist by using the account number
+    const foundAccount = this.findAccountByAccountNumber(parseAccountNumber);
+    if (foundAccount.error) {
+      return foundAccount;
     }
 
     // this filter the dummy account and removes the matching id
-    // const newAccountsList = AccountData.accounts.filter(account => account.accountNumber !== parseAccountNumber);
+    AccountData.accounts = AccountData.accounts.filter(account => account.accountNumber !== parseAccountNumber);
     const response = { message: 'Account successfully deleted' };
     return response;
   }

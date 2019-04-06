@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
-import AccountData from '../data/account';
+import moment from 'moment';
 import TransactionData from '../data/transaction';
 import Transaction from '../models/transaction.model';
+import AccountService from './account.service';
 
 /**
  * @class UserService
@@ -18,15 +19,13 @@ class TransactionService {
    * @returns {Object} API response
    * @memberof TransactionService
    */
-  static creditAccount(accountNumber, amount) {
-    const newamount = parseFloat(amount);
-    const parseAccountNumber = parseInt(accountNumber, Number);
-    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
-
+  static creditAccount(userAccountNumber, tranAmount) {
+    const parseAmount = parseFloat(tranAmount);
+    const parseAccountNumber = parseInt(userAccountNumber, Number);
+    const foundAccount = AccountService.findAccountByAccountNumber(parseAccountNumber);
     // checks if the account does not exist
-    if (!foundAccount) {
-      const response = { error: true, message: 'No account found/Incorrect account number' };
-      return response;
+    if (foundAccount.error) {
+      return foundAccount;
     }
 
     // checks if the account is dormant
@@ -38,34 +37,15 @@ class TransactionService {
     const transactionLength = TransactionData.transactions.length;
     const lastTransactionId = TransactionData.transactions[transactionLength - 1].id;
     const id = lastTransactionId + 1;
-    const createdOn = new Date();
     const type = 'credit';
-    const cashier = 1;
-
+    const tranCashier = 1;
     const oldBalance = parseFloat(foundAccount.balance);
-    const newBalance = oldBalance + newamount;
-    // creating a new instance of the Transaction
-    const transaction = new Transaction(
-      id,
-      createdOn,
-      type,
-      accountNumber,
-      cashier,
-      amount,
-      oldBalance,
-      newBalance,
-    );
 
-    TransactionData.transactions = [...TransactionData.transactions, transaction];
-    const response = {
-      transactionId: id,
-      accountNumber,
-      amount,
-      cashier,
-      transactionType: type,
-      accountBalance: newBalance.toString(),
-    };
-    return response;
+    const transaction = this.transactionAction(type, id, tranCashier, parseAccountNumber, parseAmount, oldBalance);
+    // updating the found record
+    foundAccount.balance = transaction.accountBalance;
+
+    return transaction;
   }
 
   /**
@@ -77,15 +57,13 @@ class TransactionService {
    * @memberof TransactionService
    */
   static debitAccount(accountNumber, amount) {
-    const minBalance = parseFloat(1000);
-    const newamount = parseFloat(amount);
+    const parseAmount = parseFloat(amount);
     const parseAccountNumber = parseInt(accountNumber, Number);
-    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
+    const foundAccount = AccountService.findAccountByAccountNumber(parseAccountNumber);
 
     // checks if the account does not exist
-    if (!foundAccount) {
-      const response = { error: true, message: 'No account found/Incorrect account number' };
-      return response;
+    if (foundAccount.error) {
+      return foundAccount;
     }
 
     // checks if the account is dormant
@@ -95,7 +73,7 @@ class TransactionService {
     }
 
     // checks if the amount to withdraw is greater than the account balance
-    if (foundAccount.balance < newamount) {
+    if (foundAccount.balance < parseAmount) {
       const response = { error: true, message: 'Insufficient Balance.' };
       return response;
     }
@@ -103,37 +81,76 @@ class TransactionService {
     const transactionLength = TransactionData.transactions.length;
     const lastTransactionId = TransactionData.transactions[transactionLength - 1].id;
     const id = lastTransactionId + 1;
-    const createdOn = new Date();
     const type = 'debit';
     const cashier = 1;
 
     const oldBalance = parseFloat(foundAccount.balance);
-    const newBalance = oldBalance - newamount;
 
-    if (newBalance < minBalance) {
-      const response = { error: true, message: `You can not have less than ${minBalance} in your account.` };
+    const transaction = this.transactionAction(type, id, cashier, parseAccountNumber, parseAmount, oldBalance);
+
+    // updating the found record
+    foundAccount.balance = transaction.accountBalance;
+
+    return transaction;
+  }
+
+  /**
+   * @description makes the transaction depending on the type
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof TransactionService
+   */
+  static transactionAction(type, id, cashier, parseAccountNumber, parseAmount, oldBalance) {
+    let newBalance;
+    let error = false;
+    const minBalance = parseFloat(1000);
+    const createdOn = moment().format('DD-MM-YYYY');
+
+    // set the transaction action
+    switch (type) {
+      case 'credit':
+        newBalance = oldBalance + parseAmount;
+        break;
+      case 'debit':
+        newBalance = oldBalance - parseAmount;
+        // checks if the amount to withdraw is greater than the account balance
+        if (newBalance < minBalance) {
+          const response = { error: true, message: `You can not have less than ${minBalance} in your account.` };
+          return response;
+        }
+        break;
+      default:
+        error = true;
+    }
+
+    if (error) {
+      const response = { error: true, message: 'Something went wrong. How did you get here?' };
       return response;
     }
+
     // creating a new instance of the Transaction
     const transaction = new Transaction(
       id,
       createdOn,
       type,
-      accountNumber,
+      parseAccountNumber,
       cashier,
-      amount,
+      parseAmount,
       oldBalance,
       newBalance,
     );
     TransactionData.transactions = [...TransactionData.transactions, transaction];
     const response = {
       transactionId: id,
-      accountNumber,
-      amount,
+      accountNumber: parseAccountNumber,
+      amount: parseAmount,
       cashier,
       transactionType: type,
       accountBalance: newBalance.toString(),
     };
+
     return response;
   }
 }
