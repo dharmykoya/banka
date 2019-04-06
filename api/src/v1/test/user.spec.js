@@ -76,6 +76,22 @@ describe('The authentication endpoint test', () => {
         });
     });
 
+    it('should return No user found/Incorrect email or password', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send({
+          email: 'doyhgggfgf@gmail.com',
+          password: 'bankappstaff',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.status).to.be.equal(401);
+          expect(res.body.error).to.be.equal('No user found/Incorrect email or password');
+          done();
+        });
+    });
+
     it('should return Please enter a valid mail', (done) => {
       chai
         .request(app)

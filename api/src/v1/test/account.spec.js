@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../index';
+import AccountService from '../services/account.service';
 
 const { expect } = chai;
 
@@ -68,6 +69,21 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return No account found/Incorrect account number when changing the status of an account with a wrong account number', (done) => {
+    chai
+      .request(app)
+      .patch('/api/v1/accounts/20000000024544')
+      .send({
+        status: 'active',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('No account found/Incorrect account number');
+        done();
+      });
+  });
+
   it('should return Please select an appropriate status if the status is not a valid status', (done) => {
     chai
       .request(app)
@@ -106,8 +122,32 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.be.equal(400);
         expect(res.body.error).to.be.equal('No account found/Incorrect account number');
-
         done();
       });
+  });
+
+  it('checkDormantAccount(accountNumber)should return true if account is dormant', () => {
+    const checkDormant = AccountService.checkDormantAccount(2000000003);
+    expect(checkDormant).to.be.equal(true);
+  });
+
+  it('checkDormantAccount(accountNumber)should return false if account is not dormant', () => {
+    const checkDormant = AccountService.checkDormantAccount(2000000001);
+    expect(checkDormant).to.be.equal(false);
+  });
+
+  it('generateAccountNumber()should return a generated account Number', () => {
+    const checkDormant = AccountService.generateAccountNumber();
+    expect(checkDormant).to.be.a('number');
+  });
+
+  it('findAccountByAccountNumber(accountNumber) should return the account Details found', () => {
+    const accountDetails = AccountService.findAccountByAccountNumber(2000000000);
+    expect(accountDetails).to.have.key('id', 'accountNumber', 'createdOn', 'owner', 'type', 'status', 'balance');
+  });
+
+  it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', () => {
+    const accountDetails = AccountService.findAccountByAccountNumber(200000000055);
+    expect(accountDetails.message).to.be.equal('No account found/Incorrect account number');
   });
 });

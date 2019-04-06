@@ -19,12 +19,6 @@ class AccountController {
   static createAccount(req, res) {
     const accountDetails = req.body;
     const newAccount = AccountService.createAccount(accountDetails);
-    if (newAccount.error) {
-      return res.status(400).send({
-        status: 400,
-        error: newAccount.message,
-      });
-    }
     return res.status(201).send({
       status: 201,
       data: newAccount,

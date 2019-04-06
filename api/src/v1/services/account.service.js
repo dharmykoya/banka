@@ -22,7 +22,7 @@ class AccountService {
     let accountNumber = 2000000000;
     const accountUsersLength = AccountData.accounts.length;
     if (accountUsersLength === 0) {
-      return accountNumber;
+      accountNumber = 2000000000;
     }
     const lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
     accountNumber = lastAccountNumber + 1;
@@ -62,10 +62,9 @@ class AccountService {
     const foundAccount = this.findAccountByAccountNumber(accountNumber);
     // checks if the account is dormant
     if (foundAccount.status === 'dormant') {
-      const response = { error: true, message: 'Account is dormant. Please reactivate.' };
-      return response;
+      return true;
     }
-    return foundAccount;
+    return false;
   }
 
   /**

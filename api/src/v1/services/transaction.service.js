@@ -23,7 +23,6 @@ class TransactionService {
     const parseAmount = parseFloat(tranAmount);
     const parseAccountNumber = parseInt(userAccountNumber, Number);
     const foundAccount = AccountService.findAccountByAccountNumber(parseAccountNumber);
-
     // checks if the account does not exist
     if (foundAccount.error) {
       return foundAccount;

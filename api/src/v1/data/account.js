@@ -29,5 +29,14 @@ export default {
       status: 'dormant',
       balance: 200000,
     },
+    {
+      id: 4,
+      accountNumber: 2000000003,
+      createdOn: '13-04-2019',
+      owner: 4,
+      type: 'savings',
+      status: 'dormant',
+      balance: 200000,
+    },
   ],
 };
