@@ -104,43 +104,23 @@ class TransactionService {
    */
   static transactionAction(type, id, cashier, parseAccountNumber, parseAmount, oldBalance) {
     let newBalance;
-    let error = false;
     const minBalance = parseFloat(1000);
     const createdOn = moment().format('DD-MM-YYYY');
 
-    // set the transaction action
-    switch (type) {
-      case 'credit':
-        newBalance = oldBalance + parseAmount;
-        break;
-      case 'debit':
-        newBalance = oldBalance - parseAmount;
-        // checks if the amount to withdraw is greater than the account balance
-        if (newBalance < minBalance) {
-          const response = { error: true, message: `You can not have less than ${minBalance} in your account.` };
-          return response;
-        }
-        break;
-      default:
-        error = true;
-    }
-
-    if (error) {
-      const response = { error: true, message: 'Something went wrong. How did you get here?' };
-      return response;
+    if (type === 'credit') {
+      newBalance = oldBalance + parseAmount;
+    } else if (type === 'debit') {
+      newBalance = oldBalance - parseAmount;
+      // checks if the amount to withdraw is greater than the account balance
+      if (newBalance < minBalance) {
+        const response = { error: true, message: `You can not have less than ${minBalance} in your account.` };
+        return response;
+      }
     }
 
     // creating a new instance of the Transaction
-    const transaction = new Transaction(
-      id,
-      createdOn,
-      type,
-      parseAccountNumber,
-      cashier,
-      parseAmount,
-      oldBalance,
-      newBalance,
-    );
+    const transaction = new Transaction(id, createdOn, type, parseAccountNumber, cashier, parseAmount, oldBalance,
+      newBalance);
     TransactionData.transactions = [...TransactionData.transactions, transaction];
     const response = {
       transactionId: id,
@@ -150,7 +130,6 @@ class TransactionService {
       transactionType: type,
       accountBalance: newBalance.toString(),
     };
-
     return response;
   }
 }
