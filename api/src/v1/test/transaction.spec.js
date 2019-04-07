@@ -2,6 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../../index';
+import TransactionService from '../services/transaction.service';
 
 const { expect } = chai;
 const minBalance = 1000;
@@ -63,10 +64,12 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+        expect(res.body.data.accountNumber).to.be.a('number');
+        expect(res.body.data.accountBalance).to.be.a('string');
         done();
       });
   });
-  it('should return No account found/Incorrect account number', (done) => {
+  it('should return No account found/Incorrect account number on credit request', (done) => {
     chai
       .request(app)
       .post('/api/v1/transactions/2000000001234/credit')
@@ -107,5 +110,26 @@ describe('Transaction Resource', () => {
         expect(res.body.error).to.be.equal('Insufficient Balance.');
         done();
       });
+  });
+  it('should return No account found/Incorrect account number on debit request', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/transactions/200000000133/debit')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('No account found/Incorrect account number');
+        done();
+      });
+  });
+
+  it('transactionAction()should return a debit transaction', () => {
+    const transaction = TransactionService.transactionAction('debit', 6, 1, 2000000005, 30000, 70000);
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+  });
+
+  it('transactionAction()should return a credit transaction', () => {
+    const transaction = TransactionService.transactionAction('credit', 6, 1, 2000000005, 30000, 70000);
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
   });
 });
