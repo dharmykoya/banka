@@ -34,12 +34,16 @@
     </div>
 <main>  
     <div class="signup-container">
-      <form class="register-form" action="dashboard.html">
+      <form class="register-form" action="dashboard.html" id="signupForm" onsubmit="return validate()"  method="POST">
         <div class="form">
+            <div class="alert hide">
+                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <h3 class="message"></h3>
+            </div>
           <input type="text" placeholder="First Name" name="firstName" required/>
           <input type="text" placeholder="Last Name" name="lastName" required/>
           <input type="text" placeholder="Phone Number" name="phone" required/>
-          <input type="text" placeholder="Email address" name="email" required/>
+          <input type="email" placeholder="Email address" name="email" required/>
           <input type="password" placeholder="password" name="password" required/>
           <input type="password" placeholder="confirm password" name="password2" required/>
           <a><button>Sign UP</button></a>
@@ -50,5 +54,6 @@
 </main>
 
 <script src="js/navbar.js"></script>
+<script src="js/signup.js"></script>
 </body>
 </html>
