@@ -15,6 +15,10 @@ a {
   text-decoration: none;
 }
 
+.hide {
+  display: none;
+}
+
 .index-logo {
   width: 30px;
   height: 22px;
