@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="css/signup.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+    <!-- // favicon Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="./img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="./img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest.json">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,23 +37,28 @@
     </div>
 <main>  
     <div class="create-account-container">
-      <form class="account-form">
+      <form class="account-form" action="dashboard.html" id="createAccountForm" onsubmit="return validate()"  method="POST">
         <div class="form">
-          <input type="text" placeholder="First Name" name="name" required/>
-          <input type="text" placeholder="Last Name" name="name" required/>
+            <div class="alert hide">
+                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <h3 class="message"></h3>
+            </div>
+          <input type="text" placeholder="First Name" name="firstName" required/>
+          <input type="text" placeholder="Last Name" name="lastName" required/>
           <input type="email" placeholder="Email address" name="email" required/>
-          <select name="role" aria-placeholder="Transaction type">
+          <select name="role" aria-placeholder="Transaction type" required>
             <option selected="selected">Account type</option>
             <option value="savings">Savings</option>
             <option value="current">Current</option>
           </select>
           <p>By creating an account you agree to our <a href="#" style="color:#dd4f05">Terms & Privacy</a>.</p>
-          <a href="dashboard.html"><button>Create</button></a>
+          <a><button>Create</button></a>
         </div>
       </form>
     </div>
 </main>
 
 <script src="js/navbar.js"></script>
+<script src="js/createAccount.js"></script>
 </body>
 </html>

@@ -1,8 +1,12 @@
   
-  const form = document.querySelector('#signupForm');
+  const form = document.querySelector('#createAccountForm');
+  console.log(23, form);
   const message = document.querySelector('.message');
   const alert = document.querySelector('.alert');
   const validate = () => {
+    
+    const accountsType = ['savings', 'current'];
+    const check = accountsType.includes(form.role.value)
 
     if(form.firstName.value == "" ) {
       message.innerText = "Please provide your First Name!";
@@ -10,32 +14,20 @@
       form.email.focus() ;
       return false;
     }
-    if( form.lastName.value == "" ) {
+    if(form.lastName.value == "" ) {
       message.innerText = "Please provide your Last Name!";
       alert.style.display = 'block';
-      form.password.focus() ;
-      return false;
-    }
-    if( form.phone.value == "" ) {
-      message.innerText = "Please provide your phone number!";
-      alert.style.display = 'block';
-      form.password.focus() ;
+      form.lastName.focus() ;
       return false;
     }
     if( form.email.value == "" ) {
       message.innerText = "Please provide your email!";
       alert.style.display = 'block';
-      form.password.focus() ;
+      form.email.focus() ;
       return false;
     }
-    if( form.password.value == "" ) {
-      message.innerText = "Please provide your password!";
-      alert.style.display = 'block';
-      form.password.focus() ;
-      return false;
-    }
-    if( form.password.value !== form.password2.value) {
-      message.innerText = "passwords do not match";
+    if(form.role.value == "Account type") {
+      message.innerText = "Please select an account type";
       alert.style.display = 'block';
       form.password.focus() ;
       return false;
