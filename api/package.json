@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "start-dev": "nodemon --exec babel-node src/index.js",
-    "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit",
+    "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit --watch",
     "test-watch": "nodemon --exec \"npm test\"",
     "test:travis": "mocha **/*.spec.js --require @babel/register --exit",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",

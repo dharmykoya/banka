@@ -46,9 +46,7 @@ describe('The endpoint for Accounts Resource', () => {
       .end((err, res) => {
         expect(res).to.have.status(422);
         expect(res.body.status).to.be.equal(422);
-        expect(res.body.error).to.have.key('lastName', 'type');
-        expect(res.body.error.lastName.msg).to.be.equal('Please enter your last name');
-        expect(res.body.error.type.msg).to.be.equal('Please select an appropriate account type');
+        expect(res.body.error[0]).to.be.equal('Please enter your last name');
 
         done();
       });
@@ -94,8 +92,7 @@ describe('The endpoint for Accounts Resource', () => {
       .end((err, res) => {
         expect(res).to.have.status(422);
         expect(res.body.status).to.be.equal(422);
-        expect(res.body.error).to.have.key('status');
-        expect(res.body.error.status.msg).to.be.equal('Please select an appropriate status');
+        expect(res.body.error[0]).to.be.equal('Please select an appropriate status');
 
         done();
       });

@@ -22,33 +22,116 @@ describe('The authentication endpoint test', () => {
           firstName: 'damilola',
           lastName: 'Koya',
           password: 'bankappclient',
+          confirm_password: 'bankappclient',
           type: 'client',
         })
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.be.equal(201);
-          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'password', 'type');
+          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
           done();
         });
     });
 
-    it('should return the missing fields, fields failing validation and their messages', (done) => {
+    it('should return Please enter your first name if the firstName is missing', (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
         .send({
-          email: 'dami.gmail.com',
+          email: 'dami@gmail.com',
           firstName: '',
           lastName: 'Koya',
           password: 'bankappclient',
+          confirm_password: 'bankappclient',
           type: 'client',
         })
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error).to.have.key('firstName', 'email');
-          expect(res.body.error.firstName.msg).to.be.equal('Please enter your first name');
-          expect(res.body.error.email.msg).to.be.equal('Please enter a valid email');
+          expect(res.body.error[0]).to.be.equal('Please enter your first name');
+
+          done();
+        });
+    });
+
+    it('should return Please enter your last name if the lastName is missing', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'taiwo@gmail.com',
+          firstName: 'Taiwo',
+          lastName: '',
+          password: 'bankappclient',
+          confirm_password: 'bankappclient',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error[0]).to.be.equal('Please enter your last name');
+
+          done();
+        });
+    });
+
+    it('should return Please enter a valid email if the email is not a type of email', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'dami.gmail.com',
+          firstName: 'Felix',
+          lastName: 'Koya',
+          password: 'bankappclient',
+          confirm_password: 'bankappclient',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error[0]).to.be.equal('Please enter a valid email');
+
+          done();
+        });
+    });
+
+    it('should return Pasword can not be less than 6 characters if no password is provided', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'tobi@gmail.com',
+          firstName: 'Tobi',
+          lastName: 'Koya',
+          password: 'dami',
+          confirm_password: 'dami',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error[0]).to.be.equal('Pasword can not be less than 6 characters');
+
+          done();
+        });
+    });
+    it('should return passwords must match if passwords do not match', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'tobi@gmail.com',
+          firstName: 'Tobi',
+          lastName: 'Koya',
+          password: 'damil',
+          confirm_password: 'dami',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error).to.be.equal('passwords must match');
 
           done();
         });
@@ -103,7 +186,7 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error.email.msg).to.be.equal('Please enter a valid email');
+          expect(res.body.error[0]).to.be.equal('Please enter a valid email');
           done();
         });
     });

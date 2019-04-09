@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import AccountService from '../services/account.service';
+import Helper from '../services/helper';
 
 /**
  * @class AccountController
@@ -38,10 +39,11 @@ class AccountController {
     const { accountNumber } = req.params;
     const accountUpdated = AccountService.changeStatus(status, accountNumber);
     if (accountUpdated.error) {
-      return res.status(400).send({
-        status: 400,
-        error: accountUpdated.message,
-      });
+      // return res.status(400).send({
+      //   status: 400,
+      //   error: accountUpdated.message,
+      // });
+      return Helper.errorResponse(res, 400, accountUpdated.message);
     }
     return res.status(200).send({
       status: 200,
@@ -61,10 +63,11 @@ class AccountController {
     const { accountNumber } = req.params;
     const deleteAccount = AccountService.deleteAccount(accountNumber);
     if (deleteAccount.error) {
-      return res.status(400).send({
-        status: 400,
-        error: deleteAccount.message,
-      });
+      // return res.status(400).send({
+      //   status: 400,
+      //   error: deleteAccount.message,
+      // });
+      return Helper.errorResponse(res, 400, deleteAccount.message);
     }
     return res.status(202).send({
       status: 202,
