@@ -7,21 +7,91 @@ import AccountService from '../services/account.service';
 const { expect } = chai;
 
 chai.use(chaiHttp);
+let clientToken = '';
+let adminToken = '';
 
 describe('The endpoint for Accounts Resource', () => {
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'Dotun',
+        lastName: 'Fayemi',
+        email: 'dotun@gmil.com',
+        password: 'bankappclient',
+        confirm_password: 'bankappclient',
+        type: 'client',
+      })
+      .end((err, res) => {
+        clientToken = `Bearer ${res.body.data.token}`;
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        done();
+      });
+  });
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'Joy',
+        lastName: 'Fayemi',
+        email: 'joy@gmil.com',
+        password: 'bankappclient',
+        confirm_password: 'bankappclient',
+        type: 'admin',
+      })
+      .end((err, res) => {
+        adminToken = `Bearer ${res.body.data.token}`;
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        done();
+      });
+  });
+  it('should return Auth token is not supplied if header is not set', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .send({
+        type: 'savings',
+        status: 'active',
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body.status).to.be.equal(403);
+        expect(res.body.error).to.be.equal('Auth token is not supplied');
+        done();
+      });
+  });
+  it('should return Please select an appropriate account type if an account type is not selected', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .send({
+        type: '',
+        status: 'active',
+      })
+      .set('Authorization', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(422);
+        expect(res.body.status).to.be.equal(422);
+        expect(res.body.error[0]).to.be.equal('Please select an appropriate account type');
+
+        done();
+      });
+  });
   it('should create an account for a user', (done) => {
     chai
       .request(app)
       .post('/api/v1/accounts')
       .send({
-        firstName: 'Damilola',
-        lastName: 'Adekoya',
-        email: 'dharmykoya38@gmil.com',
-        owner: 1,
         type: 'savings',
         status: 'active',
-        balance: 1000000,
       })
+      .set('Authorization', clientToken)
       .end((err, res) => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
@@ -29,29 +99,21 @@ describe('The endpoint for Accounts Resource', () => {
         done();
       });
   });
-
-  it('should return missing fields, fields failing validation and their messages', (done) => {
+  it('should return You do not have the authorization or right to perform this action if header is not set', (done) => {
     chai
       .request(app)
-      .post('/api/v1/accounts')
+      .patch('/api/v1/accounts/2000000000')
       .send({
-        firstName: 'Damilola',
-        lastName: '',
-        email: 'dharmykoya38@gmil.com',
-        owner: 1,
-        type: 'children-savings',
-        status: 'active',
-        balance: 1000000,
+        status: 'dormant',
       })
+      .set('Authorization', clientToken)
       .end((err, res) => {
-        expect(res).to.have.status(422);
-        expect(res.body.status).to.be.equal(422);
-        expect(res.body.error[0]).to.be.equal('Please enter your last name');
-
+        expect(res).to.have.status(403);
+        expect(res.body.status).to.be.equal(403);
+        expect(res.body.error).to.be.equal('You do not have the authorization or right to perform this action');
         done();
       });
   });
-
   it('should change the status of an account', (done) => {
     chai
       .request(app)
@@ -59,6 +121,7 @@ describe('The endpoint for Accounts Resource', () => {
       .send({
         status: 'active',
       })
+      .set('Authorization', adminToken)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
@@ -74,6 +137,7 @@ describe('The endpoint for Accounts Resource', () => {
       .send({
         status: 'active',
       })
+      .set('Authorization', adminToken)
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.be.equal(400);
@@ -89,6 +153,7 @@ describe('The endpoint for Accounts Resource', () => {
       .send({
         status: 'wrongstatus',
       })
+      .set('Authorization', adminToken)
       .end((err, res) => {
         expect(res).to.have.status(422);
         expect(res.body.status).to.be.equal(422);
@@ -102,6 +167,7 @@ describe('The endpoint for Accounts Resource', () => {
     chai
       .request(app)
       .delete('/api/v1/accounts/2000000001')
+      .set('Authorization', adminToken)
       .end((err, res) => {
         expect(res).to.have.status(202);
         expect(res.body.status).to.be.equal(202);
@@ -115,6 +181,7 @@ describe('The endpoint for Accounts Resource', () => {
     chai
       .request(app)
       .delete('/api/v1/accounts/200000000133')
+      .set('Authorization', adminToken)
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.be.equal(400);

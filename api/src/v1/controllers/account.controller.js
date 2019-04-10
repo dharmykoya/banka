@@ -18,8 +18,9 @@ class AccountController {
   * @memberof AccountController
   */
   static createAccount(req, res) {
-    const accountDetails = req.body;
-    const newAccount = AccountService.createAccount(accountDetails);
+    const accountDetails = req.decoded.user;
+    const { type } = req.body;
+    const newAccount = AccountService.createAccount(accountDetails, type);
     return res.status(201).send({
       status: 201,
       data: newAccount,
