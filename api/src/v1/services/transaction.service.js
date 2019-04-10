@@ -117,10 +117,8 @@ class TransactionService {
         return response;
       }
     }
-
     // creating a new instance of the Transaction
-    const transaction = new Transaction(id, createdOn, type, parseAccountNumber, cashier, parseAmount, oldBalance,
-      newBalance);
+    const transaction = new Transaction(id, createdOn, type, parseAccountNumber, cashier, parseAmount, oldBalance, newBalance);
     TransactionData.transactions = [...TransactionData.transactions, transaction];
     const response = {
       transactionId: id,

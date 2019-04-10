@@ -29,7 +29,14 @@ class UserService {
     UserData.users = [...UserData.users, newUser];
     // generating token
     const token = Helper.generateToken(newUser);
-    return { token, ...newUser };
+    return {
+      token,
+      id,
+      email,
+      firstName,
+      lastName,
+      type,
+    };
   }
 
   /**
