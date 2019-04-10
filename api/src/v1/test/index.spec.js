@@ -14,7 +14,7 @@ describe('Test for the App entry point', () => {
       .get('/')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.message).to.equal('Welcome to Banka by Damilola Adekoya By Damilola Adekoya');
+        expect(res.body.message).to.equal('Welcome to Banka App by Damilola Adekoya');
       });
   });
 });
