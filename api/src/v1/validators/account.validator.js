@@ -10,16 +10,8 @@ const AccountValidator = {
 
     // checks for the validation errors
     const errors = req.validationErrors();
-    // if (error) {
-    //   res.status(422).send({
-    //     status: 422,
-    //     error,
-    //   });
-    // } else {
-    //   next();
-    // }
     if (errors) {
-      const err = errors.map(error => error.msg);
+      const err = Helper.validationError(errors);
       return Helper.errorResponse(res, 422, err);
     }
     return next();
@@ -30,16 +22,8 @@ const AccountValidator = {
 
     // checks for the validation errors
     const errors = req.validationErrors();
-    // if (error) {
-    //   res.status(422).send({
-    //     status: 422,
-    //     error,
-    //   });
-    // } else {
-    //   next();
-    // }
     if (errors) {
-      const err = errors.map(error => error.msg);
+      const err = Helper.validationError(errors);
       return Helper.errorResponse(res, 422, err);
     }
     return next();
