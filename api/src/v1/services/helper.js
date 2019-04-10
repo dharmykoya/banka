@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import UserData from '../data/user';
 
 
 require('dotenv').config();
@@ -25,6 +26,33 @@ const Helper = {
       status: statusCode,
       error,
     });
+  },
+
+  /**
+   * @description Check if email exist
+   * @static
+   * @param {Object} email
+   * @returns true or false
+   */
+  checkEmailExist(email) {
+    const foundUser = UserData.users.find(user => email === user.email);
+
+    // checks if the user exist
+    if (foundUser) {
+      return true;
+    }
+    return false;
+  },
+
+  /**
+   * @description returns errors during validation
+   * @static
+   * @param {Object} errors
+   * @returns array of errors
+   */
+  validationError(errors) {
+    const err = errors.map(error => error.msg);
+    return err;
   },
 };
 

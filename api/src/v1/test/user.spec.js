@@ -38,7 +38,7 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .post('/api/v1/auth/signup')
         .send({
-          email: 'dami@gmail.com',
+          email: 'damilo@gmail.com',
           firstName: '',
           lastName: 'Koya',
           password: 'bankappclient',
@@ -132,6 +132,26 @@ describe('The authentication endpoint test', () => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
           expect(res.body.error).to.be.equal('passwords must match');
+
+          done();
+        });
+    });
+    it('should return Email exist already, please login to conitnue for user registering with an exisiting email', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'dharmykoya38@gmail.com',
+          firstName: 'Tobi',
+          lastName: 'Koya',
+          password: 'damilola',
+          confirm_password: 'damilola',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(409);
+          expect(res.body.status).to.be.equal(409);
+          expect(res.body.error).to.be.equal('Email exist already, please login to conitnue');
 
           done();
         });

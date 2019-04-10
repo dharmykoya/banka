@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 2500;
 
 app.get('/', (req, res) => res.send({
   status: 200,
-  message: 'Welcome to Banka by Damilola Adekoya By Damilola Adekoya',
+  message: 'Welcome to Banka App by Damilola Adekoya',
 }));
 
 app.use('/api/v1/auth', User);
