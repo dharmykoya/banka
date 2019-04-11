@@ -20,7 +20,9 @@ class TransactionController {
   static creditAccount(req, res) {
     const { amount } = req.body;
     const { accountNumber } = req.params;
-    const creditedAccount = TransactionService.creditAccount(accountNumber, amount);
+    const { id } = req.decoded.user;
+    const cashier = id;
+    const creditedAccount = TransactionService.creditAccount(accountNumber, amount, cashier);
     if (creditedAccount.error) {
       return Helper.errorResponse(res, 400, creditedAccount.message);
     }
@@ -40,8 +42,10 @@ class TransactionController {
       */
   static debitAccount(req, res) {
     const { amount } = req.body;
+    const { id } = req.decoded.user;
+    const cashier = id;
     const { accountNumber } = req.params;
-    const debitedAccount = TransactionService.debitAccount(accountNumber, amount);
+    const debitedAccount = TransactionService.debitAccount(accountNumber, amount, cashier);
     if (debitedAccount.error) {
       // return res.status(400).send({
       //   status: 400,
