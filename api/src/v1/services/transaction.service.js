@@ -19,7 +19,7 @@ class TransactionService {
    * @returns {Object} API response
    * @memberof TransactionService
    */
-  static creditAccount(userAccountNumber, tranAmount) {
+  static creditAccount(userAccountNumber, tranAmount, cashier) {
     const parseAmount = parseFloat(tranAmount);
     const parseAccountNumber = parseInt(userAccountNumber, Number);
     const foundAccount = AccountService.findAccountByAccountNumber(parseAccountNumber);
@@ -38,10 +38,9 @@ class TransactionService {
     const lastTransactionId = TransactionData.transactions[transactionLength - 1].id;
     const id = lastTransactionId + 1;
     const type = 'credit';
-    const tranCashier = 1;
     const oldBalance = parseFloat(foundAccount.balance);
 
-    const transaction = this.transactionAction(type, id, tranCashier, parseAccountNumber, parseAmount, oldBalance);
+    const transaction = this.transactionAction(type, id, cashier, parseAccountNumber, parseAmount, oldBalance);
     // updating the found record
     foundAccount.balance = transaction.accountBalance;
 
@@ -56,7 +55,7 @@ class TransactionService {
    * @returns {Object} API response
    * @memberof TransactionService
    */
-  static debitAccount(accountNumber, amount) {
+  static debitAccount(accountNumber, amount, cashier) {
     const parseAmount = parseFloat(amount);
     const parseAccountNumber = parseInt(accountNumber, Number);
     const foundAccount = AccountService.findAccountByAccountNumber(parseAccountNumber);
@@ -82,7 +81,6 @@ class TransactionService {
     const lastTransactionId = TransactionData.transactions[transactionLength - 1].id;
     const id = lastTransactionId + 1;
     const type = 'debit';
-    const cashier = 1;
 
     const oldBalance = parseFloat(foundAccount.balance);
 
