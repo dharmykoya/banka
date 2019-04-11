@@ -6,6 +6,7 @@ import app from '../../index';
 const { expect } = chai;
 
 chai.use(chaiHttp);
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo4LCJlbWFpbCI6ImRvaW5nQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IlNldW4iLCJsYXN0TmFtZSI6Ik1pZGUiLCJwYXNzd29yZCI6ImJhbmthcHAiLCJ0eXBlIjoiYWRtaW4iLCJpc0FkbrcEj19uSMXKjEzesCpPmYiED7Cc';
 
 describe('The authentication endpoint test', () => {
   /**
@@ -38,7 +39,7 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .post('/api/v1/auth/signup')
         .send({
-          email: 'dami@gmail.com',
+          email: 'damilo@gmail.com',
           firstName: '',
           lastName: 'Koya',
           password: 'bankappclient',
@@ -136,6 +137,26 @@ describe('The authentication endpoint test', () => {
           done();
         });
     });
+    it('should return Email exist already, please login to conitnue for user registering with an exisiting email', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'dharmykoya38@gmail.com',
+          firstName: 'Tobi',
+          lastName: 'Koya',
+          password: 'damilola',
+          confirm_password: 'damilola',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(409);
+          expect(res.body.status).to.be.equal(409);
+          expect(res.body.error).to.be.equal('Email exist already, please login to conitnue');
+
+          done();
+        });
+    });
   });
 
   /**
@@ -187,6 +208,24 @@ describe('The authentication endpoint test', () => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
           expect(res.body.error[0]).to.be.equal('Please enter a valid email');
+          done();
+        });
+    });
+
+    it('should return JsonWebTokenError if a wrong token was provided', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/accounts')
+        .send({
+          email: 'doyin.gmail.com',
+          password: 'bankappstaff',
+        })
+        .set('Authorization', token)
+        .end((err, res) => {
+          expect(res).to.have.status(500);
+          expect(res.body.status).to.be.equal(500);
+          expect(res.body.error.name).to.be.equal('JsonWebTokenError');
+          expect(res.body.error.message).to.be.equal('jwt malformed');
           done();
         });
     });

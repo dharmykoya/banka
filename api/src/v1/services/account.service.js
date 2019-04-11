@@ -75,19 +75,20 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static createAccount(accountDetails) {
+  static createAccount(accountDetails, type) {
     const {
-      firstName, lastName, email, owner, type, status, balance,
+      firstName, lastName, email, owner,
     } = accountDetails;
 
     const createdOn = moment().format('DD-MM-YYYY');
+    const balance = parseFloat(2000);
+    const status = 'active';
     const accountUsersLength = AccountData.accounts.length;
     const lastAccountCreatedId = AccountData.accounts[accountUsersLength - 1].id;
     const id = lastAccountCreatedId + 1;
     const accountNumber = this.generateAccountNumber();
     const newAccount = new Account(id, accountNumber, createdOn, owner, type, status, balance);
     AccountData.accounts = [...AccountData.accounts, newAccount];
-
     const response = {
       accountNumber: newAccount.accountNumber,
       firstName,

@@ -22,10 +22,6 @@ class TransactionController {
     const { accountNumber } = req.params;
     const creditedAccount = TransactionService.creditAccount(accountNumber, amount);
     if (creditedAccount.error) {
-      // return res.status(400).send({
-      //   status: 400,
-      //   error: creditedAccount.message,
-      // });
       return Helper.errorResponse(res, 400, creditedAccount.message);
     }
     return res.status(201).send({
