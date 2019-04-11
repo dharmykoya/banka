@@ -12,7 +12,10 @@
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
-    "coverage": "nyc npm run test:travis && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
+    "coverage": "nyc npm run test:travis && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
+    "babel-build": "babel src -d dist",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && npm run babel-build"
   },
   "author": "Damilola Adekoya",
   "license": "ISC",
