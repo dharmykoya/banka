@@ -90,15 +90,11 @@ npm run coverage
 |   Credit a bank account   | POST        | /api/v1/tranactions/account-number/credit |
 |   Debit a bank account    | POST         | /api/v1/tranactions/account-number/debit |
 
-## Project References
+## References
 
-- I learnt how to build and structure my project backend with this tutorial by Bolaji Olajide - https://www.youtube.com/watch?v=WLIqvJzD9DE
-- I learnt how to implement Authentication with JWT with this tutorial by Academind - https://www.youtube.com/watch?v=0D5EEKH97NA
-- Huge Appreciation to Ekunola Ezekiel for letting me use his project as reference - https://github.com/Easybuoy/storemanager
+- ALC tutorial by Bolaji Olajide - https://www.youtube.com/watch?v=WLIqvJzD9DE
 - StackOverflow
 
 ## License
 
 &copy; Damilola Adekoya
-
-Licensed under the [MIT License](https://github.com/dharmykoya/banka/blob/develop/LICENSE)
