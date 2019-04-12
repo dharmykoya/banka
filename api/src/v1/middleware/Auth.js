@@ -53,7 +53,7 @@ class Auth {
     const { type } = req.decoded.user;
     if (type !== 'staff') {
       const error = 'You do not have the authorization or right to perform this action';
-      return Helper.errorResponse(res, 403, error);
+      return Helper.errorResponse(res, 401, error);
     }
     return next();
   }
@@ -75,7 +75,7 @@ class Auth {
       return next();
     }
     const error = 'You do not have the authorization or right to perform this action';
-    return Helper.errorResponse(res, 403, error);
+    return Helper.errorResponse(res, 401, error);
   }
 }
 

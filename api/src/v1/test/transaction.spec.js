@@ -87,7 +87,7 @@ describe('Transaction Resource', () => {
         done();
       });
   });
-  it('should return You do not have the authorization or right to perform this action if header is not set', (done) => {
+  it('should return You do not have the authorization or right to perform this action if client try to debit an account', (done) => {
     chai
       .request(app)
       .post('/api/v1/transactions/2000000000/debit')
@@ -96,8 +96,8 @@ describe('Transaction Resource', () => {
       })
       .set('Authorization', clientToken)
       .end((err, res) => {
-        expect(res).to.have.status(403);
-        expect(res.body.status).to.be.equal(403);
+        expect(res).to.have.status(401);
+        expect(res.body.status).to.be.equal(401);
         expect(res.body.error).to.be.equal('You do not have the authorization or right to perform this action');
         done();
       });

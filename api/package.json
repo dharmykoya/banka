@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "banka",
   "version": "1.0.0",
   "description": "A simple banking app",
   "main": "index.js",
@@ -28,6 +28,23 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dharmykoya/banka.git"
+  },
+  "keywords": [
+    "Banka",
+    "Andela",
+    "JWT",
+    "Data Structures",
+    "Es6",
+    "Authentication",
+    "Single Repository Pattern"
+  ],
+  "bugs": {
+    "url": "https://github.com/dharmykoya/banka/issues"
+  },
+  "homepage": "https://github.com/dharmykoya/banka",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
