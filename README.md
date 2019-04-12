@@ -5,7 +5,7 @@ Banka is a light-weight core banking application that powers banking operations 
 
 
 **UI template:** (https://dharmykoya.github.io/banka/UI/index)
-**API link:** (https://dharmykoya.github.io/banka/UI/index)
+**API link:** (https://banktoday.herokuapp.com)
 
 ## Project Management Tool
 
