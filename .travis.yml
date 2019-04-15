@@ -1,0 +1,22 @@
+language: node_js
+node_js: 
+  - "node" 
+env:
+  global: 
+    - CODECLIMATE_REPO_TOKEN=a8dc429b5b7acaecdd7ad43c5b4099050996568267b5b81e0e979c27d3ef396b 
+install:
+  - cd api
+  - npm install   
+cache:
+  directories:
+    - "api/node_modules"
+script:
+  - npm run test:travis
+after_success:
+    - npm run coverage
+    - npm install codeclimate-test-reporter
+    - codeclimate-test-reporter < coverage/lcov.info
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT  
+
+  
