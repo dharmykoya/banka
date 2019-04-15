@@ -34,17 +34,21 @@
     </div>
 <main>  
     <div class="login-container">
-      <form class="register-form" action="dashboard.html">
+      <form class="register-form" action="dashboard.html" name="signinForm" id="signinForm" onsubmit="return validate()"  method="POST">
         <div class="form">
-          <input type="text" placeholder="Email address" name="email" required/>
+            <div class="alert hide">
+                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <h3 class="message"></h3>
+            </div>
+          <input type="email" placeholder="Email address" name="email" required/>
           <input type="password" placeholder="password" name="password" required/>
-          <a href="dashboard.html"><button>Login</button></a>
+          <a href=""><button>Login</button></a>
           <p class="message">Not Registered? <a href="signup.html">Signup</a></p>
         </div>
       </form>
     </div>
 </main>
-
 <script src="js/navbar.js"></script>
+<script src="js/signin.js"></script>
 </body>
 </html>
