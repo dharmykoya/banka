@@ -23,19 +23,21 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
-        <a class="icon" onclick="navToggle()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="right">
-            <a href="signin.html">Login</a>
+        <div class="logo-container">
+          <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
         </div>
-    </div>
+          <a class="icon" onclick="navToggle()">
+              <i class="fa fa-bars"></i>
+          </a>
+          <div class="right navbar-right">
+              <a href="signin.html" class="active topnav-anchor">Login</a>
+          </div>
+      </div>
 <main>  
     <div class="login-container">
-      <form class="register-form">
+      <form class="register-form" action="staffDashboard.html" name="signinForm" id="signinForm" onsubmit="return validate()"  method="POST">
         <div class="form">
-          <input type="text" placeholder="Staff ID" name="staff_id" required/>
+          <input type="text" placeholder="email" name="staff_id" required/>
           <input type="password" placeholder="password" name="password" required/>
           <a href="dashboard.html"><button>Login</button></a>
         </div>
@@ -44,5 +46,6 @@
 </main>
 
 <script src="../js/navbar.js"></script>
+<script src="../js/signin.js"></script>
 </body>
 </html>

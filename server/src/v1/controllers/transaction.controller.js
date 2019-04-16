@@ -47,10 +47,6 @@ class TransactionController {
     const { accountNumber } = req.params;
     const debitedAccount = TransactionService.debitAccount(accountNumber, amount, cashier);
     if (debitedAccount.error) {
-      // return res.status(400).send({
-      //   status: 400,
-      //   error: debitedAccount.message,
-      // });
       return Helper.errorResponse(res, 400, debitedAccount.message);
     }
     return res.status(201).send({

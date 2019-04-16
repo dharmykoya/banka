@@ -1,5 +1,4 @@
 body {
-  /*font-family: "Roboto", sans-serif;*/
   font-family: "Comic Sans MS";
   background: #F5F6FA;
 }
@@ -69,8 +68,9 @@ body {
 
 .list-account-item {
   display: grid;
-  grid-template-columns: 300px auto auto;
+  grid-template-columns: 300px auto auto auto;
   list-style: none;
+  grid-row-gap: 20px;
 }
 
 .dashboard-main {
@@ -82,6 +82,12 @@ body {
 }
 
 .dashboard-main-item-1 > h5 {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 4px solid rgba(0,0,0,.1);
+}
+
+.dashboard-profile-item > h5 {
   text-align: left;
   padding: 10px;
   border-bottom: 4px solid rgba(0,0,0,.1);
@@ -107,16 +113,14 @@ body {
   border-bottom: 4px solid rgba(0,0,0,.1);
 }
 
+.admin-pagination {
+  width: 97%;
+}
+
 .dashboard-main-item-2 > ul {
   list-style: none;
   justify-content: center;
 }
-
-/* .dashboard-main-item-2 li {
-  justify-content: center;  
-  text-decoration: none;
-  color: #dd4f05;
-} */
 
 .dashboard-button {
   display: block;
@@ -133,6 +137,18 @@ body {
   text-align: center;
 }
 
+.staff-dashboard-action > h5 {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 4px solid rgba(0,0,0,.1);
+}
+
+.status-active-badge {
+  background: #66bb6a;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+}
 .recent-transaction {
   background: #ffffff;
   margin: 0% auto;
@@ -185,7 +201,7 @@ body {
   margin: 0px auto;
 }
 .admin-card-item {
-  width: 20%;
+  width: 50%;
 }
 
 .admin-dashboard-staff {
@@ -300,6 +316,6 @@ body {
     text-align: center;
   }
   .admin-card-item {
-    width: 30%;
+    width: 90%;
   }
 }

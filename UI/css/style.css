@@ -1,13 +1,6 @@
 body {
-  /* background: url("../img/banner.jpg"); kelly slab*/
   font-family: "Comic Sans MS";
   margin: 0px;
-  /* background: repeating-linear-gradient(
-  22deg,
-  #dd4f05 1px,
-  #8a2e00 1px,
-  #8a2e00 5px
-); */
 }
 
 .index-logo {
@@ -50,6 +43,7 @@ body {
   display: grid;
   grid-template-columns: auto auto;
   margin-top: 100px;
+  margin-right: 132px;
   text-align: center;
   color: #8a2e00;
   height: 400px;
@@ -63,6 +57,11 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {
+  .icon {
+    margin-top: 11px;
+    margin-right: 10px;
+  }
+
   .index-container {
     display: block;
   }
@@ -81,10 +80,23 @@ body {
   .index-text-3 {
     font-size: 25px;
   }
+  .index-text-images {
+    margin-right: 0px;
+  }
 }
 
 @media (min-width: 601px) and (max-width: 968px) {
   .index-text-container {
     width: 80%;
+  }
+  .index-text-container {
+    margin: 100px auto;
+  }
+  .index-text-1 {
+    margin-top: 0px;
+  }
+
+  .index-text-images {
+    margin-top: 100px;
   }
 }

@@ -5,19 +5,22 @@ body {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   padding: 20px;
-  margin-top: 20px;
 }
 
 .account-search {
   display: flex;
   padding: 10px;
   justify-content: center;
+  width: 64%;
+  margin: 0px auto;
 }
 
 .check-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 100px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   padding: 20px;
+  width: 80%;
 }
 .check-button {
   font-family: "Roboto", sans-serif;
@@ -52,6 +55,16 @@ body {
   width: 30%;
 }
 
+.credit-debit {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
 .transaction-narration {
   margin: 0px;
   width: 100%;
@@ -59,9 +72,10 @@ body {
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 771px) {
   .credit-debit-form {
     width: 100%;
+    margin-top: 15px;
   }
   .check-form {
     flex-direction: column;
@@ -71,14 +85,27 @@ body {
   .account-found {
     flex-direction: column;
   }
+
+  .check-form {
+    grid-template-columns: auto;
+  }
+  .account-search {
+    width: 79%;
+    margin-left: 25px;
+  }
+  
 }
 
-@media (min-width: 601px) and (max-width: 968px) {
+
+
+@media (min-width: 772px) and (max-width: 968px) {
   .credit-debit-form {
     width: 53%;
   }
-
+  .account-search {
+    width: 91%;
+  }
   .transaction-container {
-    margin: 20px;
+    margin-right: 20px;
   }
 }

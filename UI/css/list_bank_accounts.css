@@ -16,18 +16,6 @@ table#listAccount-details, table#listAccount-details th, table#listAccount-detai
   margin-bottom: 20px;
 }
 
-/* table#listAccount-details > td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-} */
-
-/* .list-account-details th, list-account-details td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-} */
-
 
 .tab-list-account {
   overflow: hidden;
@@ -59,13 +47,24 @@ table#listAccount-details, table#listAccount-details th, table#listAccount-detai
   color: white;
 }
 
+.tab-active {
+  background-color: #dd4f05;
+  color: black;
+}
 
 /* Style the tab content */
 .tabcontent-list-account {
-  display: none;
   padding: 6px 12px;
   border-top: none;
   overflow: auto;
+}
+
+.show-tabcontent {
+  display: block;
+}
+
+.hide-tabcontent {
+  display: none;
 }
 
 .list-tr-hover:hover {background-color: #dd4f05;}
@@ -85,4 +84,14 @@ table#savings-account-table  th, table#savings-account-table  td {
   padding: 8px;
   text-align: center;
   border-bottom: 1px solid #ddd;
+}
+
+
+@media (min-width: 601px) and (max-width: 968px) {
+  .navbar-right {
+    margin-right: 21px;
+  }
+  .logo-container {
+    margin-left: 21px;
+  }
 }

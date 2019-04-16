@@ -27,18 +27,20 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="index.html"><img class="index-logo" src="../img/logo5.png">anka</a>
-        <a href="staffDashboard.html" class="active">Profile</a>
-        <a href="transaction.html">Transaction</a>
-        <a href="listBankAccounts.html">All Account</a>
-        <a class="icon" onclick="navToggle()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="right">
-            <a class="pointer-none">Staff</a>
-            <a href="signin.html">Logout</a>
+        <div class="logo-container">
+          <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+          <a href="staffDashboard.html" class="active topnav-anchor">Profile</a>
+          <a class="topnav-anchor" href="transaction.html">Transaction</a>
+          <a class="topnav-anchor" href="listBankAccounts.html">All Account</a>
         </div>
-    </div>
+          <a class="icon" onclick="navToggle()">
+              <i class="fa fa-bars"></i>
+          </a>
+          <div class="right navbar-right">
+              <a class=" topnav-anchor pointer-none">Staff</a>
+              <a href="signin.html" class="active topnav-anchor">Logout</a>
+          </div>
+      </div>
 <main>
   <section class="dashboard-container">
     <div class="dashboard-header">
@@ -65,6 +67,7 @@
                 <li class="list-inline-item">Email: yinka@banka.com</li>                
                 <li class="list-inline-item">Staff ID: 178</li>
                 <li class="list-inline-item">Phone No: 0708934564</li>
+                <li class="list-inline-item">Status: <span class="status-active-badge">Active</span></li>
             </ul>
         </div>
     </div>
@@ -78,16 +81,14 @@
                 <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
             </ul>
         </div>
-    </div>
-
-    <section>
-        <div class="">
+        <div class="staff-dashboard-action">
+            <h5>ACTIONS</h5>
           <div class="account-card-container">
             <div id="account-status">
               <div id="">
                 <div class="account-cards account-status">
-                  <i class="fa fa-check"></i>
-                  <span class="count-name">ACTIVE</span>
+                  <i class="fas fa-times"></i>
+                  <span class="count-name">DEACTIVATE</span>
                 </div>
               </div>
             </div>
@@ -102,7 +103,7 @@
             </a>
           </div>
         </div>
-    </section>
+    </div>
   </section>    
 </main>
 <div class="modal" id="myModal">
@@ -147,7 +148,7 @@
 </div>
 
 
-<script src="js/navbar.js"></script>
+<script src="../js/navbar.js"></script>
 <script src="../js/account.js"></script> 
 <script src="../js/listBankAccounts.js"></script> 
 </body>

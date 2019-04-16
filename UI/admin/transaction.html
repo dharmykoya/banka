@@ -26,64 +26,68 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home">Home</a>
-        <a href="staffDashboard.html">Profile</a>
-        <a href="transaction.html" class="active">Transaction</a>
-        <a href="listBankAccounts.html">All Account</a>
-        <a class="icon" onclick="navToggle()">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+        <a class="topnav-anchor" href="staffDashboard.html">Profile</a>        
+        <a class="topnav-anchor active" href="transaction.html">Transaction</a>
+        <a  class="topnav-anchor "href="listBankAccounts.html">All Account</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a class="pointer-none">Staff</a>
-            <a href="signin.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Staff</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main>
-  <section>
-    <div class="account-search">
-      <form class="check-form" action="/action_page.php">
-        <input class="check-input" type="text" id="account-no" placeholder="ACCOUNT NUMBER" name="account-no">
-        <input class="check-input" type="text" id="account_name" placeholder="ACCOUNT NAME" name="account-name">
-        <button class="check-button" type="submit" class="account-confirm">Check</button>
-      </form>
-    </div>
-  </section>
+  <section class="transaction-container">
+    <section class="">
+      <div class="account-search">
+        <form class="check-form" action="/action_page.php">
+          <input class="check-input" type="text" id="account-no" placeholder="ACCOUNT NUMBER" name="account-no">
+          <input class="check-input" type="text" id="account_name" placeholder="ACCOUNT NAME" name="account-name">
+          <button class="check-button" type="submit" class="account-confirm">Check</button>
+        </form>
+      </div>
+    </section>
 
-  <section>
-    <div class="account-found">
-      <div class="transaction-container">
-        <div class="user-photo">
-            <img class="profilepic" src="https://via.placeholder.com/150">
+    <section>
+      <div class="account-found">
+        <div class="transaction-container">
+          <div class="user-photo">
+              <img class="profilepic" src="https://via.placeholder.com/150">
+          </div>
+          <div>
+            <p>Name: Segun Odusole </p>
+            <p>Account No: 0002223002</p>
+            <p>Balance: 200,050.65</p>
+            <p>Phone No: 08037145164</p>
+          </div>
         </div>
-        <div>
-          <p>Name: Segun Odusole </p>
-          <p>Account No: 0002223002</p>
-          <p>Balance: 200,050.65</p>
-          <p>Phone No: 08037145164</p>
+
+        <div class="credit-debit-form">
+            <div class="credit-debit">
+                <h2>CREDIT/DEBIT</h2>
+                <form class="register-form">
+                  <div class="form">
+                    <input type="text" placeholder="Name" name="name" required/>
+                    <input type="text" placeholder="Account Number" name="account_no" required/>
+                    <select name="role" aria-placeholder="Transaction type">
+                        <option selected="selected">Select transaction type</option>
+                        <option value="admin">Credit</option>
+                        <option value="staff">Debit</option>
+                    </select>
+                    <textarea class="transaction-narration" placeholder="description here..."></textarea>
+                    <a href="adminDashboard.html"><button>POST</button></a>
+                  </div>
+                </form>
+              </div>
         </div>
       </div>
-
-      <div class="credit-debit-form">
-          <div class="signup-container">
-              <h2>CREDIT/DEBIT</h2>
-              <form class="register-form">
-                <div class="form">
-                  <input type="text" placeholder="Name" name="name" required/>
-                  <input type="text" placeholder="Account Number" name="account_no" required/>
-                  <select name="role" aria-placeholder="Transaction type">
-                      <option selected="selected">Select transaction type</option>
-                      <option value="admin">Credit</option>
-                      <option value="staff">Debit</option>
-                  </select>
-                  <textarea class="transaction-narration" placeholder="description here..."></textarea>
-                  <a href="adminDashboard.html"><button>POST</button></a>
-                </div>
-              </form>
-            </div>
-      </div>
-    </div>
-    
-  </section>
+      
+    </section>
+  </section>  
 </main>
 
 <script src="../js/navbar.js"></script>

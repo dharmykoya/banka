@@ -1,6 +1,5 @@
 
 body {
-  /*font-family: "Roboto", sans-serif;*/
   font-family: "Comic Sans MS";
 }
 
@@ -78,7 +77,6 @@ body {
   color: black;
 }
 
-/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -86,20 +84,28 @@ body {
       max-width: 100%;
       grid-template-columns: auto;
   }
-  /* .header-container div {
-      width: 100%;
-  } */
 
-.login-page {
-  width: 70%;
-  margin: auto;
-}
+  .login-page {
+    width: 70%;
+    margin: auto;
+  }
 
-.form {
+  .form {
+      padding: 0px;
+      box-shadow: none;
+      margin: 0px auto 10px;
+  }
+
+  .form {
     padding: 0px;
     box-shadow: none;
     margin: 0px auto 10px;
-}
+  }
+
+  .login-container {
+    width: 60%;
+    padding: 26px;
+  }
 }
 
 

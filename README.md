@@ -87,8 +87,8 @@ npm run coverage
 |  Activate a bank account  | PATCH       | /api/v1/accounts/account-number      |
 | Deactivate a bank account | PATCH       | /api/v1/accounts/{account-number}    |
 |   Delete a bank account   | DELETE      | /api/v1/accounts/{account-number}    |
-|   Credit a bank account   | POST        | /api/v1/tranactions/account-number/credit |
-|   Debit a bank account    | POST         | /api/v1/tranactions/account-number/debit |
+|   Credit a bank account   | POST        | /api/v1/transactions/account-number/credit |
+|   Debit a bank account    | POST         | /api/v1/transactions/account-number/debit |
 
 ## References
 

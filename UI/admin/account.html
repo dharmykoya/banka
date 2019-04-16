@@ -25,16 +25,19 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-            <a href="index.html" class=""><img class="index-logo" src="../img/logo5.png">anka</a>
-        <a href="transaction.html" >Transaction</a>
-        <a href="staffDashboard.html" >Profile</a>
-        <a href="listBankAccounts.html" >All Accounts</a>
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+        <a class="active topnav-anchor" href="adminDashboard.html">Profile</a>
+        <a  class="topnav-anchor"href="transaction.html">Transaction</a>
+        <a  class="topnav-anchor"href="staffDashboard.html">Profile</a>
+        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a class="pointer-none">Staff</a>
-            <a href="signin.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Staff</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main>
@@ -65,12 +68,16 @@
                 <li class="list-inline-item">Phone No: 08037145164</li>
                 <li class="list-inline-item">Date Created: Dec 22, 2019</li>
                 <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
+                <li class="list-inline-item">Status: <span class="status-active-badge">Active</span></li>
             </ul>
         </div>
     </div>
   </section>
   <section>
-    <div class="">
+    <div class="">   
+      <div class="width-80 account-action">
+          <h5>ACTIONS</h5>
+      </div>         
       <div class="account-card-container">
         <a href="transaction.html">
           <div class="">
@@ -91,8 +98,8 @@
         <div id="account-status">
           <div id="">
             <div class="account-cards account-status">
-              <i class="fa fa-check"></i>
-              <span class="count-name">ACTIVE</span>
+                <i class="fas fa-times"></i>
+                <span class="count-name">DEACTIVATE</span>
             </div>
           </div>
         </div>
@@ -110,88 +117,89 @@
   </section>
   
   <section>
-    <div class="transaction-table">
-      <table id="transaction-summary">
-          <caption>Transactions Details</caption>
-          <thead>
-          <tr>
-              <th class="transaction-date">Date</th>
-              <th>Transaction By</th>
-              <th>Debits(&#8358)</th>
-              <th>Credits (&#8358)</th>
-              <th>Balance (&#8358)</th>
-              <th>Branch</th>
-              <th>Remarks</th>
-          </tr>
-          </thead>
-
-          <tbody>
-          <tr class="">
-              <td>02-Jan-2019</td>
-              <td>Goke Fola</td>
-              <td></td>
-              <td>10,000.00</td>
-              <td>50,000.00</td>
-              <td>Yaba</td>
-              <td>
-                FUNDS DEPOSITED BY
-                DOYIN OBASANJO
-              </td>         
-          </tr>
-          <tr class="">
-              <td>12-Jan-2019</td>
-              <td>Goke Folabi</td>
-              <td>10,000.00</td>
-              <td></td>
-              <td>40,000.00</td>
-              <td>Yaba</td>
-              <td>
-                WITHDRAWAL ON THE COUNTER BY
-                YOU DAMILOLA ADEKOYA
-              </td>              
-          </tr>
-          <tr class="">
-              <td>02-Feb-2019</td>
-              <td>Tolu Ogundipe</td>
-              <td>30,000.00</td>
-              <td></td>
-              <td>10,000.00</td>
-              <td>Yaba</td>
-              <td>
-                WITHDRAWAL ON THE COUNTER BY
-                YOU DAMILOLA ADEKOYA
-              </td>            
-          </tr>
-          <tr class="">
-              <td>20-Feb-2019</td>
-              <td>Goke Fola</td>
-              <td></td>
-              <td>200,000.00</td>
-              <td>210,000.00</td>
-              <td>Yaba</td>
-              <td>
-                FUNDS DEPOSITED BY
-                ATIKU ABUBAKAR
-              </td>             
-          </tr>
-          <tr class="">
-              <td>04-Mar-2019</td>
-              <td>Goke Fola</td>
-              <td></td>
-              <td>70,000.00</td>
-              <td>280,000.00</td>
-              <td>Yaba</td>
-              <td>
-                FUNDS DEPOSITED BY
-                SEGUN OBASANJO
-              </td>             
-          </tr>          
-          </tbody>
-          <tfoot>
-          
-          </tfoot>
-      </table>
-    </div>
+      <div class="transaction-table">
+          <p class="text-center">Transaction Details</p>
+          <table id="transaction-summary">
+              <thead>
+              <tr>
+                  <th class="transaction-date">Date</th>
+                  <th class="text-center">Transaction By</th>
+                  <th class="text-center">Debits (&#8358;)</th>
+                  <th class="text-center">Credits (&#8358;)</th>
+                  <th class="text-center">Balance (&#8358;)</th>
+                  <th class="text-center">Remarks</th>
+              </tr>
+              </thead>
+    
+              <tbody>
+              <tr class="">
+                  <td>02-Jan-2019</td>
+                  <td>Goke Fola</td>
+                  <td></td>
+                  <td>10,000.00</td>
+                  <td>50,000.00</td>
+                  <td>
+                    FUNDS DEPOSITED BY
+                    DOYIN OBASANJO
+                  </td>            
+              </tr>
+              <tr class="">
+                  <td>12-Jan-2019</td>
+                  <td>Goke Fola</td>
+                  <td>10,000.00</td>
+                  <td></td>
+                  <td>40,000.00</td>
+                  <td>
+                    WITHDRAWAL ON THE COUNTER BY
+                    YOU DAMILOLA ADEKOYA
+                  </td>             
+              </tr>
+              <tr class="">
+                  <td>02-Feb-2019</td>
+                  <td>Tolu Ogundipe</td>
+                  <td>30,000.00</td>
+                  <td></td>
+                  <td>10,000.00</td>
+                  <td>
+                    WITHDRAWAL ON THE COUNTER BY
+                    YOU DAMILOLA ADEKOYA
+                  </td>             
+              </tr>
+              <tr class="">
+                  <td>20-Feb-2019</td>
+                  <td>Goke Fola</td>
+                  <td></td>
+                  <td>200,000.00</td>
+                  <td>210,000.00</td>
+                  <td>
+                    FUNDS DEPOSITED BY
+                    ATIKU ABUBAKAR
+                  </td>           
+              </tr>
+              <tr class="">
+                  <td>04-Mar-2019</td>
+                  <td>Goke Fola</td>
+                  <td></td>
+                  <td>70,000.00</td>
+                  <td>280,000.00</td>
+                  <td>
+                    FUNDS DEPOSITED BY
+                    SEGUN OBASANJO
+                  </td>          
+              </tr>          
+              </tbody>
+              <tfoot>
+              
+              </tfoot>
+          </table>
+          <div class="pagination">
+              <a href="#">&laquo;</a>
+              <a href="#"  class="active">1</a>
+              <a href="#">2</a>
+              <a href="#">3</a>
+              <a href="#">&raquo;</a>
+          </div>
+        </div>    
   </section>
 </main>
 <div class="modal" id="myModal">

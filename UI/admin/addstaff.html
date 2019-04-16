@@ -23,23 +23,28 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="index.html"><img class="index-logo" src="../img/logo5.png">anka</a>
-        <a href="adminDashboard.html">Profile</a>
-        <a href="addstaff.html" class="active">Add Staff</a>
-        <a href="account.html">All Account</a>
-        <a class="icon" onclick="navToggle()">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+        <a  class="topnav-anchor"href="adminDashboard.html">Profile</a>
+        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a class="pointer-none">Admin</a>
-            <a href="index.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Admin</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main>  
     <div class="signup-container">
       <h2>Add Staff/Admin</h2>
-      <form class="register-form">
+      <form class="register-form" action="createAccount.html" id="signupForm" onsubmit="return validate()"  method="POST">
         <div class="form">
+            <div class="alert hide">
+                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <h3 class="message"></h3>
+            </div>
           <input type="text" placeholder="Name" name="name" required/>
           <input type="text" placeholder="Phone Number" name="phone" required/>
           <input type="text" placeholder="Email address" name="email" required/>
@@ -56,6 +61,7 @@
     </div>
 </main>
 
-<script src="js/navbar.js"></script>
+<script src="../js/navbar.js"></script>
+<script src="../js/signup.js"></script>
 </body>
 </html>

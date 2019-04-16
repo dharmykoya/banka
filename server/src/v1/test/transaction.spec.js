@@ -23,8 +23,8 @@ describe('Transaction Resource', () => {
         firstName: 'Mercy',
         lastName: 'Fayemi',
         email: 'mercy@gmil.com',
-        password: 'bankappclient',
-        confirm_password: 'bankappclient',
+        password: 'Bankappclient2@',
+        confirm_password: 'Bankappclient2@',
         type: 'staff',
       })
       .end((err, res) => {
@@ -32,6 +32,10 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        expect(res.body.data.email).to.be.equal('mercy@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Mercy');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('staff');
         done();
       });
   });
@@ -43,8 +47,8 @@ describe('Transaction Resource', () => {
         firstName: 'Tope',
         lastName: 'Fayemi',
         email: 'tope@gmil.com',
-        password: 'bankappclient',
-        confirm_password: 'bankappclient',
+        password: 'Bankappclient2@',
+        confirm_password: 'Bankappclient2@',
         type: 'client',
       })
       .end((err, res) => {
@@ -52,6 +56,10 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        expect(res.body.data.email).to.be.equal('tope@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Tope');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('client');
         done();
       });
   });
@@ -70,6 +78,10 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
+        expect(res.body.data.email).to.be.equal('tope@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Tope');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('savings');
         done();
       });
   });
@@ -114,8 +126,12 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-        expect(res.body.data.accountNumber).to.be.a('number');
-        expect(res.body.data.accountBalance).to.be.a('string');
+        expect(res.body.data.accountNumber).to.be.equal(2000000005);
+        expect(res.body.data.accountBalance).to.be.equal('5000');
+        expect(res.body.data.amount).to.be.equal(3000);
+        expect(res.body.data.cashier).to.be.equal(6);
+        expect(res.body.data.transactionType).to.be.equal('credit');
+        expect(res.body.data.transactionId).to.be.equal(4);
         done();
       });
   });
@@ -146,6 +162,12 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+        expect(res.body.data.accountNumber).to.be.equal(2000000005);
+        expect(res.body.data.accountBalance).to.be.equal('2000');
+        expect(res.body.data.amount).to.be.equal(3000);
+        expect(res.body.data.cashier).to.be.equal(6);
+        expect(res.body.data.transactionType).to.be.equal('debit');
+        expect(res.body.data.transactionId).to.be.equal(5);
         done();
       });
   });
@@ -225,12 +247,25 @@ describe('Transaction Resource', () => {
       });
   });
   it('transactionAction()should return a debit transaction', () => {
-    const transaction = TransactionService.transactionAction('debit', 6, 1, 2000000005, 30000, 70000);
+    const transaction = TransactionService.transactionAction('debit', 6, 1, 2000000005, 3000, 7000);
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction.accountNumber).to.be.equal(2000000005);
+    expect(transaction.accountBalance).to.be.equal('4000');
+    expect(transaction.amount).to.be.equal(3000);
+    expect(transaction.cashier).to.be.equal(1);
+    expect(transaction.transactionType).to.be.equal('debit');
+    expect(transaction.transactionId).to.be.equal(6);
   });
   it('transactionAction()should return a credit transaction', () => {
-    const transaction = TransactionService.transactionAction('credit', 6, 1, 2000000005, 30000, 70000);
+    const transaction = TransactionService.transactionAction('credit', 6, 1, 2000000005, 3000, 7000);
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction.accountNumber).to.be.equal(2000000005);
+    expect(transaction.accountBalance).to.be.equal('10000');
+    expect(transaction.amount).to.be.equal(3000);
+    expect(transaction.cashier).to.be.equal(1);
+    expect(transaction.transactionType).to.be.equal('credit');
+    expect(transaction.transactionId).to.be.equal(6);
   });
   it('transactionAction()should return a credit transaction', () => {
     const transaction = TransactionService.transactionAction('debit', 6, 1, 2000000005, 6500, 7000);

@@ -22,14 +22,18 @@ describe('The authentication endpoint test', () => {
           email: 'dami@gmail.com',
           firstName: 'damilola',
           lastName: 'Koya',
-          password: 'bankappclient',
-          confirm_password: 'bankappclient',
+          password: 'Bankappclient2@',
+          confirm_password: 'Bankappclient2@',
           type: 'client',
         })
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.be.equal(201);
           expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          expect(res.body.data.email).to.be.equal('dami@gmail.com');
+          expect(res.body.data.firstName).to.be.equal('damilola');
+          expect(res.body.data.lastName).to.be.equal('Koya');
+          expect(res.body.data.type).to.be.equal('client');
           done();
         });
     });
@@ -40,7 +44,7 @@ describe('The authentication endpoint test', () => {
         .post('/api/v1/auth/signup')
         .send({
           email: 'damilo@gmail.com',
-          firstName: '',
+          firstName: '2',
           lastName: 'Koya',
           password: 'bankappclient',
           confirm_password: 'bankappclient',
@@ -49,7 +53,28 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Please enter your first name');
+          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
+
+          done();
+        });
+    });
+
+    it('should return Must be only alphabetical chars if the lastName is has a number', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'taiwo@gmail.com',
+          firstName: 'Taiwo',
+          lastName: '2',
+          password: 'bankappclient',
+          confirm_password: 'bankappclient',
+          type: 'client',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(422);
+          expect(res.body.status).to.be.equal(422);
+          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
 
           done();
         });
@@ -70,7 +95,7 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Please enter your last name');
+          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
 
           done();
         });
@@ -176,6 +201,10 @@ describe('The authentication endpoint test', () => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.be.equal(200);
           expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'password', 'type', 'isAdmin');
+          expect(res.body.data.email).to.be.equal('doyin@gmail.com');
+          expect(res.body.data.firstName).to.be.equal('Doyin');
+          expect(res.body.data.lastName).to.be.equal('Wole');
+          expect(res.body.data.type).to.be.equal('staff');
           done();
         });
     });
