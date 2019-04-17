@@ -11,7 +11,7 @@ body {
   display: flex;
   padding: 10px;
   justify-content: center;
-  width: 64%;
+  width: 55%;
   margin: 0px auto;
 }
 
@@ -47,12 +47,11 @@ body {
 
 .account-found {
   display: flex;
-  margin: 0px auto;
-  width: 80%;
-  justify-content: space-evenly;
+  margin-right: 20px;
+  margin-left: 90px;
 }
 .credit-debit-form {
-  width: 30%;
+  width: 80%;
 }
 
 .credit-debit {
@@ -71,11 +70,20 @@ body {
   height: 76px;
 }
 
+.account-transaction-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+}
+
 
 @media only screen and (max-width: 771px) {
+  .account-transaction-container {
+    grid-template-columns: auto;
+  }
   .credit-debit-form {
-    width: 100%;
-    margin-top: 15px;
+    width: 80%;
+    margin: 0px auto;
   }
   .check-form {
     flex-direction: column;
@@ -83,25 +91,22 @@ body {
   }
 
   .account-found {
-    flex-direction: column;
+    display: flex;
+    margin: 10px auto;
   }
 
   .check-form {
     grid-template-columns: auto;
   }
   .account-search {
-    width: 79%;
-    margin-left: 25px;
-  }
-  
+    width: 80%;
+    margin: 0px auto;
+  }  
 }
 
 
 
 @media (min-width: 772px) and (max-width: 968px) {
-  .credit-debit-form {
-    width: 53%;
-  }
   .account-search {
     width: 91%;
   }
