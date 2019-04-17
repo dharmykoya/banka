@@ -23,45 +23,31 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="#home" class="active">Home</a>
-        <a class="icon" onclick="navToggle()">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+        <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
+        <a class="topnav-anchor" href="addstaff.html">Add Staff</a>
+        <a  class="topnav-anchor active"href="account.html">All Account</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a href="signin.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Admin</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main class="list-account-main">
-  <section class="mr-btm-20">
-      <table id="listAccount-details" class="list-account-details">
-          <caption>Account Details</caption>
-          <tr>
-            <td>Branch Name</td>
-            <td>YABA</td>
-          </tr>
-          <tr>
-            <td>Staff ID</td>
-            <td>1023689</td>
-          </tr>
-          <tr>
-            <td>No. Savings Account</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>No. Current Account</td>
-            <td>3</td>
-          </tr>
-      </table>
-  </section> 
+  <h3 class="page-title">List of all Accounts</h3>
   <section class="list-account-container">
       <!-- Tab links -->
       <div class="tab-list-account">
-          <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Savings Account</button>
+          <button class="tablinks_list_account active" onclick="listAccount(event, 'savings_account')">Savings Account</button>
           <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Current Account</button>
       </div>
 
       <!-- Tab content -->
-      <div id="savings_account" class="tabcontent-list-account">
+      <div id="savings_account" class="tabcontent-list-account show-tabcontent">
           <table id="savings-account-table" class="list-account-table">
               <thead>
               <tr>
@@ -107,7 +93,7 @@
           </table>
       </div>
 
-      <div id="current_account" class="tabcontent-list-account">
+      <div id="current_account" class="tabcontent-list-account hide-tabcontent">
         <table id="current-account-table" class="list-account-table">
             <thead>
             <tr>

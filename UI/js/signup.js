@@ -3,7 +3,6 @@
   const message = document.querySelector('.message');
   const alert = document.querySelector('.alert');
   const validate = () => {
-
     if(form.firstName.value == "" ) {
       message.innerText = "Please provide your First Name!";
       alert.style.display = 'block';

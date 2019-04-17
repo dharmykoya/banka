@@ -15,14 +15,20 @@ table#transaction-details, th, td {
   width: 80%;
   margin: 20px auto;
   background: white;
+  padding: 20px;
 }
 table#transaction-summary {
   border: 1px solid black;
   border-collapse: collapse;
 }
-#transaction-summary th, #transaction-summary td {
+#transaction-summary, #transaction-summary td {
   border: 1px solid #dddddd;
   text-align: left;
+  padding: 8px;
+}
+
+#transaction-summary th {
+  border: 1px solid #dddddd;
   padding: 8px;
 }
 
@@ -34,3 +40,11 @@ table#transaction-summary {
   width: 15%;
 }
 
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .icon {
+    margin-top: 11px;
+    margin-right: 10px;
+  }
+}

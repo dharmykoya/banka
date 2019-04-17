@@ -23,18 +23,20 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="index.html"><img class="index-logo" src="./img/logo5.png">anka</a>
+        <div class="logo-container">
+          <a href="index.html" class="logo-text"><img class="index-logo" src="./img/logo5.png">anka</a>
+        </div>
         <a class="icon" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a href="signin.html">Login</a>
-            <a href="signup.html" class="active">Signup</a>
+        <div class="right navbar-right">
+            <a class="topnav-anchor" href="signin.html">Login</a>
+            <a href="signup.html" class="active topnav-anchor">Signup</a>
         </div>
     </div>
 <main>  
     <div class="signup-container">
-      <form class="register-form" action="dashboard.html" id="signupForm" onsubmit="return validate()"  method="POST">
+      <form class="register-form" action="createAccount.html" id="signupForm" onsubmit="return validate()"  method="POST">
         <div class="form">
             <div class="alert hide">
                 <span class="closebtn" onclick="return errorAlert()">&times;</span> 

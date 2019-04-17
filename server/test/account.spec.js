@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../index';
+import app from '../index';
 import AccountService from '../services/account.service';
 
 const { expect } = chai;
@@ -19,8 +19,8 @@ describe('The endpoint for Accounts Resource', () => {
         firstName: 'Dotun',
         lastName: 'Fayemi',
         email: 'dotun@gmil.com',
-        password: 'bankappclient',
-        confirm_password: 'bankappclient',
+        password: 'Bankappclient1!',
+        confirm_password: 'Bankappclient1!',
         type: 'client',
       })
       .end((err, res) => {
@@ -28,6 +28,11 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        expect(res.body.data.id).to.be.equal(4);
+        expect(res.body.data.email).to.be.equal('dotun@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Dotun');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('client');
         done();
       });
   });
@@ -39,8 +44,8 @@ describe('The endpoint for Accounts Resource', () => {
         firstName: 'Joy',
         lastName: 'Fayemi',
         email: 'joy@gmil.com',
-        password: 'bankappclient',
-        confirm_password: 'bankappclient',
+        password: 'Bankappclient1!',
+        confirm_password: 'Bankappclient1!',
         type: 'admin',
       })
       .end((err, res) => {
@@ -48,6 +53,12 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        expect(res.body.data.id).to.be.equal(5);
+        expect(res.body.data.email).to.be.equal('joy@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Joy');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('admin');
+
         done();
       });
   });
@@ -96,6 +107,13 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
+        expect(res.body.data.accountNumber).to.be.equal(2000000004);
+        expect(res.body.data.email).to.be.equal('dotun@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Dotun');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('savings');
+        expect(res.body.data.openingBalance).to.be.equal(2000);
+        expect(res.body.data.status).to.be.equal('active');
         done();
       });
   });
@@ -126,6 +144,8 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
         expect(res.body.data).to.have.key('accountNumber', 'status');
+        expect(res.body.data.accountNumber).to.be.equal(2000000002);
+        expect(res.body.data.status).to.be.equal('active');
         done();
       });
   });

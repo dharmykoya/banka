@@ -40,10 +40,6 @@ class AccountController {
     const { accountNumber } = req.params;
     const accountUpdated = AccountService.changeStatus(status, accountNumber);
     if (accountUpdated.error) {
-      // return res.status(400).send({
-      //   status: 400,
-      //   error: accountUpdated.message,
-      // });
       return Helper.errorResponse(res, 400, accountUpdated.message);
     }
     return res.status(200).send({
@@ -64,10 +60,6 @@ class AccountController {
     const { accountNumber } = req.params;
     const deleteAccount = AccountService.deleteAccount(accountNumber);
     if (deleteAccount.error) {
-      // return res.status(400).send({
-      //   status: 400,
-      //   error: deleteAccount.message,
-      // });
       return Helper.errorResponse(res, 400, deleteAccount.message);
     }
     return res.status(202).send({

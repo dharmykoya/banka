@@ -23,16 +23,17 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="index.html"><img class="index-logo" src="./img/logo5.png">anka</a>
-        <a class="" href="createAccount.html">Create Account</a></li>
-        <a class="active" href="dashboard.html">Profile</a></li>
-        <a class="" href="transactionHistory.html">My Transactions</a>
-        <a class="icon" onclick="navToggle()">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="./img/logo5.png">anka</a>
+        </div>
+        <a class="active topnav-anchor" href="dashboard.html">Profile</a></li>
+        <a class="topnav-anchor" href="transactionHistory.html">My Transactions</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a class="pointer-none">Client</a>
-            <a href="signin.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Client</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main>
@@ -61,7 +62,6 @@
                 <li class="list-inline-item">Account No: 0003423233</li>
                 <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
                 <li class="list-inline-item">Phone No: 08037145164</li>
-                <!-- <li class="list-inline-item">Address: 12 Oluwole street, Akoka, Yaba, Lagos.</li> -->
             </ul>
         </div>
     </div>

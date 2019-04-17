@@ -24,17 +24,18 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <a href="index.html" class=""><img class="index-logo" src="./img/logo5.png">anka</a>
-        <a class="" href="createAccount.html">Create Account</a></li>
-        <a class="" href="dashboard.html">Profile</a></li>
-        <a class="active" href="transactionHistory.html">Transactions</a>
-        <a class="icon" onclick="navToggle()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="right">
-            <a class="pointer-none">Client</a>
-            <a href="signin.html">Logout</a>
-        </div>
+        <div class="logo-container">
+          <a href="index.html" class="logo-text"><img class="index-logo" src="./img/logo5.png">anka</a>
+        </div> 
+          <a class="topnav-anchor" href="dashboard.html">Profile</a> 
+          <a class="active topnav-anchor" href="transactionHistory.html">Transactions</a>
+          <a class="icon" onclick="navToggle()">
+              <i class="fa fa-bars"></i>
+          </a>
+          <div class="right navbar-right">
+              <a class="pointer-none topnav-anchor">Client</a>
+              <a class="topnav-anchor" href="signin.html">Logout</a>
+          </div>
     </div>
 <main>
   <section class="dashboard-container">
@@ -69,17 +70,16 @@
   
   <section>
       <div class="transaction-table">
-        <p>Transaction Details</p>
+        <p class="text-center">Transaction Details</p>
         <table id="transaction-summary">
             <thead>
             <tr>
                 <th class="transaction-date">Date</th>
-                <th>Transaction By</th>
-                <th>Debits (&#8358;)</th>
-                <th>Credits (&#8358;)</th>
-                <th>Balance (&#8358;)</th>
-                <th>Branch</th>
-                <th>Remarks</th>
+                <th class="text-center">Transaction By</th>
+                <th class="text-center">Debits (&#8358;)</th>
+                <th class="text-center">Credits (&#8358;)</th>
+                <th class="text-center">Balance (&#8358;)</th>
+                <th class="text-center">Remarks</th>
             </tr>
             </thead>
   
@@ -90,7 +90,6 @@
                 <td></td>
                 <td>10,000.00</td>
                 <td>50,000.00</td>
-                <td>Yaba</td>
                 <td>
                   FUNDS DEPOSITED BY
                   DOYIN OBASANJO
@@ -102,7 +101,6 @@
                 <td>10,000.00</td>
                 <td></td>
                 <td>40,000.00</td>
-                <td>Yaba</td>
                 <td>
                   WITHDRAWAL ON THE COUNTER BY
                   YOU DAMILOLA ADEKOYA
@@ -114,7 +112,6 @@
                 <td>30,000.00</td>
                 <td></td>
                 <td>10,000.00</td>
-                <td>Yaba</td>
                 <td>
                   WITHDRAWAL ON THE COUNTER BY
                   YOU DAMILOLA ADEKOYA
@@ -126,7 +123,6 @@
                 <td></td>
                 <td>200,000.00</td>
                 <td>210,000.00</td>
-                <td>Yaba</td>
                 <td>
                   FUNDS DEPOSITED BY
                   ATIKU ABUBAKAR
@@ -138,7 +134,6 @@
                 <td></td>
                 <td>70,000.00</td>
                 <td>280,000.00</td>
-                <td>Yaba</td>
                 <td>
                   FUNDS DEPOSITED BY
                   SEGUN OBASANJO

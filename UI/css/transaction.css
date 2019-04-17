@@ -5,19 +5,22 @@ body {
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   padding: 20px;
-  margin-top: 20px;
 }
 
 .account-search {
   display: flex;
   padding: 10px;
   justify-content: center;
+  width: 55%;
+  margin: 0px auto;
 }
 
 .check-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 100px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
   padding: 20px;
+  width: 80%;
 }
 .check-button {
   font-family: "Roboto", sans-serif;
@@ -44,12 +47,21 @@ body {
 
 .account-found {
   display: flex;
-  margin: 0px auto;
-  width: 80%;
-  justify-content: space-evenly;
+  margin-right: 20px;
+  margin-left: 90px;
 }
 .credit-debit-form {
-  width: 30%;
+  width: 80%;
+}
+
+.credit-debit {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 .transaction-narration {
@@ -58,10 +70,20 @@ body {
   height: 76px;
 }
 
+.account-transaction-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+}
 
-@media only screen and (max-width: 600px) {
+
+@media only screen and (max-width: 771px) {
+  .account-transaction-container {
+    grid-template-columns: auto;
+  }
   .credit-debit-form {
-    width: 100%;
+    width: 80%;
+    margin: 0px auto;
   }
   .check-form {
     flex-direction: column;
@@ -69,16 +91,26 @@ body {
   }
 
   .account-found {
-    flex-direction: column;
+    display: flex;
+    margin: 10px auto;
   }
+
+  .check-form {
+    grid-template-columns: auto;
+  }
+  .account-search {
+    width: 80%;
+    margin: 0px auto;
+  }  
 }
 
-@media (min-width: 601px) and (max-width: 968px) {
-  .credit-debit-form {
-    width: 53%;
-  }
 
+
+@media (min-width: 772px) and (max-width: 968px) {
+  .account-search {
+    width: 91%;
+  }
   .transaction-container {
-    margin: 20px;
+    margin-right: 20px;
   }
 }

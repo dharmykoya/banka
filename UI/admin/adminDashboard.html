@@ -27,16 +27,18 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-            <a href="index.html" class=""><img class="index-logo" src="../img/logo5.png">anka</a>
-            <a class="active" href="adminDashboard.html">Profile</a></li>
-            <a class="" href="transaction.html">Transaction</a>
-            <a href="account.html">All Account</a>
-        <a class="icon" onclick="navToggle()">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+        <a class="active topnav-anchor" href="adminDashboard.html">Profile</a>        
+        <a class="topnav-anchor" href="addstaff.html">Add Staff</a>
+        <a  class="topnav-anchor"href="account.html">All Account</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
-        <div class="right">
-            <a class="pointer-none">Admin</a>
-            <a href="signin.html">Logout</a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Admin</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
 <main>
@@ -78,31 +80,29 @@
                 <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
             </ul>
         </div>
-    </div>
-
-    <section class="admin-card-container">        
-      <div class="admin-card-item">
-        <a href="addstaff.html">
-          <div class="">
-            <div class="account-cards admin-dashboard-staff">
-              <i class="fa fa-plus"></i>
-              <span class="account-card-name">ADD STAFF</span>
-            </div>
+        <div class="staff-dashboard-action">
+            <h5>ACTIONS</h5>
+            <a href="addstaff.html">
+              <div class="admin-card-item">
+                <div class="account-cards admin-dashboard-staff">
+                  <i class="fa fa-plus"></i>
+                  <span class="account-card-name">ADD STAFF</span>
+                </div>
+              </div>
+            </a>
           </div>
-        </a>
-      </div>
-    </section>
+    </div>
       
     <section class="list-staff-container">
       <p>NB: To Change activate or deactivate a staff please click on the view button.</p>
         <!-- Tab links -->
         <div class="tab-list-account">
+            <button class="tablinks_list_account active" onclick="listAccount(event, 'current_account')">Bank Users</button>
             <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staff/Admin</button>
-            <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Bank Users</button>
         </div>
   
         <!-- Tab content -->
-        <div id="savings_account" class="tabcontent-list-account">
+        <div id="savings_account" class="tabcontent-list-account hide-tabcontent">
             <table id="savings-account-table" class="list-account-table">
                 <thead>
                 <tr>
@@ -146,16 +146,18 @@
                 </tr>
                 </tfoot>
             </table>
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#"  class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">&raquo;</a>
+            <div class="admin-pagination">
+              <div class="pagination">
+                  <a href="#">&laquo;</a>
+                  <a href="#"  class="active">1</a>
+                  <a href="#">2</a>
+                  <a href="#">3</a>
+                  <a href="#">&raquo;</a>
+              </div>
             </div>
         </div>
   
-        <div id="current_account" class="tabcontent-list-account">
+        <div id="current_account" class="tabcontent-list-account show-tabcontent">
           <table id="current-account-table" class="list-account-table">
               <thead>
               <tr>
@@ -200,13 +202,15 @@
               </tr>
               </tfoot>
           </table>
-          <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#"  class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">&raquo;</a>
+          <div class="admin-pagination">
+            <div class="pagination">
+              <a href="#">&laquo;</a>
+              <a href="#"  class="active">1</a>
+              <a href="#">2</a>
+              <a href="#">3</a>
+              <a href="#">&raquo;</a>
             </div>
+          </div>          
         </div>
     </section>
   </section>    
