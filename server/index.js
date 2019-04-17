@@ -4,9 +4,9 @@ import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 
 // Routes for the app
-import User from './v1/routes/user.route';
-import Account from './v1/routes/account.route';
-import Transaction from './v1/routes/transaction.route';
+import User from './routes/user.route';
+import Account from './routes/account.route';
+import Transaction from './routes/transaction.route';
 
 require('dotenv').config();
 

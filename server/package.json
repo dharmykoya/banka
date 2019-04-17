@@ -4,8 +4,8 @@
   "description": "A simple banking app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "start-dev": "nodemon --exec babel-node src/index.js",
+    "start": "nodemon --exec babel-node index.js",
+    "start-dev": "nodemon --exec babel-node index.js",
     "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit --watch",
     "test-watch": "nodemon --exec \"npm test\"",
     "test:travis": "mocha **/*.spec.js --require @babel/register --exit",
@@ -13,7 +13,7 @@
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
     "coverage": "nyc npm run test:travis && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
-    "babel-build": "babel src -d dist",
+    "babel-build": "babel controllers data middleware models routes services test validators index.js -d dist",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run babel-build"
   },

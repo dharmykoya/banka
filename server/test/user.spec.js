@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../index';
+import app from '../index';
 
 const { expect } = chai;
 

@@ -2,7 +2,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import TransactionService from '../services/transaction.service';
-import app from '../../index';
+import app from '../index';
 
 const { expect } = chai;
 const minBalance = 1000;
