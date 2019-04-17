@@ -17,13 +17,23 @@ class UserController {
       * @returns {Object} API response
       * @memberof UserController
       */
-  static signUp(req, res) {
+  static async signUp(req, res) {
     const user = req.body;
-    const newUser = UserService.signUp(user);
-    return res.status(201).send({
-      status: 201,
-      data: newUser,
-    });
+    try {
+      const newUser = await UserService.signUp(user);
+      if (newUser.error) {
+        throw newUser;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: newUser,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
   }
 
   /**

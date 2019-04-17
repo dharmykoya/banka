@@ -129,7 +129,7 @@ describe('Transaction Resource', () => {
         expect(res.body.data.accountNumber).to.be.equal(2000000005);
         expect(res.body.data.accountBalance).to.be.equal('5000');
         expect(res.body.data.amount).to.be.equal(3000);
-        expect(res.body.data.cashier).to.be.equal(6);
+        expect(res.body.data.cashier).to.be.equal(4);
         expect(res.body.data.transactionType).to.be.equal('credit');
         expect(res.body.data.transactionId).to.be.equal(4);
         done();
@@ -165,7 +165,7 @@ describe('Transaction Resource', () => {
         expect(res.body.data.accountNumber).to.be.equal(2000000005);
         expect(res.body.data.accountBalance).to.be.equal('2000');
         expect(res.body.data.amount).to.be.equal(3000);
-        expect(res.body.data.cashier).to.be.equal(6);
+        expect(res.body.data.cashier).to.be.equal(4);
         expect(res.body.data.transactionType).to.be.equal('debit');
         expect(res.body.data.transactionId).to.be.equal(5);
         done();

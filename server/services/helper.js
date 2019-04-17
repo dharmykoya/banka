@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 import UserData from '../data/user';
 
-
-require('dotenv').config();
+dotenv.config();
 
 
 const Helper = {
@@ -53,6 +54,16 @@ const Helper = {
   validationError(errors) {
     const err = errors.map(error => error.msg);
     return err;
+  },
+
+  /**
+     * Hash Password Method
+     * @param {string} password
+     * @returns {string} returns hashed password
+     */
+  hashPassword(pass) {
+    const password = bcrypt.hashSync(pass, bcrypt.genSaltSync(8));
+    return password;
   },
 };
 

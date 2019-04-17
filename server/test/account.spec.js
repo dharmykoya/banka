@@ -28,7 +28,7 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
-        expect(res.body.data.id).to.be.equal(4);
+        expect(res.body.data.id).to.be.equal(2);
         expect(res.body.data.email).to.be.equal('dotun@gmil.com');
         expect(res.body.data.firstName).to.be.equal('Dotun');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
@@ -46,18 +46,18 @@ describe('The endpoint for Accounts Resource', () => {
         email: 'joy@gmil.com',
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
-        type: 'admin',
+        type: 'staff',
       })
       .end((err, res) => {
         adminToken = `Bearer ${res.body.data.token}`;
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
-        expect(res.body.data.id).to.be.equal(5);
+        expect(res.body.data.id).to.be.equal(3);
         expect(res.body.data.email).to.be.equal('joy@gmil.com');
         expect(res.body.data.firstName).to.be.equal('Joy');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
-        expect(res.body.data.type).to.be.equal('admin');
+        expect(res.body.data.type).to.be.equal('staff');
 
         done();
       });

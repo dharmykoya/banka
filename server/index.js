@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import expressValidator from 'express-validator';
 
 // Routes for the app
-import User from './routes/user.route';
+import Auth from './routes/auth.route';
 import Account from './routes/account.route';
 import Transaction from './routes/transaction.route';
 
@@ -24,7 +24,7 @@ app.get('/', (req, res) => res.send({
   message: 'Welcome to Banka App by Damilola Adekoya',
 }));
 
-app.use('/api/v1/auth', User);
+app.use('/api/v1/auth', Auth);
 app.use('/api/v1/accounts', Account);
 app.use('/api/v1/transactions', Transaction);
 
