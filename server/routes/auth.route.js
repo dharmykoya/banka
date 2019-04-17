@@ -4,7 +4,7 @@ import UserValidator from '../validators/user.validator';
 
 const router = Router();
 
-// this route register a user on the app
+// this route registers a user on the app
 router.post('/signup', UserValidator.signUpValidator, UserController.signUp);
 
 // this route allows a user login

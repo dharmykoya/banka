@@ -37,6 +37,29 @@ describe('The authentication endpoint test', () => {
           done();
         });
     });
+    it('should add a new user and return a token', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup')
+        .send({
+          email: 'damilola@gmail.com',
+          firstName: 'damilola',
+          lastName: 'Koya',
+          password: 'Bankappclient2@',
+          confirm_password: 'Bankappclient2@',
+          type: 'staff',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          expect(res.body.status).to.be.equal(201);
+          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          expect(res.body.data.email).to.be.equal('damilola@gmail.com');
+          expect(res.body.data.firstName).to.be.equal('damilola');
+          expect(res.body.data.lastName).to.be.equal('Koya');
+          expect(res.body.data.type).to.be.equal('staff');
+          done();
+        });
+    });
 
     it('should return Please enter your first name if the firstName is missing', (done) => {
       chai
@@ -137,7 +160,7 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Pasword can not be less than 6 characters');
+          expect(res.body.error[0]).to.be.equal('Pasword can not be less than 8 characters');
 
           done();
         });
