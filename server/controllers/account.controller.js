@@ -17,14 +17,24 @@ class AccountController {
   * @returns {Object} API response
   * @memberof AccountController
   */
-  static createAccount(req, res) {
+  static async createAccount(req, res) {
     const accountDetails = req.decoded.user;
     const { type } = req.body;
-    const newAccount = AccountService.createAccount(accountDetails, type);
-    return res.status(201).send({
-      status: 201,
-      data: newAccount,
-    });
+    try {
+      const newAccount = await AccountService.createAccount(accountDetails, type);
+      if (newAccount.error) {
+        throw newAccount;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: newAccount,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
   }
 
   /**

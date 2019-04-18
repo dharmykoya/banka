@@ -25,5 +25,5 @@ const DropTableMigrations = (queryText) => {
 
 pool.on('remove', () => process.exit(0));
 
-const QueryText = 'DROP TABLE IF EXISTS users';
+const QueryText = 'DROP TABLE IF EXISTS users, accounts';
 DropTableMigrations(QueryText);

@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import Helper from './helper';
-import UserData from '../data/user';
 import Model from '../models/Model';
 
 /**
@@ -69,7 +68,6 @@ class UserService {
     try {
       const model = new Model('users');
       const foundUser = await model.FindByEmail(email);
-      console.log(24, foundUser);
       if (!foundUser) {
         response = 'Email is not registered on this app. Please signup.';
         throw response;

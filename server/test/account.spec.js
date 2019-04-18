@@ -16,9 +16,9 @@ describe('The endpoint for Accounts Resource', () => {
       .request(app)
       .post('/api/v1/auth/signup')
       .send({
-        firstName: 'Dotun',
+        firstName: 'Victor',
         lastName: 'Fayemi',
-        email: 'dotun@gmil.com',
+        email: 'victor@gmil.com',
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
         type: 'client',
@@ -28,9 +28,8 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
-        expect(res.body.data.id).to.be.equal(2);
-        expect(res.body.data.email).to.be.equal('dotun@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Dotun');
+        expect(res.body.data.email).to.be.equal('victor@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Victor');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
         expect(res.body.data.type).to.be.equal('client');
         done();
@@ -41,9 +40,9 @@ describe('The endpoint for Accounts Resource', () => {
       .request(app)
       .post('/api/v1/auth/signup')
       .send({
-        firstName: 'Joy',
+        firstName: 'Peace',
         lastName: 'Fayemi',
-        email: 'joy@gmil.com',
+        email: 'peace@gmil.com',
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
         type: 'staff',
@@ -53,9 +52,8 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
-        expect(res.body.data.id).to.be.equal(3);
-        expect(res.body.data.email).to.be.equal('joy@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Joy');
+        expect(res.body.data.email).to.be.equal('peace@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Peace');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
         expect(res.body.data.type).to.be.equal('staff');
 
@@ -107,9 +105,9 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000004);
-        expect(res.body.data.email).to.be.equal('dotun@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Dotun');
+        expect(res.body.data.accountNumber).to.be.equal(2000000001);
+        expect(res.body.data.email).to.be.equal('victor@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Victor');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
         expect(res.body.data.type).to.be.equal('savings');
         expect(res.body.data.openingBalance).to.be.equal(2000);
@@ -210,28 +208,28 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
-  it('checkDormantAccount(accountNumber)should return true if account is dormant', () => {
-    const checkDormant = AccountService.checkDormantAccount(2000000003);
+  it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
+    const checkDormant = await AccountService.checkDormantAccount(2000000003);
     expect(checkDormant).to.be.equal(true);
   });
 
-  it('checkDormantAccount(accountNumber)should return false if account is not dormant', () => {
-    const checkDormant = AccountService.checkDormantAccount(2000000001);
+  it('checkDormantAccount(accountNumber)should return false if account is not dormant', async () => {
+    const checkDormant = await AccountService.checkDormantAccount(2000000001);
     expect(checkDormant).to.be.equal(false);
   });
 
-  it('generateAccountNumber()should return a generated account Number', () => {
-    const checkDormant = AccountService.generateAccountNumber();
+  it('generateAccountNumber()should return a generated account Number', async () => {
+    const checkDormant = await AccountService.generateAccountNumber();
     expect(checkDormant).to.be.a('number');
   });
 
-  it('findAccountByAccountNumber(accountNumber) should return the account Details found', () => {
-    const accountDetails = AccountService.findAccountByAccountNumber(2000000000);
+  it('findAccountByAccountNumber(accountNumber) should return the account Details found', async () => {
+    const accountDetails = await AccountService.findAccountByAccountNumber(2000000000);
     expect(accountDetails).to.have.key('id', 'accountNumber', 'createdOn', 'owner', 'type', 'status', 'balance');
   });
 
-  it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', () => {
-    const accountDetails = AccountService.findAccountByAccountNumber(200000000055);
+  it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', async () => {
+    const accountDetails = await AccountService.findAccountByAccountNumber(200000000055);
     expect(accountDetails.message).to.be.equal('No account found/Incorrect account number');
   });
 });

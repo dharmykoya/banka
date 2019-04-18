@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-import moment from 'moment';
 import AccountData from '../data/account';
-import Account from '../models/account.model';
+import Model from '../models/Model';
 
 /**
  * @class AccountService
@@ -18,15 +17,26 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static generateAccountNumber() {
+  static async generateAccountNumber() {
     let accountNumber = 2000000000;
-    const accountUsersLength = AccountData.accounts.length;
-    if (accountUsersLength === 0) {
-      accountNumber = 2000000000;
+    let response;
+    try {
+      const model = new Model('accounts');
+      const lastAccountNumber = await model.FindLastAccountNumber();
+      if (lastAccountNumber.length === 0) {
+        accountNumber = 2000000000;
+      } else {
+        accountNumber = lastAccountNumber[0].account_number;
+      }
+      if (lastAccountNumber.name === 'error') {
+        throw lastAccountNumber.message;
+      }
+      accountNumber += 1;
+      return parseInt(accountNumber, Number);
+    } catch (err) {
+      response = { error: true, err };
+      return response;
     }
-    const lastAccountNumber = AccountData.accounts[accountUsersLength - 1].accountNumber;
-    accountNumber = lastAccountNumber + 1;
-    return accountNumber;
   }
 
   /**
@@ -75,30 +85,35 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static createAccount(accountDetails, type) {
-    const {
-      firstName, lastName, email, owner,
-    } = accountDetails;
-
-    const createdOn = moment().format('DD-MM-YYYY');
-    const balance = parseFloat(2000);
-    const status = 'active';
-    const accountUsersLength = AccountData.accounts.length;
-    const lastAccountCreatedId = AccountData.accounts[accountUsersLength - 1].id;
-    const id = lastAccountCreatedId + 1;
-    const accountNumber = this.generateAccountNumber();
-    const newAccount = new Account(id, accountNumber, createdOn, owner, type, status, balance);
-    AccountData.accounts = [...AccountData.accounts, newAccount];
-    const response = {
-      accountNumber: newAccount.accountNumber,
-      firstName,
-      lastName,
-      email,
-      type,
-      openingBalance: parseFloat(newAccount.balance),
-      status,
-    };
-    return response;
+  static async createAccount(accountDetails, type) {
+    let response;
+    const { id, email } = accountDetails;
+    try {
+      const accountNumber = await this.generateAccountNumber();
+      if (accountNumber.error) {
+        throw accountNumber;
+      }
+      const model = new Model('accounts');
+      const balance = parseFloat(2000);
+      const newAccount = await model.InsertAccount(accountNumber, id, type, balance);
+      if (newAccount.name === 'error') {
+        response = newAccount.message;
+        throw response;
+      }
+      response = {
+        accountNumber: newAccount.account_number,
+        firstName: accountDetails.firstName,
+        lastName: accountDetails.lastName,
+        email,
+        type,
+        openingBalance: parseFloat(newAccount.balance),
+        status: newAccount.status,
+      };
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
   }
 
   /**
