@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import TransactionService from '../services/transaction.service';
-import Helper from '../services/helper';
 
 /**
  * @class TransactionController
@@ -17,19 +16,26 @@ class TransactionController {
       * @returns {Object} API response
       * @memberof TransactionController
       */
-  static creditAccount(req, res) {
+  static async creditAccount(req, res) {
     const { amount } = req.body;
     const { accountNumber } = req.params;
     const { id } = req.decoded.user;
     const cashier = id;
-    const creditedAccount = TransactionService.creditAccount(accountNumber, amount, cashier);
-    if (creditedAccount.error) {
-      return Helper.errorResponse(res, 400, creditedAccount.message);
+    try {
+      const creditedAccount = await TransactionService.creditAccount(accountNumber, amount, cashier);
+      if (creditedAccount.error) {
+        throw creditedAccount;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: creditedAccount,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
     }
-    return res.status(201).send({
-      status: 201,
-      data: creditedAccount,
-    });
   }
 
   /**
@@ -40,19 +46,53 @@ class TransactionController {
       * @returns {Object} API response
       * @memberof TransactionController
       */
-  static debitAccount(req, res) {
+  static async debitAccount(req, res) {
     const { amount } = req.body;
     const { id } = req.decoded.user;
     const cashier = id;
     const { accountNumber } = req.params;
-    const debitedAccount = TransactionService.debitAccount(accountNumber, amount, cashier);
-    if (debitedAccount.error) {
-      return Helper.errorResponse(res, 400, debitedAccount.message);
+    try {
+      const debitedAccount = await TransactionService.debitAccount(accountNumber, amount, cashier);
+      if (debitedAccount.error) {
+        throw debitedAccount;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: debitedAccount,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
     }
-    return res.status(201).send({
-      status: 201,
-      data: debitedAccount,
-    });
+  }
+
+  /**
+      * @description Credit a User bank account
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof TransactionController
+      */
+  static async getTransaction(req, res) {
+    const { transactionId } = req.params;
+    try {
+      const transaction = await TransactionService.getTransaction(transactionId);
+      if (transaction.error) {
+        throw transaction;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: transaction,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
   }
 }
 

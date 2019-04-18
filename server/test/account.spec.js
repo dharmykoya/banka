@@ -210,12 +210,12 @@ describe('The endpoint for Accounts Resource', () => {
   // });
 
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
-    const checkDormant = await AccountService.checkDormantAccount(2000000003);
-    expect(checkDormant).to.be.equal(false);
+    const checkDormant = await AccountService.checkDormantAccount(2000000001);
+    expect(checkDormant).to.be.equal(true);
   });
 
   it('checkDormantAccount(accountNumber)should return false if account is not dormant', async () => {
-    const checkDormant = await AccountService.checkDormantAccount(2000000001);
+    const checkDormant = await AccountService.checkDormantAccount(2000000002);
     expect(checkDormant).to.be.equal(false);
   });
 

@@ -68,8 +68,9 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static checkDormantAccount(accountNumber) {
-    const foundAccount = this.findAccountByAccountNumber(accountNumber);
+  static async checkDormantAccount(accountNumber) {
+    const foundAccount = await this.findAccountByAccountNumber(accountNumber);
+    
     // checks if the account is dormant
     if (foundAccount.status === 'dormant') {
       return true;
@@ -175,6 +176,31 @@ class AccountService {
         throw response;
       }
       response = `Account Number ${foundAccount.account_number} successfully deleted`;
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description updates a bank account
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async updateAccountBalance(balance, accountNumber) {
+    let response;
+    try {
+      const model = new Model('accounts');
+      const updateAccountBalance = await model.UpdateAccountBalance(balance, accountNumber);
+      if (updateAccountBalance.name === 'error') {
+        response = updateAccountBalance.message;
+        throw response;
+      }
+      response = 'success';
       return response;
     } catch (err) {
       response = { error: true, err };
