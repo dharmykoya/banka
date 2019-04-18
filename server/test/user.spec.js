@@ -217,16 +217,16 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .post('/api/v1/auth/signin')
         .send({
-          email: 'doyin@gmail.com',
-          password: 'bankappstaff',
+          email: 'dharmykoya38@gmail.com',
+          password: 'BankappClient132@',
         })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.be.equal(200);
-          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'password', 'type', 'isAdmin');
-          expect(res.body.data.email).to.be.equal('doyin@gmail.com');
-          expect(res.body.data.firstName).to.be.equal('Doyin');
-          expect(res.body.data.lastName).to.be.equal('Wole');
+          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
+          expect(res.body.data.firstName).to.be.equal('Damilola');
+          expect(res.body.data.lastName).to.be.equal('Adekoya');
           expect(res.body.data.type).to.be.equal('staff');
           done();
         });
@@ -241,9 +241,9 @@ describe('The authentication endpoint test', () => {
           password: 'bankappstaff',
         })
         .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.status).to.be.equal(401);
-          expect(res.body.error).to.be.equal('No user found/Incorrect email or password');
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal('Email is not registered on this app. Please signup.');
           done();
         });
     });

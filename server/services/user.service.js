@@ -18,26 +18,6 @@ class UserService {
    * @returns {Object} API response
    * @memberof UserService
    */
-  // static signUp(user) {
-  //   const {
-  //     email, firstName, lastName, password, type, isAdmin,
-  //   } = user;
-  //   const usersLength = UserData.users.length;
-  //   const lastId = UserData.users[usersLength - 1].id;
-  //   const id = lastId + 1;
-  //   const newUser = new User(id, email, firstName, lastName, password, type, isAdmin);
-  //   UserData.users = [...UserData.users, newUser];
-  //   // generating token
-  //   const token = Helper.generateToken(newUser);
-  //   return {
-  //     token,
-  //     id,
-  //     email,
-  //     firstName,
-  //     lastName,
-  //     type,
-  //   };
-  // }
   static async signUp(user) {
     const {
       email, firstName, lastName, password, type,
@@ -83,16 +63,44 @@ class UserService {
    * @returns {Object} API response
    * @memberof UserService
    */
-  static loginUser(user) {
+  static async loginUser(user) {
+    let response;
     const { email, password } = user;
-    const foundUser = UserData.users.find(userDetails => email === userDetails.email && password === userDetails.password);
-    if (!foundUser) {
-      const response = { error: true, message: 'No user found/Incorrect email or password' };
+    try {
+      const model = new Model('users');
+      const foundUser = await model.FindByEmail(email);
+      console.log(24, foundUser);
+      if (!foundUser) {
+        response = 'Email is not registered on this app. Please signup.';
+        throw response;
+      }
+      const hashPassword = Helper.comparePassword(password, foundUser.password);
+      if (!hashPassword) {
+        response = 'Authentication failed.Email/Wrong password.';
+        throw response;
+      }
+      const userToken = {
+        id: foundUser.id,
+        email: foundUser.email,
+        firstName: foundUser.first_name,
+        lastName: foundUser.last_name,
+        type: foundUser.type,
+        isAdmin: foundUser.isAdmin,
+      };
+      const token = Helper.generateToken(userToken);
+      response = {
+        token,
+        id: foundUser.id,
+        firstName: foundUser.first_name,
+        lastName: foundUser.last_name,
+        email: foundUser.email,
+        type: foundUser.type,
+      };
+      return response;
+    } catch (err) {
+      response = { error: true, err };
       return response;
     }
-    // generating token
-    const token = Helper.generateToken(foundUser);
-    return { token, ...foundUser };
   }
 }
 

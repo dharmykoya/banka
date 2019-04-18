@@ -65,6 +65,16 @@ const Helper = {
     const password = bcrypt.hashSync(pass, bcrypt.genSaltSync(8));
     return password;
   },
+
+  /**
+   * comparePassword
+   * @param {string} hashPassword
+   * @param {string} password
+   * @returns {Boolean} return True or False
+   */
+  comparePassword(password, hashPassword) {
+    return bcrypt.compareSync(password, hashPassword);
+  },
 };
 
 export default Helper;

@@ -58,7 +58,7 @@ const CreateTableMigrations = {
       'Damilola', 
       'Adekoya',
       '$2b$08$XsJYgQbVYbBAbbFnyYVP6.Y9OLG0quY7SZVZRL35maIZz1CG4IKFm', 
-      'admin', 
+      'staff', 
       true
     );
         `;
