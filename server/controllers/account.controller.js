@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import AccountService from '../services/account.service';
-import Helper from '../services/helper';
 
 /**
  * @class AccountController
@@ -73,16 +72,23 @@ class AccountController {
       * @returns {Object} API response
       * @memberof AccountController
       */
-  static deleteAccount(req, res) {
+  static async deleteAccount(req, res) {
     const { accountNumber } = req.params;
-    const deleteAccount = AccountService.deleteAccount(accountNumber);
-    if (deleteAccount.error) {
-      return Helper.errorResponse(res, 400, deleteAccount.message);
+    try {
+      const deleteAccount = await AccountService.deleteAccount(accountNumber);
+      if (deleteAccount.error) {
+        throw deleteAccount;
+      }
+      return res.status(202).send({
+        status: 202,
+        message: deleteAccount,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
     }
-    return res.status(202).send({
-      status: 202,
-      data: deleteAccount,
-    });
   }
 }
 

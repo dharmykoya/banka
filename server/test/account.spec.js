@@ -139,7 +139,6 @@ describe('The endpoint for Accounts Resource', () => {
       })
       .set('Authorization', adminToken)
       .end((err, res) => {
-        console.log(1, res.body)
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
         expect(res.body.data).to.have.key('accountNumber', 'status');
@@ -158,7 +157,6 @@ describe('The endpoint for Accounts Resource', () => {
       })
       .set('Authorization', adminToken)
       .end((err, res) => {
-        console.log(2, res.body);
         expect(res).to.have.status(400);
         expect(res.body.status).to.be.equal(400);
         expect(res.body.error).to.be.equal('No account found/Incorrect account number');
@@ -183,19 +181,19 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
-  it('should delete a user bank account', (done) => {
-    chai
-      .request(app)
-      .delete('/api/v1/accounts/2000000001')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(202);
-        expect(res.body.status).to.be.equal(202);
-        expect(res.body.data.message).to.be.equal('Account successfully deleted');
+  // it('should delete a user bank account', (done) => {
+  //   chai
+  //     .request(app)
+  //     .delete('/api/v1/accounts/2000000001')
+  //     .set('Authorization', adminToken)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(202);
+  //       expect(res.body.status).to.be.equal(202);
+  //       expect(res.body.data.message).to.be.equal('Account successfully deleted');
 
-        done();
-      });
-  });
+  //       done();
+  //     });
+  // });
 
   // it('should return No account found/Incorrect account number', (done) => {
   //   chai

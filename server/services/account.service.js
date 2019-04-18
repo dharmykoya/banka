@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-import AccountData from '../data/account';
 import Model from '../models/Model';
 
 /**
@@ -52,8 +51,6 @@ class AccountService {
     // const column = 'account_number';
     const model = new Model('accounts');
     const foundAccount = await model.FindByAccountNumber(parseAccountNumber);
-    // const foundAccount = await model.FindOne(column, parseAccountNumber);
-    console.log(foundAccount);
 
     // checks if the account does not exist
     if (!foundAccount) {
@@ -161,19 +158,28 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static deleteAccount(accountNumber) {
+  static async deleteAccount(accountNumber) {
+    let response;
     const parseAccountNumber = parseInt(accountNumber, Number);
-
-    // this checks if the account exist by using the account number
-    const foundAccount = this.findAccountByAccountNumber(parseAccountNumber);
-    if (foundAccount.error) {
-      return foundAccount;
+    try {
+      // this checks if the account exist by using the account number
+      const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+      if (foundAccount.error) {
+        throw foundAccount.message;
+      }
+      const model = new Model('accounts');
+      const deletedAccount = await model.DeleteAccount(foundAccount.account_number);
+      // this filter the dummy account and removes the matching id
+      if (deletedAccount.name === 'error') {
+        response = deletedAccount.message;
+        throw response;
+      }
+      response = `Account Number ${foundAccount.account_number} successfully deleted`;
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
     }
-
-    // this filter the dummy account and removes the matching id
-    AccountData.accounts = AccountData.accounts.filter(account => account.accountNumber !== parseAccountNumber);
-    const response = { message: 'Account successfully deleted' };
-    return response;
   }
 }
 
