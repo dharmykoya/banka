@@ -62,7 +62,39 @@ class Model {
     try {
       const sql = `select * from ${this.table} where email = $1`;
       const res = await this.pool.query(sql, values);
-      console.log(121, res.rows[0]);
+      return res.rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description Find the last accountNumber in the table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindLastAccountNumber() {
+    try {
+      const sql = `select account_number from ${this.table} order by created_on desc limit 1`;
+      const result = await this.pool.query(sql);
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description Insert a neew Record into the accounts table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async InsertAccount(...query) {
+    try {
+      const values = [...query];
+      const sql = `insert into ${this.table} (account_number, owner, type, balance) values($1, $2, $3, $4) returning *`;
+      const res = await this.pool.query(sql, values);
       return res.rows[0];
     } catch (error) {
       return error;

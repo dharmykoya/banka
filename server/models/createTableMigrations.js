@@ -50,6 +50,25 @@ const CreateTableMigrations = {
       .catch(err => err);
   },
 
+  async AccountSchema() {
+    const accounts = `
+    CREATE TABLE IF NOT EXISTS accounts (
+            id serial primary key NOT NULL,
+            account_number integer NOT NULL UNIQUE,
+            owner integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            type varchar(12) NOT NULL,
+            status varchar(12) NOT NULL DEFAULT 'active',
+            balance numeric(15, 2) NOT NULL,
+            created_on TIMESTAMP WITH TIME ZONE DEFAULT now(),
+            updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+            )
+        `;
+    await pool
+      .query(accounts)
+      .then(res => res)
+      .catch(err => err);
+  },
+
   async SuperAdmin() {
     const superAdmin = `
     INSERT INTO users (email, first_name, last_name, password, type, admin)
