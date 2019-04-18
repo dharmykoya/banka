@@ -150,57 +150,57 @@ describe('Transaction Resource', () => {
         done();
       });
   });
-  // it('should debit a user bank account', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post(`/api/v1/transactions/${newAccountNumber}/debit`)
-  //     .send({
-  //       amount: 3000,
-  //     })
-  //     .set('Authorization', staffToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(201);
-  //       expect(res.body.status).to.be.equal(201);
-  //       expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-  //       expect(res.body.data.accountNumber).to.be.equal(2000000002);
-  //       expect(res.body.data.accountBalance).to.be.equal('2000');
-  //       expect(res.body.data.amount).to.be.equal('3000.00');
-  //       expect(res.body.data.cashier).to.be.equal(4);
-  //       expect(res.body.data.transactionType).to.be.equal('debit');
-  //       expect(res.body.data.transactionId).to.be.equal(2);
-  //       done();
-  //     });
-  // });
-  // it('should return Insufficient Balance.', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post(`/api/v1/transactions/${newAccountNumber}/debit`)
-  //     .send({
-  //       amount: 30000000000,
-  //     })
-  //     .set('Authorization', staffToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.status).to.be.equal(400);
-  //       expect(res.body.error).to.be.equal('Insufficient Balance.');
-  //       done();
-  //     });
-  // });
-  // it('should return No account found/Incorrect account number on debit transaction for incorrect account number', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post('/api/v1/transactions/20000133/debit')
-  //     .send({
-  //       amount: 30000000000,
-  //     })
-  //     .set('Authorization', staffToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.status).to.be.equal(400);
-  //       expect(res.body.error).to.be.equal('No account found/Incorrect account number');
-  //       done();
-  //     });
-  // });
+  it('should debit a user bank account', (done) => {
+    chai
+      .request(app)
+      .post(`/api/v1/transactions/${newAccountNumber}/debit`)
+      .send({
+        amount: 3000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+        expect(res.body.data.accountNumber).to.be.equal(2000000003);
+        expect(res.body.data.accountBalance).to.be.equal('2000');
+        expect(res.body.data.amount).to.be.equal('3000.00');
+        expect(res.body.data.cashier).to.be.equal(4);
+        expect(res.body.data.transactionType).to.be.equal('debit');
+        expect(res.body.data.transactionId).to.be.equal(2);
+        done();
+      });
+  });
+  it('should return Insufficient Balance.', (done) => {
+    chai
+      .request(app)
+      .post(`/api/v1/transactions/${newAccountNumber}/debit`)
+      .send({
+        amount: 30000000000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('Insufficient Balance.');
+        done();
+      });
+  });
+  it('should return No account found/Incorrect account number on debit transaction for incorrect account number', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/transactions/20000133/debit')
+      .send({
+        amount: 30000000000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('No account found/Incorrect account number');
+        done();
+      });
+  });
   it(`should return You can not have less than ${minBalance} in your account.`, (done) => {
     chai
       .request(app)
@@ -216,21 +216,21 @@ describe('Transaction Resource', () => {
         done();
       });
   });
-  it('should return Account is dormant. Please reactivate. while doing credit transaction', (done) => {
-    chai
-      .request(app)
-      .post('/api/v1/transactions/2000000001/credit')
-      .send({
-        amount: 300000,
-      })
-      .set('Authorization', staffToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.be.equal(400);
-        expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
-        done();
-      });
-  });
+  // it('should return Account is dormant. Please reactivate. while doing credit transaction', (done) => {
+  //   chai
+  //     .request(app)
+  //     .post('/api/v1/transactions/2000000001/credit')
+  //     .send({
+  //       amount: 300000,
+  //     })
+  //     .set('Authorization', staffToken)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(400);
+  //       expect(res.body.status).to.be.equal(400);
+  //       expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
+  //       done();
+  //     });
+  // });
   // it('should return Account is dormant. Please reactivate. while debitting an account', (done) => {
   //   chai
   //     .request(app)
@@ -246,27 +246,29 @@ describe('Transaction Resource', () => {
   //       done();
   //     });
   // });
-  // it('transactionAction()should return a debit transaction', async () => {
-  //   const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
-  //   expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-  //   expect(transaction.accountNumber).to.be.equal(2000000015);
-  //   expect(transaction.accountBalance).to.be.equal('4000');
-  //   expect(transaction.amount).to.be.equal('3000.00');
-  //   expect(transaction.cashier).to.be.equal(2);
-  //   expect(transaction.transactionType).to.be.equal('debit');
-  //   expect(transaction.transactionId).to.be.equal(3);
-  // });
-  // it('transactionAction()should return a credit transaction', async () => {
-  //   const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
-  //   expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-  //   expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-  //   expect(transaction.accountNumber).to.be.equal(2000000015);
-  //   expect(transaction.accountBalance).to.be.equal('4000');
-  //   expect(transaction.amount).to.be.equal('3000.00');
-  //   expect(transaction.cashier).to.be.equal(2);
-  //   expect(transaction.transactionType).to.be.equal('debit');
-  //   expect(transaction.transactionId).to.be.equal(4);
-  // });
+  it('transactionAction()should return a debit transaction', async () => {
+    const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
+    // console.log(31, transaction);
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction.accountNumber).to.be.equal(2000000015);
+    expect(transaction.accountBalance).to.be.equal('4000');
+    expect(transaction.amount).to.be.equal('3000.00');
+    expect(transaction.cashier).to.be.equal(2);
+    expect(transaction.transactionType).to.be.equal('debit');
+    expect(transaction.transactionId).to.be.equal(3);
+  });
+  it('transactionAction()should return a credit transaction', async () => {
+    const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
+    // console.log(42, transaction);
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
+    expect(transaction.accountNumber).to.be.equal(2000000015);
+    expect(transaction.accountBalance).to.be.equal('4000');
+    expect(transaction.amount).to.be.equal('3000.00');
+    expect(transaction.cashier).to.be.equal(2);
+    expect(transaction.transactionType).to.be.equal('debit');
+    expect(transaction.transactionId).to.be.equal(4);
+  });
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000005, 6500, 7000);
     expect(transaction.err).to.be.equal(`You can not have less than ${minBalance} in your account.`);

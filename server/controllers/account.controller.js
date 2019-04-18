@@ -81,7 +81,7 @@ class AccountController {
       }
       return res.status(202).send({
         status: 202,
-        message: deleteAccount,
+        data: deleteAccount,
       });
     } catch (err) {
       return res.status(400).send({
