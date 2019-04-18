@@ -134,6 +134,23 @@ class Model {
       return error;
     }
   }
+
+  /**
+   * @description Delete a record from the account table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async DeleteAccount(accountNumber) {
+    const values = [accountNumber];
+    try {
+      const sql = `delete from ${this.table} where account_number = $1`;
+      const res = await this.pool.query(sql, values);
+      return res.rows;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default Model;
