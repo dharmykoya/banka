@@ -10,6 +10,26 @@ import Model from '../models/Model';
 
 class UserService {
   /**
+   * @description User can signin
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof UserService
+   */
+  static async findUserByEmail(email) {
+    const model = new Model('users');
+    const foundUser = await model.FindByEmail(email);
+
+    // checks if the account does not exist
+    if (!foundUser) {
+      const response = { error: true, message: 'No account found/Incorrect account number' };
+      return response;
+    }
+    return foundUser;
+  }
+
+  /**
    * @description Create a User
    * @static
    * @param {Object} req
@@ -21,13 +41,12 @@ class UserService {
     const {
       email, firstName, lastName, password, type,
     } = user;
-    // const isAdmin = type === 'client' ? 'false' : 'true';
     try {
       const hashPassword = Helper.hashPassword(password);
       const model = new Model('users');
       const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
       if (newUser.name === 'error') {
-        const response = newUser.message;
+        const response = 'you have been registered earlier, please login';
         throw response;
       }
       const userToken = {

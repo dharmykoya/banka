@@ -92,7 +92,7 @@ describe('The endpoint for Accounts Resource', () => {
         done();
       });
   });
-  it('should create an account for a user', (done) => {
+  it('should create a savings account for a user', (done) => {
     chai
       .request(app)
       .post('/api/v1/accounts')
@@ -105,11 +105,34 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000001);
+        expect(res.body.data.accountNumber).to.be.equal(2000000002);
         expect(res.body.data.email).to.be.equal('victor@gmil.com');
         expect(res.body.data.firstName).to.be.equal('Victor');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
         expect(res.body.data.type).to.be.equal('savings');
+        expect(res.body.data.openingBalance).to.be.equal(2000);
+        expect(res.body.data.status).to.be.equal('active');
+        done();
+      });
+  });
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .send({
+        type: 'current',
+        status: 'active',
+      })
+      .set('Authorization', clientToken)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
+        expect(res.body.data.accountNumber).to.be.equal(2000000001);
+        expect(res.body.data.email).to.be.equal('victor@gmil.com');
+        expect(res.body.data.firstName).to.be.equal('Victor');
+        expect(res.body.data.lastName).to.be.equal('Fayemi');
+        expect(res.body.data.type).to.be.equal('current');
         expect(res.body.data.openingBalance).to.be.equal(2000);
         expect(res.body.data.status).to.be.equal('active');
         done();
@@ -181,37 +204,36 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
-  // it('should delete a user bank account', (done) => {
-  //   chai
-  //     .request(app)
-  //     .delete('/api/v1/accounts/2000000001')
-  //     .set('Authorization', adminToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(202);
-  //       expect(res.body.status).to.be.equal(202);
-  //       expect(res.body.data.message).to.be.equal('Account successfully deleted');
+  it('should delete a user bank account', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/accounts/2000000001')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(202);
+        expect(res.body.status).to.be.equal(202);
+        expect(res.body.data).to.be.equal('Account Number 2000000001 successfully deleted');
 
-  //       done();
-  //     });
-  // });
+        done();
+      });
+  });
 
-  // it('should return No account found/Incorrect account number', (done) => {
-  //   chai
-  //     .request(app)
-  //     .delete('/api/v1/accounts/20000133')
-  //     .set('Authorization', adminToken)
-  //     .end((err, res) => {
-  //       console.log(4, res.body)
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.status).to.be.equal(400);
-  //       expect(res.body.error).to.be.equal('No account found/Incorrect account number');
-  //       done();
-  //     });
-  // });
+  it('should return No account found/Incorrect account number', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/accounts/20000133')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('No account found/Incorrect account number');
+        done();
+      });
+  });
 
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
-    expect(checkDormant).to.be.equal(true);
+    expect(checkDormant).to.be.equal(false);
   });
 
   it('checkDormantAccount(accountNumber)should return false if account is not dormant', async () => {
@@ -224,13 +246,17 @@ describe('The endpoint for Accounts Resource', () => {
     expect(checkDormant).to.be.a('number');
   });
 
-  // it('findAccountByAccountNumber(accountNumber) should return the account Details found', async () => {
-  //   const accountDetails = await AccountService.findAccountByAccountNumber(2000000000);
-  //   expect(accountDetails).to.have.key('id', 'accountNumber', 'createdOn', 'owner', 'type', 'status', 'balance');
-  // });
+  it('findAccountByAccountNumber(accountNumber) should return the account Details found', async () => {
+    const accountDetails = await AccountService.findAccountByAccountNumber(2000000002);
+    expect(accountDetails).to.have.key('id', 'account_number', 'created_on', 'owner', 'type', 'status', 'balance');
+    expect(accountDetails.account_number).to.be.equal(2000000002);
+    expect(accountDetails.type).to.be.equal('savings');
+    expect(accountDetails.balance).to.be.equal('2000.00');
+    expect(accountDetails.status).to.be.equal('active');
+  });
 
-  // it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', async () => {
-  //   const accountDetails = await AccountService.findAccountByAccountNumber(2000055);
-  //   expect(accountDetails.message).to.be.equal('No account found/Incorrect account number');
-  // });
+  it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', async () => {
+    const accountDetails = await AccountService.findAccountByAccountNumber(2000055);
+    expect(accountDetails.message).to.be.equal('No account found/Incorrect account number');
+  });
 });

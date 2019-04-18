@@ -70,7 +70,7 @@ class AccountService {
    */
   static async checkDormantAccount(accountNumber) {
     const foundAccount = await this.findAccountByAccountNumber(accountNumber);
-    
+
     // checks if the account is dormant
     if (foundAccount.status === 'dormant') {
       return true;
