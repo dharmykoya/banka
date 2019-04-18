@@ -7,6 +7,13 @@ class Model {
     this.pool.on('error', err => err);
   }
 
+  static initConn() {
+    const pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+    });
+    return pool;
+  }
+
   /**
    * @description Insert into user table
    * @static
@@ -21,16 +28,45 @@ class Model {
       const res = await this.pool.query(sql, values);
       return res.rows[0];
     } catch (error) {
-      this.logJSON(error);
       return error;
     }
   }
 
-  static initConn() {
-    const pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-    });
-    return pool;
+  /**
+   * @description Find a single row from any table
+   * @static
+   * @param {Object} column
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindOne(column, param) {
+    try {
+      const res = await this.pool.query(`select * from ${this.table} where ${column} = ${param}`);
+      return res.rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description Find a single row from any table
+   * @static
+   * @param {Object} column
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindByEmail(email) {
+    const values = [email];
+    try {
+      const sql = `select * from ${this.table} where email = $1`;
+      const res = await this.pool.query(sql, values);
+      console.log(121, res.rows[0]);
+      return res.rows[0];
+    } catch (error) {
+      return error;
+    }
   }
 }
 

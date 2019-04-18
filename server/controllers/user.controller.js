@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import UserService from '../services/user.service';
-import Helper from '../services/helper';
 
 /**
  * @class UserController
@@ -44,16 +43,23 @@ class UserController {
       * @returns {Object} API response
       * @memberof UserController
       */
-  static signIn(req, res) {
+  static async signIn(req, res) {
     const user = req.body;
-    const newUser = UserService.loginUser(user);
-    if (newUser.error) {
-      return Helper.errorResponse(res, 401, newUser.message);
+    try {
+      const foundUser = await UserService.loginUser(user);
+      if (foundUser.error) {
+        throw foundUser;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: foundUser,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
     }
-    return res.status(200).send({
-      status: 200,
-      data: newUser,
-    });
   }
 }
 
