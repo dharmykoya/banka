@@ -51,11 +51,11 @@ class Auth {
    */
   static staffCheck(req, res, next) {
     const { type } = req.decoded.user;
-    if (type !== 'staff') {
-      const error = 'You do not have the authorization or right to perform this action';
-      return Helper.errorResponse(res, 401, error);
+    if (type === 'staff') {      
+      return next();    
     }
-    return next();
+    const error = 'You do not have the authorization or right to perform this action';
+    return Helper.errorResponse(res, 401, error);
   }
 
   /**

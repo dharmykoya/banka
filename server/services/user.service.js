@@ -21,11 +21,11 @@ class UserService {
     const {
       email, firstName, lastName, password, type,
     } = user;
-    const isAdmin = type === 'client' ? 'false' : 'true';
+    // const isAdmin = type === 'client' ? 'false' : 'true';
     try {
       const hashPassword = Helper.hashPassword(password);
       const model = new Model('users');
-      const newUser = await model.Insert(email, firstName, lastName, hashPassword, type, isAdmin);
+      const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
       if (newUser.name === 'error') {
         const response = newUser.message;
         throw response;

@@ -24,7 +24,7 @@ class Model {
   async Insert(...query) {
     try {
       const values = [...query];
-      const sql = `insert into ${this.table} (email, first_name, last_name, password, type, admin) values($1, $2, $3, $4, $5, $6) returning *`;
+      const sql = `insert into ${this.table} (email, first_name, last_name, password, type) values($1, $2, $3, $4, $5) returning *`;
       const res = await this.pool.query(sql, values);
       return res.rows[0];
     } catch (error) {
@@ -102,6 +102,23 @@ class Model {
   }
 
   /**
+   * @description Insert a neew Record into the transactions table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async InsertTransaction(...query) {
+    try {
+      const values = [...query];
+      const sql = `insert into ${this.table} (type, account_number, cashier, amount, old_balance, new_balance) values($1, $2, $3, $4, $5, $6) returning *`;
+      const res = await this.pool.query(sql, values);
+      return res.rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
    * @description Insert a neew Record into the accounts table
    * @static
    * @returns {Object}  row found
@@ -145,6 +162,23 @@ class Model {
     const values = [accountNumber];
     try {
       const sql = `delete from ${this.table} where account_number = $1`;
+      const res = await this.pool.query(sql, values);
+      return res.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description update a record in the account table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async UpdateAccountBalance(balance, accountNumber) {
+    const values = [balance, accountNumber];
+    try {
+      const sql = `update ${this.table} set balance = $1 where account_number = $2`;
       const res = await this.pool.query(sql, values);
       return res.rows;
     } catch (error) {
