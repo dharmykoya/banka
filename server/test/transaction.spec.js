@@ -129,9 +129,9 @@ describe('Transaction Resource', () => {
         expect(res.body.data.accountNumber).to.be.equal(newAccountNumber);
         expect(res.body.data.accountBalance).to.be.equal('5000');
         expect(res.body.data.amount).to.be.equal('3000.00');
-        expect(res.body.data.cashier).to.be.equal(4);
+        expect(res.body.data.cashier).to.be.equal(6);
         expect(res.body.data.transactionType).to.be.equal('credit');
-        expect(res.body.data.transactionId).to.be.equal(1);
+        expect(res.body.data.transactionId).to.be.equal(5);
         done();
       });
   });
@@ -162,12 +162,12 @@ describe('Transaction Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
-        expect(res.body.data.accountNumber).to.be.equal(2000000003);
+        expect(res.body.data.accountNumber).to.be.equal(2000000004);
         expect(res.body.data.accountBalance).to.be.equal('2000');
         expect(res.body.data.amount).to.be.equal('3000.00');
-        expect(res.body.data.cashier).to.be.equal(4);
+        expect(res.body.data.cashier).to.be.equal(6);
         expect(res.body.data.transactionType).to.be.equal('debit');
-        expect(res.body.data.transactionId).to.be.equal(2);
+        expect(res.body.data.transactionId).to.be.equal(6);
         done();
       });
   });
@@ -255,7 +255,7 @@ describe('Transaction Resource', () => {
     expect(transaction.amount).to.be.equal('3000.00');
     expect(transaction.cashier).to.be.equal(2);
     expect(transaction.transactionType).to.be.equal('debit');
-    expect(transaction.transactionId).to.be.equal(3);
+    expect(transaction.transactionId).to.be.equal(7);
   });
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
@@ -267,7 +267,7 @@ describe('Transaction Resource', () => {
     expect(transaction.amount).to.be.equal('3000.00');
     expect(transaction.cashier).to.be.equal(2);
     expect(transaction.transactionType).to.be.equal('debit');
-    expect(transaction.transactionId).to.be.equal(4);
+    expect(transaction.transactionId).to.be.equal(8);
   });
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000005, 6500, 7000);

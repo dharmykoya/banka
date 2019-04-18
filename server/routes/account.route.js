@@ -14,4 +14,8 @@ router.patch('/:accountNumber', Auth.getUser, Auth.staffAdminCheck, AccountValid
 // this route delete a bank account
 router.delete('/:accountNumber', Auth.getUser, Auth.staffAdminCheck, AccountController.deleteAccount);
 
+// GET  /accounts/<account-number>/transactions
+// return all the transactions for an account number
+router.get('/:accountNumber/transactions', Auth.getUser, AccountController.allTransactions);
+
 export default router;

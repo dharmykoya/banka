@@ -105,6 +105,146 @@ const CreateTableMigrations = {
       .then(res => res)
       .catch(err => err);
   },
+
+  async Staff() {
+    const staff = `
+    INSERT INTO users (email, first_name, last_name, password, type, admin)
+    VALUES (
+      'phil@gmail.com', 
+      'Phillip', 
+      'Newman',
+      '$2b$08$XsJYgQbVYbBAbbFnyYVP6.Y9OLG0quY7SZVZRL35maIZz1CG4IKFm', 
+      'staff', 
+      false
+    );
+        `;
+    await pool
+      .query(staff)
+      .then(res => res)
+      .catch(err => err);
+  },
+
+  async Client() {
+    const client = `
+    INSERT INTO users (email, first_name, last_name, password, type, admin)
+    VALUES (
+      'martin@gmail.com', 
+      'Martins', 
+      'Oguns',
+      '$2b$08$XsJYgQbVYbBAbbFnyYVP6.Y9OLG0quY7SZVZRL35maIZz1CG4IKFm', 
+      'client', 
+      false
+    );
+        `;
+    await pool
+      .query(client)
+      .then(res => res)
+      .catch(err => err);
+  },
+
+  async AccountA() {
+    const account = `
+    INSERT INTO accounts (account_number, owner, type, status, balance)
+    VALUES (
+      '2000000000', 
+      '3', 
+      'savings',
+      'active', 
+      '4000'
+    );
+        `;
+    await pool
+      .query(account)
+      .then(res => res)
+      .catch(err => err);
+  },
+
+  async AccountB() {
+    const account = `
+    INSERT INTO accounts (account_number, owner, type, status, balance)
+    VALUES (
+      '2000000001', 
+      '3', 
+      'current',
+      'active', 
+      '4000'
+    );
+        `;
+    await pool
+      .query(account)
+      .then(res => res)
+      .catch(err => err);
+  },
+
+  async TransactionA() {
+    const transaction = `
+    INSERT INTO transactions (type, account_number, cashier, amount, old_balance, new_balance)
+    VALUES (
+      'credit', 
+      '2000000000', 
+      '2',
+      '3000',
+      '4000',
+      '7000'
+    );
+        `;
+    await pool
+      .query(transaction)
+      .then(res => res)
+      .catch(err => console.log(err));
+  },
+  async TransactionB() {
+    const transaction = `
+    INSERT INTO transactions (type, account_number, cashier, amount, old_balance, new_balance)
+    VALUES (
+      'debit', 
+      '2000000000', 
+      '2',
+      '3000', 
+      '7000',
+      '4000'
+    );
+        `;
+    await pool
+      .query(transaction)
+      .then(res => res)
+      .catch(err => console.log(err));
+  },
+
+  async TransactionC() {
+    const transaction = `
+    INSERT INTO transactions (type, account_number, cashier, amount, old_balance, new_balance)
+    VALUES (
+      'credit', 
+      '2000000001', 
+      '2',
+      '3000',
+      '4000', 
+      '7000'
+    );
+        `;
+    await pool
+      .query(transaction)
+      .then(res => res)
+      .catch(err => err);
+  },
+  async TransactionD() {
+    const transaction = `
+    INSERT INTO transactions (type, account_number, cashier, amount, old_balance, new_balance)
+    VALUES (
+      'debit', 
+      '2000000001', 
+      '2',
+      '3000',
+      '7000', 
+      '4000'
+    );
+        `;
+    await pool
+      .query(transaction)
+      .then(res => res)
+      .catch(err => console.log(err));
+  },
 };
 
 export default CreateTableMigrations;

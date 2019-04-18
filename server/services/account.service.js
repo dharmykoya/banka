@@ -207,6 +207,33 @@ class AccountService {
       return response;
     }
   }
+
+  /**
+   * @description returns all transactions for a particular account number
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async allTransactions(accountNumber) {
+    let response;
+    const parseAccountNumber = parseInt(accountNumber, Number);
+    try {
+      const column = 'account_number';
+      const model = new Model('transactions');
+      const allTransactions = await model.Find(column, parseAccountNumber);
+      console.log(121, allTransactions);
+      if (allTransactions.name === 'error') {
+        response = allTransactions.message;
+        throw response;
+      }
+      return allTransactions;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
 }
 
 export default AccountService;

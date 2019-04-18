@@ -85,8 +85,9 @@ class UserService {
     let response;
     const { email, password } = user;
     try {
+      const column = 'email';
       const model = new Model('users');
-      const foundUser = await model.FindOne(email);
+      const foundUser = await model.FindOne(column, email);
       if (!foundUser) {
         response = 'Email is not registered on this app. Please signup.';
         throw response;

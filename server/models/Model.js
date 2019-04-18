@@ -33,7 +33,24 @@ class Model {
   }
 
   /**
-   * @description Find a single row from any table
+   * @description returns all rows from any table
+   * @static
+   * @param {Object} column
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async Find(column, param) {
+    try {
+      const result = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description returns a single row from any table
    * @static
    * @param {Object} column
    * @param {Object} param

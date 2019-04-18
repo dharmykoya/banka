@@ -105,7 +105,7 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000002);
+        expect(res.body.data.accountNumber).to.be.equal(2000000003);
         expect(res.body.data.email).to.be.equal('victor@gmil.com');
         expect(res.body.data.firstName).to.be.equal('Victor');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
@@ -128,7 +128,7 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(201);
         expect(res.body.status).to.be.equal(201);
         expect(res.body.data).to.have.key('accountNumber', 'email', 'firstName', 'lastName', 'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000001);
+        expect(res.body.data.accountNumber).to.be.equal(2000000002);
         expect(res.body.data.email).to.be.equal('victor@gmil.com');
         expect(res.body.data.firstName).to.be.equal('Victor');
         expect(res.body.data.lastName).to.be.equal('Fayemi');
@@ -231,6 +231,20 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  // it('should return all transactions for an account Number', (done) => {
+  //   chai
+  //     .request(app)
+  //     .delete('/api/v1/accounts/2000000015/transactions')
+  //     .set('Authorization', adminToken)
+  //     .end((err, res) => {
+  //       console.log(12, res.body);
+  //       expect(res).to.have.status(200);
+  //       expect(res.body.status).to.be.equal(200);
+  //       expect(res.body.error).to.be.equal('No account found/Incorrect account number');
+  //       done();
+  //     });
+  // });
+
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
     expect(checkDormant).to.be.equal(false);
@@ -250,7 +264,7 @@ describe('The endpoint for Accounts Resource', () => {
     const accountDetails = await AccountService.findAccountByAccountNumber(2000000002);
     expect(accountDetails).to.have.key('id', 'account_number', 'created_on', 'owner', 'type', 'status', 'balance');
     expect(accountDetails.account_number).to.be.equal(2000000002);
-    expect(accountDetails.type).to.be.equal('savings');
+    expect(accountDetails.type).to.be.equal('current');
     expect(accountDetails.balance).to.be.equal('2000.00');
     expect(accountDetails.status).to.be.equal('active');
   });
