@@ -100,6 +100,40 @@ class Model {
       return error;
     }
   }
+
+  /**
+   * @description Insert a neew Record into the accounts table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async UpdateAccountStatus(status, accountNumber) {
+    const values = [status, accountNumber];
+    try {
+      const sql = `update ${this.table} set status = $1 where account_number = $2`;
+      const res = await this.pool.query(sql, values);
+      return res.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description Insert a neew Record into the accounts table
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindByAccountNumber(accountNumber) {
+    const values = [accountNumber];
+    try {
+      const sql = `select id, type, created_on, account_number, owner, status, balance from ${this.table} where account_number = $1`;
+      const res = await this.pool.query(sql, values);
+      return res.rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default Model;

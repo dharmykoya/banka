@@ -45,17 +45,24 @@ class AccountController {
       * @returns {Object} API response
       * @memberof AccountController
       */
-  static changeStatus(req, res) {
+  static async changeStatus(req, res) {
     const { status } = req.body;
     const { accountNumber } = req.params;
-    const accountUpdated = AccountService.changeStatus(status, accountNumber);
-    if (accountUpdated.error) {
-      return Helper.errorResponse(res, 400, accountUpdated.message);
+    try {
+      const accountUpdated = await AccountService.changeStatus(status, accountNumber);
+      if (accountUpdated.error) {
+        throw accountUpdated;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: accountUpdated,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
     }
-    return res.status(200).send({
-      status: 200,
-      data: accountUpdated,
-    });
   }
 
   /**

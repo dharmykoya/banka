@@ -70,8 +70,7 @@ class Auth {
    */
   static staffAdminCheck(req, res, next) {
     const { type } = req.decoded.user;
-    const levels = ['staff', 'admin'];
-    if (levels.includes(type)) {
+    if (type === 'staff') {
       return next();
     }
     const error = 'You do not have the authorization or right to perform this action';
