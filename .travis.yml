@@ -14,7 +14,6 @@ cache:
     - "server/node_modules"
 before_script:
     - psql -c 'create database bankaa;' -U postgres
-   # - npm run test-db    
 script:
   - npm run test-db
 after_success:
