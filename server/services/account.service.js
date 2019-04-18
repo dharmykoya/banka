@@ -47,10 +47,13 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static findAccountByAccountNumber(accountNumber) {
+  static async findAccountByAccountNumber(accountNumber) {
     const parseAccountNumber = parseInt(accountNumber, Number);
-
-    const foundAccount = AccountData.accounts.find(account => parseAccountNumber === account.accountNumber);
+    // const column = 'account_number';
+    const model = new Model('accounts');
+    const foundAccount = await model.FindByAccountNumber(parseAccountNumber);
+    // const foundAccount = await model.FindOne(column, parseAccountNumber);
+    console.log(foundAccount);
 
     // checks if the account does not exist
     if (!foundAccount) {
@@ -124,18 +127,30 @@ class AccountService {
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static changeStatus(status, accountNumber) {
-    const parseAccountNumber = parseInt(accountNumber, Number);
-    const foundAccount = this.findAccountByAccountNumber(parseAccountNumber);
-    if (foundAccount.error) {
-      return foundAccount;
+  static async changeStatus(status, accountNumber) {
+    let response;
+    try {
+      const parseAccountNumber = parseInt(accountNumber, Number);
+      const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+      if (foundAccount.error) {
+        response = foundAccount.message;
+        throw response;
+      }
+      const model = new Model('accounts');
+      const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
+      if (updateAccount.name === 'error') {
+        response = updateAccount.message;
+        throw response;
+      }
+      response = {
+        accountNumber: foundAccount.account_number,
+        status,
+      };
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
     }
-    foundAccount.status = status;
-    const response = {
-      accountNumber: foundAccount.accountNumber,
-      status,
-    };
-    return response;
   }
 
   /**
