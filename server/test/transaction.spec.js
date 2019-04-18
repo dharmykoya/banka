@@ -216,39 +216,38 @@ describe('Transaction Resource', () => {
         done();
       });
   });
-  // it('should return Account is dormant. Please reactivate. while doing credit transaction', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post('/api/v1/transactions/2000000001/credit')
-  //     .send({
-  //       amount: 300000,
-  //     })
-  //     .set('Authorization', staffToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.status).to.be.equal(400);
-  //       expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
-  //       done();
-  //     });
-  // });
-  // it('should return Account is dormant. Please reactivate. while debitting an account', (done) => {
-  //   chai
-  //     .request(app)
-  //     .post('/api/v1/transactions/2000000001/debit')
-  //     .send({
-  //       amount: 3000,
-  //     })
-  //     .set('Authorization', staffToken)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.status).to.be.equal(400);
-  //       expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
-  //       done();
-  //     });
-  // });
+  it('should return Account is dormant. Please reactivate. while doing credit transaction', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/transactions/2000000000/credit')
+      .send({
+        amount: 300000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
+        done();
+      });
+  });
+  it('should return Account is dormant. Please reactivate. while debitting an account', (done) => {
+    chai
+      .request(app)
+      .post('/api/v1/transactions/2000000000/debit')
+      .send({
+        amount: 3000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body.error).to.be.equal('Account is dormant. Please reactivate.');
+        done();
+      });
+  });
   it('transactionAction()should return a debit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
-    // console.log(31, transaction);
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
     expect(transaction.accountNumber).to.be.equal(2000000015);
     expect(transaction.accountBalance).to.be.equal('4000');

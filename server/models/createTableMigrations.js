@@ -149,7 +149,7 @@ const CreateTableMigrations = {
       '2000000000', 
       '3', 
       'savings',
-      'active', 
+      'dormant', 
       '4000'
     );
         `;
