@@ -42,7 +42,7 @@ class Model {
    */
   async FindOne(column, param) {
     try {
-      const res = await this.pool.query(`select * from ${this.table} where ${column} = ${param}`);
+      const res = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
       return res.rows[0];
     } catch (error) {
       return error;
