@@ -120,6 +120,38 @@ class UserService {
       return response;
     }
   }
+
+  /**
+   * @description to veiw all accounts owned by a user
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} returns all acounts owned by a user
+   * @memberof UserService
+   */
+  static async userAccounts(email) {
+    let response;
+    try {
+      const user = await this.findUserByEmail(email);
+      if (user.error) {
+        response = 'no user found';
+        throw response;
+      }
+
+      const { id } = user;
+      const column = 'owner';
+      const model = new Model('accounts');
+      const userAccounts = await model.Find(column, id);
+      if (userAccounts.length === 0 || userAccounts.name === 'error') {
+        response = `user ${email} has no accounts`;
+        throw response;
+      }
+      return userAccounts;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
 }
 
 export default UserService;

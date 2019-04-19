@@ -7,6 +7,7 @@ import expressValidator from 'express-validator';
 import Auth from './routes/auth.route';
 import Account from './routes/account.route';
 import Transaction from './routes/transaction.route';
+import User from './routes/user.route';
 
 require('dotenv').config();
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => res.send({
 app.use('/api/v1/auth', Auth);
 app.use('/api/v1/accounts', Account);
 app.use('/api/v1/transactions', Transaction);
+app.use('/api/v1/user', User);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
