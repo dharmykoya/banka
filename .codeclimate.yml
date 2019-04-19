@@ -1,6 +1,0 @@
-exclude_patterns:
-- "server/createTableMigrations.js"
-- "server/dropTableMigrations.js"
-- "server/runMigration.js"
-- "server/test"
-- "/UI"
