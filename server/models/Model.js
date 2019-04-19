@@ -59,8 +59,8 @@ class Model {
    */
   async FindOne(column, param) {
     try {
-      const res = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
-      return res.rows[0];
+      const result = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
+      return result.rows[0];
     } catch (error) {
       return error;
     }
@@ -80,6 +80,25 @@ class Model {
       const sql = `select * from ${this.table} where email = $1`;
       const res = await this.pool.query(sql, values);
       return res.rows[0];
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description returns all the accounts
+   * @static
+   * @param {Object} column
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindAllAccounts(secondTable) {
+    try {
+      const sql = `select accounts.account_number, accounts.type, accounts.created_on, accounts.status, accounts.balance, 
+      users.email  from accounts inner join ${secondTable} on ${this.table}.owner = ${secondTable}.id`;
+      const result = await this.pool.query(sql);
+      return result.rows;
     } catch (error) {
       return error;
     }

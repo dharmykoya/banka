@@ -285,6 +285,44 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return all accounts in the app', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body.data[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+        expect(res.body.data[0].account_number).to.be.equal(2000000000);
+        expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
+        expect(res.body.data[0].type).to.be.equal('savings');
+        expect(res.body.data[0].balance).to.be.equal('4000.00');
+        expect(res.body.data[0].status).to.be.equal('dormant');
+
+        done();
+      });
+  });
+
+  it('allAccounts() should return the account found', async () => {
+    const accountDetails = await AccountService.allAccounts();
+    expect(accountDetails[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+    expect(accountDetails[0].account_number).to.be.equal(2000000000);
+    expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
+    expect(accountDetails[0].type).to.be.equal('savings');
+    expect(accountDetails[0].balance).to.be.equal('4000.00');
+    expect(accountDetails[0].status).to.be.equal('dormant');
+  });
+
+  it('findAccountByAccountNumber(accountNumber) should return the account Details found', async () => {
+    const accountDetails = await AccountService.findAccountByAccountNumber(2000000002);
+    expect(accountDetails).to.have.key('id', 'account_number', 'created_on', 'owner', 'type', 'status', 'balance');
+    expect(accountDetails.account_number).to.be.equal(2000000002);
+    expect(accountDetails.type).to.be.equal('current');
+    expect(accountDetails.balance).to.be.equal('2000.00');
+    expect(accountDetails.status).to.be.equal('active');
+  });
+
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
     expect(checkDormant).to.be.equal(false);
@@ -332,14 +370,14 @@ describe('The endpoint for Accounts Resource', () => {
     expect(allTransactions.err).to.be.equal('invalid input syntax for integer: "NaN"');
   });
 
-  // it('createAccount(accountDetails, type) return an error', async () => {
-  //   const accountDetails = { email: 'dodo@gmail.com', id: 1 };
-  //   const type = 1;
-  //   const newAccount = await AccountService.createAccount(accountDetails, type);
-  //   console.log(21, newAccount);
-  //   expect(newAccount.error).to.be.equal(true);
-  //   expect(newAccount.err).to.be.equal('No account found/Incorrect account number');
-  // });
+  it('createAccount(accountDetails, type) return an error', async () => {
+    const accountDetails = { email: 'dodo@gmail.com', id: 15 };
+    const type = 1;
+    const newAccount = await AccountService.createAccount(accountDetails, type);
+    console.log(21, newAccount);
+    expect(newAccount.error).to.be.equal(true);
+    expect(newAccount.err).to.be.equal('User not found, please check the request');
+  });
 
   it('changeStatus(type, accountNumber) return an error', async () => {
     const type = 1;

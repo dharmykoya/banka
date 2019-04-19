@@ -5,6 +5,7 @@ import Auth from '../middleware/Auth';
 
 const router = Router();
 
+
 // this routes creates an account for a user
 router.post('/', Auth.getUser, AccountValidator.createAccountValidator, AccountController.createAccount);
 
@@ -21,5 +22,11 @@ router.get('/:accountNumber/transactions', Auth.getUser, AccountController.allTr
 // GET  /accounts/<account-number>
 // get a particular account details
 router.get('/:accountNumber', Auth.getUser, AccountController.accountDetails);
+
+// GET  /accounts
+// View a list of all bank accounts
+router.get('/', Auth.getUser, Auth.staffAdminCheck, AccountController.allAccounts);
+
+
 
 export default router;
