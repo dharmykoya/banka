@@ -10,6 +10,26 @@ import Model from '../models/Model';
 
 class UserService {
   /**
+   * @description return a user
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof UserService
+   */
+  static async findUserById(id) {
+    const column = 'id';
+    const model = new Model('users');
+    const foundUser = await model.FindOne(column, id);
+    // checks if the account does not exist
+    if (!foundUser || foundUser.name === 'error') {
+      const response = { error: true, message: 'No user found' };
+      return response;
+    }
+    return foundUser;
+  }
+
+  /**
    * @description User can signin
    * @static
    * @param {Object} req

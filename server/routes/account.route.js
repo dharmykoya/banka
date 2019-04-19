@@ -18,4 +18,8 @@ router.delete('/:accountNumber', Auth.getUser, Auth.staffAdminCheck, AccountCont
 // return all the transactions for an account number
 router.get('/:accountNumber/transactions', Auth.getUser, AccountController.allTransactions);
 
+// GET  /accounts/<account-number>
+// get a particular account details
+router.get('/:accountNumber', Auth.getUser, AccountController.accountDetails);
+
 export default router;

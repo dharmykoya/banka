@@ -117,6 +117,33 @@ class AccountController {
       });
     }
   }
+
+  /**
+      * @description can view a specific account details
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+  static async accountDetails(req, res) {
+    try {
+      const { accountNumber } = req.params;
+      const accountDetails = await AccountService.accountDetails(accountNumber);
+      if (accountDetails.error) {
+        throw accountDetails;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: accountDetails,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
 }
 
 export default AccountController;
