@@ -30,6 +30,17 @@ pool.on('error', (err) => {
  * Create Tables
  */
 const CreateTableMigrations = {
+
+  async TypeSchema() {
+    const status = `
+    CREATE TYPE account_status AS ENUM ('active','dormant')
+          `;
+    await pool
+      .query(status)
+      .then(res => res)
+      .catch(err => err);
+  },
+
   async UserSchema() {
     const users = `
       CREATE TABLE IF NOT EXISTS users (
@@ -57,7 +68,7 @@ const CreateTableMigrations = {
             account_number integer NOT NULL UNIQUE,
             owner integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
             type varchar(12) NOT NULL,
-            status varchar(12) NOT NULL DEFAULT 'active',
+            status account_status NOT NULL DEFAULT 'active',
             balance numeric(15, 2) NOT NULL,
             created_on TIMESTAMP WITH TIME ZONE DEFAULT now(),
             updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
@@ -191,7 +202,7 @@ const CreateTableMigrations = {
     await pool
       .query(transaction)
       .then(res => res)
-      .catch(err => console.log(err));
+      .catch(err => err);
   },
   async TransactionB() {
     const transaction = `
@@ -208,7 +219,7 @@ const CreateTableMigrations = {
     await pool
       .query(transaction)
       .then(res => res)
-      .catch(err => console.log(err));
+      .catch(err => err);
   },
 
   async TransactionC() {
@@ -243,7 +254,7 @@ const CreateTableMigrations = {
     await pool
       .query(transaction)
       .then(res => res)
-      .catch(err => console.log(err));
+      .catch(err => err);
   },
 };
 

@@ -1,6 +1,7 @@
 import CreateTableMigrations from './createTableMigrations';
 
 const {
+  TypeSchema,
   UserSchema,
   AccountSchema,
   TransactionSchema,
@@ -17,6 +18,7 @@ const {
 
 (async () => {
   try {
+    await TypeSchema();
     await UserSchema();
     await AccountSchema();
     await TransactionSchema();

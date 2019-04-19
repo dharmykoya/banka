@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 let clientToken = '';
 let adminToken = '';
 
+
 describe('The endpoint for Accounts Resource', () => {
   before((done) => {
     chai
@@ -204,6 +205,25 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return all transactions for an account Number', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/2000000000/transactions')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body.data[0].id).to.be.equal(1);
+        expect(res.body.data[0].type).to.be.equal('credit');
+        expect(res.body.data[0].account_number).to.be.equal(2000000000);
+        expect(res.body.data[0].cashier).to.be.equal(2);
+        expect(res.body.data[0].amount).to.be.equal('3000.00');
+        expect(res.body.data[0].old_balance).to.be.equal('4000.00');
+        expect(res.body.data[0].new_balance).to.be.equal('7000.00');
+        done();
+      });
+  });
+
   it('should delete a user bank account', (done) => {
     chai
       .request(app)
@@ -230,20 +250,6 @@ describe('The endpoint for Accounts Resource', () => {
         done();
       });
   });
-
-  // it('should return all transactions for an account Number', (done) => {
-  //   chai
-  //     .request(app)
-  //     .delete('/api/v1/accounts/2000000015/transactions')
-  //     .set('Authorization', adminToken)
-  //     .end((err, res) => {
-  //       console.log(12, res.body);
-  //       expect(res).to.have.status(200);
-  //       expect(res.body.status).to.be.equal(200);
-  //       expect(res.body.error).to.be.equal('No account found/Incorrect account number');
-  //       done();
-  //     });
-  // });
 
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
@@ -272,5 +278,40 @@ describe('The endpoint for Accounts Resource', () => {
   it('findAccountByAccountNumber(wrongAccountNumber) No account found/Incorrect account number', async () => {
     const accountDetails = await AccountService.findAccountByAccountNumber(2000055);
     expect(accountDetails.message).to.be.equal('No account found/Incorrect account number');
+  });
+
+  it('updateAccountBalance(balance, accountNumber) return an error', async () => {
+    const updateAccount = await AccountService.updateAccountBalance('three thousand', 'account');
+    expect(updateAccount.error).to.be.equal(true);
+    expect(updateAccount.err).to.be.equal('invalid input syntax for type numeric: "three thousand"');
+  });
+
+  it('updateAccountBalance(balance, accountNumber) return an error', async () => {
+    const deletedAccount = await AccountService.deleteAccount('three thousand');
+    expect(deletedAccount.error).to.be.equal(true);
+    expect(deletedAccount.err).to.be.equal('No account found/Incorrect account number');
+  });
+
+  it('allTransactions(accountNumber) return an error', async () => {
+    const allTransactions = await AccountService.allTransactions('three thousand');
+    expect(allTransactions.error).to.be.equal(true);
+    expect(allTransactions.err).to.be.equal('invalid input syntax for integer: "NaN"');
+  });
+
+  // it('createAccount(accountDetails, type) return an error', async () => {
+  //   const accountDetails = { email: 'dodo@gmail.com', id: 1 };
+  //   const type = 1;
+  //   const newAccount = await AccountService.createAccount(accountDetails, type);
+  //   console.log(21, newAccount);
+  //   expect(newAccount.error).to.be.equal(true);
+  //   expect(newAccount.err).to.be.equal('No account found/Incorrect account number');
+  // });
+
+  it('changeStatus(type, accountNumber) return an error', async () => {
+    const type = 1;
+    const accountNumber = 2000000002;
+    const changeStatus = await AccountService.changeStatus(type, accountNumber);
+    expect(changeStatus.error).to.be.equal(true);
+    expect(changeStatus.err).to.be.equal('invalid input value for enum account_status: "1"');
   });
 });

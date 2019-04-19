@@ -196,8 +196,8 @@ class Model {
     const values = [balance, accountNumber];
     try {
       const sql = `update ${this.table} set balance = $1 where account_number = $2`;
-      const res = await this.pool.query(sql, values);
-      return res.rows;
+      const result = await this.pool.query(sql, values);
+      return result.rows;
     } catch (error) {
       return error;
     }
