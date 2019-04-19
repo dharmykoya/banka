@@ -43,11 +43,7 @@ class TransactionService {
         throw transaction;
       }
       // updating the account record after transaction is successfull
-      const updateAccountBalance = await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
-      if (updateAccountBalance.error) {
-        response = { dbError: updateAccountBalance.err, message: 'can not update the account balance' };
-        throw response;
-      }
+      await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
       response = transaction;
       return response;
     } catch (err) {
@@ -93,11 +89,7 @@ class TransactionService {
         throw transaction.err;
       }
       // updating the account record after transaction is successfull
-      const updateAccountBalance = await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
-      if (updateAccountBalance.error) {
-        response = { dbError: updateAccountBalance.err, message: 'can not update the account balance' };
-        throw response;
-      }
+      await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
       response = transaction;
       return response;
     } catch (err) {
@@ -144,6 +136,32 @@ class TransactionService {
       return response;
     } catch (err) {
       const response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description get a particular transaction
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} returns the transaction details
+   * @memberof TransactionService
+   */
+  static async getTransaction(transactionId) {
+    const parseTransactionId = parseInt(transactionId, Number);
+    const column = 'id';
+    let response;
+    try {
+      const model = new Model('transactions');
+      const singleTransaction = await model.FindOne(column, parseTransactionId);
+      if (singleTransaction.name === 'error' || singleTransaction === undefined) {
+        response = 'invalid transaction detail provided';
+        throw response;
+      }
+      return singleTransaction;
+    } catch (err) {
+      response = { error: true, err };
       return response;
     }
   }
