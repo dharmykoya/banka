@@ -2,11 +2,16 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
+import UserService from '../services/user.service';
 
 const { expect } = chai;
 
 chai.use(chaiHttp);
 const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo4LCJlbWFpbCI6ImRvaW5nQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IlNldW4iLCJsYXN0TmFtZSI6Ik1pZGUiLCJwYXNzd29yZCI6ImJhbmthcHAiLCJ0eXBlIjoiYWRtaW4iLCJpc0FkbrcEj19uSMXKjEzesCpPmYiED7Cc';
+const email = 'victor@gmil.com';
+const noAccountEmail = 'dharmykoya38@gmail.com';
+const wrongUserEmail = 'arsenal@gmail.com';
+let staffToken;
 
 describe('The authentication endpoint test', () => {
   /**
@@ -221,6 +226,7 @@ describe('The authentication endpoint test', () => {
           password: 'BankappClient132@',
         })
         .end((err, res) => {
+          staffToken = `Bearer ${res.body.data.token}`;
           expect(res).to.have.status(200);
           expect(res.body.status).to.be.equal(200);
           expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
@@ -232,7 +238,7 @@ describe('The authentication endpoint test', () => {
         });
     });
 
-    it('should let a user gain access to the app and create a token', (done) => {
+    it('should return Authentication failed.Email/Wrong password for wrong password', (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signin')
@@ -296,6 +302,60 @@ describe('The authentication endpoint test', () => {
           expect(res.body.error.message).to.be.equal('jwt malformed');
           done();
         });
+    });
+
+    it('should return all accounts owned by a user', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/user/${email}/accounts`)
+        .set('Authorization', staffToken)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.be.equal(200);
+          expect(res.body.data[0]).to.have.key('id', 'account_number', 'owner', 'type', 'status', 'balance', 'created_on', 'updated_at');
+          expect(res.body.data[0].account_number).to.be.equal(2000000002);
+          expect(res.body.data[0].owner).to.be.equal(4);
+          expect(res.body.data[0].type).to.be.equal('current');
+          expect(res.body.data[0].status).to.be.equal('active');
+          expect(res.body.data[0].balance).to.be.equal('2000.00');
+          done();
+        });
+    });
+
+    it('should return user has no accounts', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/user/${noAccountEmail}/accounts`)
+        .set('Authorization', staffToken)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal(`user ${noAccountEmail} has no accounts`);
+          done();
+        });
+    });
+
+    it('should return no user found', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/user/${wrongUserEmail}/accounts`)
+        .set('Authorization', staffToken)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal('no user found');
+          done();
+        });
+    });
+
+    it('userAccounts(email) should return user has no account for email without an account', async () => {
+      const userAccounts = await UserService.userAccounts(noAccountEmail);
+      expect(userAccounts.err).to.be.equal(`user ${noAccountEmail} has no accounts`);
+    });
+
+    it('userAccounts(email) should return user has no account for email not registered on the platform', async () => {
+      const userAccounts = await UserService.userAccounts(wrongUserEmail);
+      expect(userAccounts.err).to.be.equal('no user found');
     });
   });
 });
