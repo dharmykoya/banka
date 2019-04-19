@@ -69,7 +69,7 @@ class TransactionController {
   }
 
   /**
-      * @description Credit a User bank account
+      * @description get a specific transaction
       * @static
       * @param {Object} req
       * @param {Object} res

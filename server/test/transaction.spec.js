@@ -246,6 +246,28 @@ describe('Transaction Resource', () => {
         done();
       });
   });
+  it('should return a specific transaction', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/transactions/2')
+      .send({
+        amount: 3000,
+      })
+      .set('Authorization', staffToken)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.status).to.be.equal(201);
+        expect(res.body.data).to.have.key('id', 'account_number', 'amount', 'cashier', 'type', 'old_balance', 'new_balance', 'created_on');
+        expect(res.body.data.account_number).to.be.equal(2000000000);
+        expect(res.body.data.new_balance).to.be.equal('4000.00');
+        expect(res.body.data.old_balance).to.be.equal('7000.00');
+        expect(res.body.data.amount).to.be.equal('3000.00');
+        expect(res.body.data.cashier).to.be.equal(2);
+        expect(res.body.data.type).to.be.equal('debit');
+        expect(res.body.data.id).to.be.equal(2);
+        done();
+      });
+  });
   it('transactionAction()should return a debit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
@@ -258,7 +280,6 @@ describe('Transaction Resource', () => {
   });
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000015, 3000, 7000);
-    // console.log(42, transaction);
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
     expect(transaction).to.have.key('transactionId', 'accountNumber', 'amount', 'cashier', 'transactionType', 'accountBalance');
     expect(transaction.accountNumber).to.be.equal(2000000015);
@@ -271,5 +292,17 @@ describe('Transaction Resource', () => {
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService.transactionAction('debit', 2, 2000000005, 6500, 7000);
     expect(transaction.err).to.be.equal(`You can not have less than ${minBalance} in your account.`);
+  });
+  it('transactionAction()should return error for a single transaction', async () => {
+    const transactionId = 'two';
+    const singleTransaction = await TransactionService.getTransaction(transactionId);
+    expect(singleTransaction.err).to.be.equal('invalid transaction detail provided');
+  });
+  it('creditAccount(userAccountNumber, tranAmount, cashier) return error for a credit transaction', async () => {
+    const cashier = 'two';
+    const tranAmount = 2000;
+    const userAccountNumber = 2000000000;
+    const singleTransaction = await TransactionService.creditAccount(userAccountNumber, tranAmount, cashier);
+    expect(singleTransaction.err).to.be.equal('Account is dormant. Please reactivate.');
   });
 });

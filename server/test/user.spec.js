@@ -232,6 +232,22 @@ describe('The authentication endpoint test', () => {
         });
     });
 
+    it('should let a user gain access to the app and create a token', (done) => {
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send({
+          email: 'dharmykoya38@gmail.com',
+          password: 'BankappClient',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.status).to.be.equal(400);
+          expect(res.body.error).to.be.equal('Authentication failed.Email/Wrong password.');
+          done();
+        });
+    });
+
     it('should return No user found/Incorrect email or password', (done) => {
       chai
         .request(app)
