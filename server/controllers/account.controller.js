@@ -144,6 +144,32 @@ class AccountController {
       });
     }
   }
+
+  /**
+      * @description Returns all the transactions for a particular account number
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+  static async allAccounts(req, res) {
+    try {
+      const allTransactions = await AccountService.allAccounts();
+      if (allTransactions.error) {
+        throw allTransactions;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: allTransactions,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
 }
 
 export default AccountController;

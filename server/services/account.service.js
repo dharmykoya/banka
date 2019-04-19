@@ -99,7 +99,7 @@ class AccountService {
       const balance = parseFloat(2000);
       const newAccount = await model.InsertAccount(accountNumber, id, type, balance);
       if (newAccount.name === 'error' || newAccount === undefined) {
-        response = newAccount.message;
+        response = 'User not found, please check the request';
         throw response;
       }
       response = {
@@ -246,13 +246,36 @@ class AccountService {
       const column = 'account_number';
       const model = new Model('accounts');
       const accountDetails = await model.FindOne(column, parseAccountNumber);
-      const user = await UserService.findUserById(accountDetails.owner);
-      const { email } = user;
-      if (!accountDetails || accountDetails.name === 'error') {
+      if (accountDetails === undefined || accountDetails.name === 'error') {
         response = 'Account number not found';
         throw response;
       }
+      const user = await UserService.findUserById(accountDetails.owner);
+      const { email } = user;
+
       response = { ...accountDetails, email };
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description returns a the details of an account
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async allAccounts() {
+    let response;
+    try {
+      const secondTable = 'users';
+      const model = new Model('accounts');
+      const allAccounts = await model.FindAllAccounts(secondTable);
+      response = allAccounts;
       return response;
     } catch (err) {
       response = { error: true, err };
