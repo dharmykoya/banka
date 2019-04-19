@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import Model from '../models/Model';
+import UserService from './user.service';
 
 /**
  * @class AccountService
@@ -224,6 +225,35 @@ class AccountService {
         throw response;
       }
       return allTransactions;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description returns a the details of an account
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async accountDetails(accountNumber) {
+    let response;
+    try {
+      const parseAccountNumber = parseInt(accountNumber, Number);
+      const column = 'account_number';
+      const model = new Model('accounts');
+      const accountDetails = await model.FindOne(column, parseAccountNumber);
+      const user = await UserService.findUserById(accountDetails.owner);
+      const { email } = user;
+      if (!accountDetails || accountDetails.name === 'error') {
+        response = 'Account number not found';
+        throw response;
+      }
+      response = { ...accountDetails, email };
+      return response;
     } catch (err) {
       response = { error: true, err };
       return response;

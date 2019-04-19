@@ -335,6 +335,22 @@ describe('The authentication endpoint test', () => {
         });
     });
 
+    it('findUserById(id) should return a user', async () => {
+      const id = 3;
+      const userAccounts = await UserService.findUserById(id);
+      expect(userAccounts.id).to.be.equal(3);
+      expect(userAccounts).to.have.key('id', 'email', 'first_name', 'last_name', 'type', 'admin', 'created_at', 'updated_at', 'password');
+      expect(userAccounts.email).to.be.equal('martin@gmail.com');
+      expect(userAccounts.first_name).to.be.equal('Martins');
+      expect(userAccounts.last_name).to.be.equal('Oguns');
+      expect(userAccounts.type).to.be.equal('client');
+    });
+
+    it('findUserById(id) should return ', async () => {
+      const id = 1000;
+      const foundUser = await UserService.findUserById(id);
+      expect(foundUser.message).to.be.equal('No user found');
+    });
     it('should return no user found', (done) => {
       chai
         .request(app)

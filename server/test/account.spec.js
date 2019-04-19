@@ -251,6 +251,40 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return accountdetails of a user', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/2000000000')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body.data).to.have.key('id', 'account_number', 'email', 'owner', 'type', 'status', 'balance', 'created_on', 'updated_at');
+        expect(res.body.data.account_number).to.be.equal(2000000000);
+        expect(res.body.data.email).to.be.equal('martin@gmail.com');
+        expect(res.body.data.owner).to.be.equal(3);
+        expect(res.body.data.type).to.be.equal('savings');
+        expect(res.body.data.balance).to.be.equal('4000.00');
+        expect(res.body.data.status).to.be.equal('dormant');
+        done();
+      });
+  });
+
+  it('should return accountdetails of a user', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/20000000005')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body).to.have.key('status', 'error');
+        expect(res.body.error).to.be.equal('Account number not found');
+
+        done();
+      });
+  });
+
   it('checkDormantAccount(accountNumber)should return true if account is dormant', async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
     expect(checkDormant).to.be.equal(false);
