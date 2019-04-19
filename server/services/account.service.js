@@ -53,7 +53,7 @@ class AccountService {
     const foundAccount = await model.FindByAccountNumber(parseAccountNumber);
 
     // checks if the account does not exist
-    if (!foundAccount) {
+    if (!foundAccount || foundAccount.name === 'error') {
       const response = { error: true, message: 'No account found/Incorrect account number' };
       return response;
     }
@@ -97,7 +97,7 @@ class AccountService {
       const model = new Model('accounts');
       const balance = parseFloat(2000);
       const newAccount = await model.InsertAccount(accountNumber, id, type, balance);
-      if (newAccount.name === 'error') {
+      if (newAccount.name === 'error' || newAccount === undefined) {
         response = newAccount.message;
         throw response;
       }
@@ -136,7 +136,7 @@ class AccountService {
       }
       const model = new Model('accounts');
       const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
-      if (updateAccount.name === 'error') {
+      if (updateAccount.name === 'error' || updateAccount === undefined) {
         response = updateAccount.message;
         throw response;
       }
@@ -169,12 +169,8 @@ class AccountService {
         throw foundAccount.message;
       }
       const model = new Model('accounts');
-      const deletedAccount = await model.DeleteAccount(foundAccount.account_number);
+      await model.DeleteAccount(foundAccount.account_number);
       // this filter the dummy account and removes the matching id
-      if (deletedAccount.name === 'error') {
-        response = deletedAccount.message;
-        throw response;
-      }
       response = `Account Number ${foundAccount.account_number} successfully deleted`;
       return response;
     } catch (err) {
@@ -196,12 +192,38 @@ class AccountService {
     try {
       const model = new Model('accounts');
       const updateAccountBalance = await model.UpdateAccountBalance(balance, accountNumber);
-      if (updateAccountBalance.name === 'error') {
+      if (updateAccountBalance.name === 'error' || updateAccountBalance === undefined) {
         response = updateAccountBalance.message;
         throw response;
       }
       response = 'success';
       return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description returns all transactions for a particular account number
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async allTransactions(accountNumber) {
+    let response;
+    const parseAccountNumber = parseInt(accountNumber, Number);
+    try {
+      const column = 'account_number';
+      const model = new Model('transactions');
+      const allTransactions = await model.Find(column, parseAccountNumber);
+      if (allTransactions.name === 'error' || allTransactions === undefined) {
+        response = allTransactions.message;
+        throw response;
+      }
+      return allTransactions;
     } catch (err) {
       response = { error: true, err };
       return response;

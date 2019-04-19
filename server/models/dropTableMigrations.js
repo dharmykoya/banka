@@ -22,8 +22,16 @@ const DropTableMigrations = (queryText) => {
     .then(res => res)
     .catch(err => err);
 };
+const DropTypeMigrations = (queryText) => {
+  pool
+    .query(queryText)
+    .then(res => res)
+    .catch(err => err);
+};
 
 pool.on('remove', () => process.exit(0));
 
 const QueryText = 'DROP TABLE IF EXISTS users, accounts, transactions';
+const QueryTextB = 'DROP TYPE IF EXISTS account_status';
 DropTableMigrations(QueryText);
+DropTypeMigrations(QueryTextB);

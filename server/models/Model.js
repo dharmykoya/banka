@@ -33,7 +33,24 @@ class Model {
   }
 
   /**
-   * @description Find a single row from any table
+   * @description returns all rows from any table
+   * @static
+   * @param {Object} column
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async Find(column, param) {
+    try {
+      const result = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description returns a single row from any table
    * @static
    * @param {Object} column
    * @param {Object} param
@@ -42,7 +59,7 @@ class Model {
    */
   async FindOne(column, param) {
     try {
-      const res = await this.pool.query(`select * from ${this.table} where ${column} = ${param}`);
+      const res = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
       return res.rows[0];
     } catch (error) {
       return error;
@@ -179,8 +196,8 @@ class Model {
     const values = [balance, accountNumber];
     try {
       const sql = `update ${this.table} set balance = $1 where account_number = $2`;
-      const res = await this.pool.query(sql, values);
-      return res.rows;
+      const result = await this.pool.query(sql, values);
+      return result.rows;
     } catch (error) {
       return error;
     }
