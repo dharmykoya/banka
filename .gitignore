@@ -3,3 +3,4 @@
 /api/lcov.info
 /.vscode
 /api/dist
+/.DS_STORE

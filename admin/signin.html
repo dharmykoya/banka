@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banka App</title>
+
+    <link rel="stylesheet" href="../css/signin.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- // favicon Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest.json">  
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <div class="logo-container">
+          <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+        </div>
+          <a class="icon" onclick="navToggle()">
+              <i class="fa fa-bars"></i>
+          </a>
+          <div class="right navbar-right">
+              <a href="signin.html" class="active topnav-anchor">Login</a>
+          </div>
+      </div>
+<main>  
+    <div class="login-container">
+      <form class="register-form" action="staffDashboard.html" name="signinForm" id="signinForm" onsubmit="return validate()"  method="POST">
+        <div class="form">
+          <input type="text" placeholder="email" name="staff_id" required/>
+          <input type="password" placeholder="password" name="password" required/>
+          <a href="dashboard.html"><button>Login</button></a>
+        </div>
+      </form>
+    </div>
+</main>
+
+<script src="../js/navbar.js"></script>
+<script src="../js/signin.js"></script>
+</body>
+</html>
