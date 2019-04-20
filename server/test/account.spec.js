@@ -304,6 +304,39 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return all active accounts in the app', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts?status=active')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body.data[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+        expect(res.body.data[0].account_number).to.be.equal(2000000003);
+        expect(res.body.data[0].email).to.be.equal('victor@gmil.com');
+        expect(res.body.data[0].type).to.be.equal('savings');
+        expect(res.body.data[0].balance).to.be.equal('2000.00');
+        expect(res.body.data[0].status).to.be.equal('active');
+
+        done();
+      });
+  });
+
+  it('should return error for improper status', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts?status=somestatus')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.status).to.be.equal(400);
+        expect(res.body).to.have.key('status', 'error');
+        expect(res.body.error).to.be.equal('Inavlid status');
+        done();
+      });
+  });
+
   it('allAccounts() should return the account found', async () => {
     const accountDetails = await AccountService.allAccounts();
     expect(accountDetails[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
@@ -374,7 +407,6 @@ describe('The endpoint for Accounts Resource', () => {
     const accountDetails = { email: 'dodo@gmail.com', id: 15 };
     const type = 1;
     const newAccount = await AccountService.createAccount(accountDetails, type);
-    console.log(21, newAccount);
     expect(newAccount.error).to.be.equal(true);
     expect(newAccount.err).to.be.equal('User not found, please check the request');
   });
