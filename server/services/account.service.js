@@ -282,6 +282,32 @@ class AccountService {
       return response;
     }
   }
+
+  /**
+   * @description returns a type of accounts
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async statusAccounts(status) {
+    let response;
+    try {
+      const secondTable = 'users';
+      const model = new Model('accounts');
+      const allAccounts = await model.FindStatusAccount(status, secondTable);
+      if (allAccounts === undefined || allAccounts.name === 'error') {
+        response = 'Inavlid status';
+        throw response;
+      }
+      response = allAccounts;
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
 }
 
 export default AccountService;

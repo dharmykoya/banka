@@ -155,7 +155,45 @@ class AccountController {
       */
   static async allAccounts(req, res) {
     try {
+      const { status } = req.query;
+      if (status) {
+        const allTransactions = await AccountService.statusAccounts(status);
+        if (allTransactions.error) {
+          throw allTransactions;
+        }
+        return res.status(200).send({
+          status: 200,
+          data: allTransactions,
+        });
+      }
       const allTransactions = await AccountService.allAccounts();
+      if (allTransactions.error) {
+        throw allTransactions;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: allTransactions,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
+
+  /**
+      * @description Returns all active or dormant accounts
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof AccountController
+      */
+  static async statusAccounts(req, res) {
+    try {
+      const { status } = req.query;
+      const allTransactions = await AccountService.statusAccounts(status);
       if (allTransactions.error) {
         throw allTransactions;
       }

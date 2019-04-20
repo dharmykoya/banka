@@ -221,6 +221,23 @@ class Model {
       return error;
     }
   }
+
+  /**
+   * @description returns all account depending on the type
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindStatusAccount(status, secondTable) {
+    try {
+      const sql = `select accounts.account_number, accounts.type, accounts.created_on, accounts.status, accounts.balance, 
+      users.email  from accounts inner join ${secondTable} on ${this.table}.owner = ${secondTable}.id where status = '${status}' `;
+      const result = await this.pool.query(sql);
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default Model;
