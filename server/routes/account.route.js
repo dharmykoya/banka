@@ -23,17 +23,12 @@ router.get('/:accountNumber/transactions', Auth.getUser, AccountController.allTr
 // get a particular account details
 router.get('/:accountNumber', Auth.getUser, AccountController.accountDetails);
 
-// GET  /accounts?status=active  
-// View a list of all active bank accounts​. 
-// router.get('/', (req, res) => {
-//   res.send({ status: req.query.status})
-// });
+// GET  /accounts?status=active
+// View a list of all active bank accounts
 // router.get('/status?', Auth.getUser, Auth.staffAdminCheck, AccountController.statusAccounts)
 
 // GET  /accounts
 // View a list of all bank accounts
 router.get('/', Auth.getUser, Auth.staffAdminCheck, AccountController.allAccounts);
-
-
 
 export default router;
