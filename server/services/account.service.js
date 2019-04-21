@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import Helper from './helper';
 import Model from '../models/Model';
 import UserService from './user.service';
 
@@ -102,15 +103,7 @@ class AccountService {
         response = 'User not found, please check the request';
         throw response;
       }
-      response = {
-        accountNumber: newAccount.account_number,
-        firstName: accountDetails.firstName,
-        lastName: accountDetails.lastName,
-        email,
-        type,
-        openingBalance: parseFloat(newAccount.balance),
-        status: newAccount.status,
-      };
+      response = { ...Helper.accountReturn(newAccount, accountDetails, email, type) };
       return response;
     } catch (err) {
       response = { error: true, err };
@@ -298,7 +291,7 @@ class AccountService {
       const model = new Model('accounts');
       const allAccounts = await model.FindStatusAccount(status, secondTable);
       if (allAccounts === undefined || allAccounts.name === 'error') {
-        response = 'Inavlid status';
+        response = 'Invalid status';
         throw response;
       }
       response = allAccounts;

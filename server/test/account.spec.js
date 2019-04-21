@@ -323,6 +323,25 @@ describe('The endpoint for Accounts Resource', () => {
       });
   });
 
+  it('should return all dormant accounts in the app', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts?status=dormant')
+      .set('Authorization', adminToken)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.status).to.be.equal(200);
+        expect(res.body.data[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+        expect(res.body.data[0].account_number).to.be.equal(2000000000);
+        expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
+        expect(res.body.data[0].type).to.be.equal('savings');
+        expect(res.body.data[0].balance).to.be.equal('4000.00');
+        expect(res.body.data[0].status).to.be.equal('dormant');
+
+        done();
+      });
+  });
+
   it('should return error for improper status', (done) => {
     chai
       .request(app)
@@ -332,19 +351,29 @@ describe('The endpoint for Accounts Resource', () => {
         expect(res).to.have.status(400);
         expect(res.body.status).to.be.equal(400);
         expect(res.body).to.have.key('status', 'error');
-        expect(res.body.error).to.be.equal('Inavlid status');
+        expect(res.body.error).to.be.equal('Invalid status');
         done();
       });
   });
 
-  it('allAccounts() should return the account found', async () => {
-    const accountDetails = await AccountService.allAccounts();
+
+  it('statusAccounts(status) should return the status account found', async () => {
+    const status = 'dormant';
+    const accountDetails = await AccountService.statusAccounts(status);
     expect(accountDetails[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
     expect(accountDetails[0].account_number).to.be.equal(2000000000);
     expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
     expect(accountDetails[0].type).to.be.equal('savings');
     expect(accountDetails[0].balance).to.be.equal('4000.00');
     expect(accountDetails[0].status).to.be.equal('dormant');
+  });
+
+  it('statusAccounts(status) should return the error for wrong status input', async () => {
+    const status = 'something wrong';
+    const accountDetails = await AccountService.statusAccounts(status);
+    expect(accountDetails).to.have.key('error', 'err');
+    expect(accountDetails.error).to.be.equal(true);
+    expect(accountDetails.err).to.be.equal('Invalid status');
   });
 
   it('findAccountByAccountNumber(accountNumber) should return the account Details found', async () => {
@@ -417,5 +446,16 @@ describe('The endpoint for Accounts Resource', () => {
     const changeStatus = await AccountService.changeStatus(type, accountNumber);
     expect(changeStatus.error).to.be.equal(true);
     expect(changeStatus.err).to.be.equal('invalid input value for enum account_status: "1"');
+  });
+
+
+  it('allAccounts() should return all the account found', async () => {
+    const accountDetails = await AccountService.allAccounts();
+    expect(accountDetails[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+    expect(accountDetails[0].account_number).to.be.equal(2000000000);
+    expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
+    expect(accountDetails[0].type).to.be.equal('savings');
+    expect(accountDetails[0].balance).to.be.equal('4000.00');
+    expect(accountDetails[0].status).to.be.equal('dormant');
   });
 });

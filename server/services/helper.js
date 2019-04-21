@@ -75,6 +75,39 @@ const Helper = {
   comparePassword(password, hashPassword) {
     return bcrypt.compareSync(password, hashPassword);
   },
+
+  /**
+   * return format for transactions (credit or debit)
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  transactionReturn(newTransaction, cashier, newBalance, type) {
+    return {
+      transactionId: newTransaction.id,
+      accountNumber: newTransaction.account_number,
+      amount: newTransaction.amount,
+      cashier,
+      transactionType: type,
+      accountBalance: parseFloat(newBalance, 2).toString(),
+    };
+  },
+
+  /**
+   * return format for create Account
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  accountReturn(newAccount, accountDetails, email, type) {
+    return {
+      accountNumber: newAccount.account_number,
+      firstName: accountDetails.firstName,
+      lastName: accountDetails.lastName,
+      email,
+      type,
+      openingBalance: parseFloat(newAccount.balance),
+      status: newAccount.status,
+    };
+  },
 };
 
 export default Helper;

@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import Helper from './helper';
 import AccountService from './account.service';
 import Model from '../models/Model';
 
@@ -124,16 +125,7 @@ class TransactionService {
       // creating a new Transaction
       const model = new Model('transactions');
       const newTransaction = await model.InsertTransaction(type, parseAccountNumber, cashier, parseAmount, oldBalance, newBalance);
-
-      const response = {
-        transactionId: newTransaction.id,
-        accountNumber: newTransaction.account_number,
-        amount: newTransaction.amount,
-        cashier,
-        transactionType: type,
-        accountBalance: parseFloat(newBalance, 2).toString(),
-      };
-      return response;
+      return { ...Helper.transactionReturn(newTransaction, cashier, newBalance, type) };
     } catch (err) {
       const response = { error: true, err };
       return response;
