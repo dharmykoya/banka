@@ -1,8 +1,10 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import Mail from '../services/mail';
 import TransactionService from '../services/transaction.service';
 import app from '../index';
+import Helper from '../services/helper';
 
 const { expect } = chai;
 const minBalance = 1000;
@@ -302,7 +304,31 @@ describe('Transaction Resource', () => {
     const cashier = 'two';
     const tranAmount = 2000;
     const userAccountNumber = 2000000000;
-    const singleTransaction = await TransactionService.creditAccount(userAccountNumber, tranAmount, cashier);
+    const singleTransaction = await TransactionService.creditAccount(userAccountNumber,
+      tranAmount, cashier);
     expect(singleTransaction.err).to.be.equal('Account is dormant. Please reactivate.');
+  });
+  it('sendMail(payload) return error for a credit transaction', async () => {
+    const payload = Helper.newUserPayload();
+    const sendMail = await Mail.sendMail(payload);
+    expect(sendMail).to.be.equal('mail failed to send');
+  });
+
+  it('sendMail(payload) return payload tansaction for mail', async () => {
+    const user = {
+      first_name: 'dami',
+      last_name: 'koya',
+      email: 'dami@gmail.com',
+    };
+    const newTransaction = {
+      amount: 2999,
+      new_balance: 13000,
+      type: 'credit',
+    };
+    const payload = Helper.transactionPayload(user, newTransaction);
+    expect(payload.email).to.be.equal('dami@gmail.com');
+    expect(payload.subject).to.be.equal('credit Transaction from Banka');
+    expect(payload.firstName).to.be.equal('dami');
+    expect(payload.lastName).to.be.equal('koya');
   });
 });

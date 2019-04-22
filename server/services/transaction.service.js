@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import Helper from './helper';
+// import Mail from './mail';
 import AccountService from './account.service';
 import Model from '../models/Model';
 
@@ -45,6 +46,9 @@ class TransactionService {
       }
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
+      // const user = await UserService.findUserById(foundAccount.owner);
+      // const payload = Helper.transactionPayload(user, newTransaction);
+      // await Mail.sendMail(payload);
       response = transaction;
       return response;
     } catch (err) {
@@ -91,6 +95,9 @@ class TransactionService {
       }
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
+      // const user = await UserService.findUserById(foundAccount.owner);
+      // const payload = Helper.transactionPayload(user, newTransaction);
+      // await Mail.sendMail(payload);
       response = transaction;
       return response;
     } catch (err) {

@@ -3,6 +3,15 @@ import { Pool } from 'pg';
 class Model {
   constructor(table) {
     this.table = table;
+
+    this.newUserColumns = 'email, first_name, last_name, password, type';
+    this.newUserparams = '$1, $2, $3, $4, $5';
+
+    this.newAccountColumns = 'account_number, owner, type, balance';
+    this.newAccountparams = '$1, $2, $3, $4';
+
+    this.newTransactionColumns = 'type, account_number, cashier, amount, old_balance, new_balance';
+    this.newTransactionparams = '$1, $2, $3, $4, $5, $6';
     this.pool = Model.initConn();
     this.pool.on('error', err => err);
   }
@@ -14,6 +23,7 @@ class Model {
     return pool;
   }
 
+
   /**
    * @description Insert into user table
    * @static
@@ -23,10 +33,24 @@ class Model {
    */
   async Insert(...query) {
     try {
+      let columns;
+      let parameters;
+      if (this.table === 'users') {
+        columns = this.newUserColumns;
+        parameters = this.newUserparams;
+      }
+      if (this.table === 'accounts') {
+        columns = this.newAccountColumns;
+        parameters = this.newAccountparams;
+      }
+      if (this.table === 'transactions') {
+        columns = this.newTransactionColumns;
+        parameters = this.newTransactionparams;
+      }
       const values = [...query];
-      const sql = `insert into ${this.table} (email, first_name, last_name, password, type) values($1, $2, $3, $4, $5) returning *`;
-      const res = await this.pool.query(sql, values);
-      return res.rows[0];
+      const sql = `insert into ${this.table} (${columns}) values(${parameters}) returning *`;
+      const result = await this.pool.query(sql, values);
+      return result.rows[0];
     } catch (error) {
       return error;
     }
@@ -61,25 +85,6 @@ class Model {
     try {
       const result = await this.pool.query(`select * from ${this.table} where ${column} = '${param}'`);
       return result.rows[0];
-    } catch (error) {
-      return error;
-    }
-  }
-
-  /**
-   * @description Find a single row from any table
-   * @static
-   * @param {Object} column
-   * @param {Object} param
-   * @returns {Object}  row found
-   * @memberof Model
-   */
-  async FindByEmail(email) {
-    const values = [email];
-    try {
-      const sql = `select * from ${this.table} where email = $1`;
-      const res = await this.pool.query(sql, values);
-      return res.rows[0];
     } catch (error) {
       return error;
     }

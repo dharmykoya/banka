@@ -108,6 +108,68 @@ const Helper = {
       status: newAccount.status,
     };
   },
+  /**
+   * return format for new user
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  userReturn(newUser) {
+    return {
+      id: newUser.id,
+      email: newUser.email,
+      firstName: newUser.first_name,
+      lastName: newUser.last_name,
+      type: newUser.type,
+    };
+  },
+
+  /**
+   * return format for user token
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  tokenReturn(newUser) {
+    return {
+      id: newUser.id,
+      email: newUser.email,
+      firstName: newUser.first_name,
+      lastName: newUser.last_name,
+      type: newUser.type,
+      isAdmin: newUser.admin,
+    };
+  },
+  /**
+   * return format for newUser mail
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  newUserPayload(email, subject, firstName, lastName, message) {
+    const payload = {
+      email,
+      subject,
+      firstName,
+      lastName,
+      message,
+    };
+    return payload;
+  },
+
+  /**
+   * return format for transactions (credit or debit)
+   * @param {string} statusCode
+   * @returns {string} error format
+   */
+  transactionPayload(user, newTransaction) {
+    const payload = {
+      email: user.email,
+      subject: `${newTransaction.type} Transaction from Banka`,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      message: `Amount: ${newTransaction.amount}<br>
+                New Balance: ${newTransaction.new_balance}`,
+    };
+    return payload;
+  },
 };
 
 export default Helper;

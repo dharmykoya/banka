@@ -458,4 +458,14 @@ describe('The endpoint for Accounts Resource', () => {
     expect(accountDetails[0].balance).to.be.equal('4000.00');
     expect(accountDetails[0].status).to.be.equal('dormant');
   });
+
+  it('allAccounts() should return error', async () => {
+    const accountDetails = await AccountService.allAccounts();
+    expect(accountDetails[0]).to.have.key('account_number', 'type', 'status', 'balance', 'created_on', 'email');
+    expect(accountDetails[0].account_number).to.be.equal(2000000000);
+    expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
+    expect(accountDetails[0].type).to.be.equal('savings');
+    expect(accountDetails[0].balance).to.be.equal('4000.00');
+    expect(accountDetails[0].status).to.be.equal('dormant');
+  });
 });

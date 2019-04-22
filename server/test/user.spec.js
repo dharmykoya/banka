@@ -380,6 +380,29 @@ describe('The authentication endpoint test', () => {
         });
     });
 
+    // it('should return error upload a picture for a user', (done) => {
+    //   chai
+    //     .request(app)
+    //     .patch('/api/v1/user/upload')
+    //     .set('Authorization', staffToken)
+    //     .attach('profileImage', fs.readFileSync('testdoc.docx'), 'testdoc.docx')
+    //     .end((err, res) => {
+    //       console.log(21, res.body);
+    //       expect(res).to.have.status(500);
+    //       expect(res.body.status).to.be.equal(500);
+    //       expect(res.body.data).to.be.equal('file uploaded successfully');
+
+    //       done();
+    //     });
+    // });
+
+    it('uploadPicture(path, id) should return error for no path', async () => {
+      const path = 'uploads\testing.png';
+      const id = 'two';
+      const uploadPic = await UserService.uploadPicture(path, id);
+      expect(uploadPic.err).to.be.equal('upload failed');
+    });
+
     it('userAccounts(email) should return user has no account for email without an account', async () => {
       const userAccounts = await UserService.userAccounts(noAccountEmail);
       expect(userAccounts.err).to.be.equal(`user ${noAccountEmail} has no accounts`);
