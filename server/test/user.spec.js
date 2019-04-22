@@ -1,4 +1,5 @@
 /* eslint-env mocha */
+import fs from 'fs';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
@@ -339,7 +340,7 @@ describe('The authentication endpoint test', () => {
       const id = 3;
       const userAccounts = await UserService.findUserById(id);
       expect(userAccounts.id).to.be.equal(3);
-      expect(userAccounts).to.have.key('id', 'email', 'first_name', 'last_name', 'type', 'admin', 'created_at', 'updated_at', 'password');
+      expect(userAccounts).to.have.key('id', 'email', 'first_name', 'last_name', 'type', 'profile_image', 'admin', 'created_at', 'updated_at', 'password');
       expect(userAccounts.email).to.be.equal('martin@gmail.com');
       expect(userAccounts.first_name).to.be.equal('Martins');
       expect(userAccounts.last_name).to.be.equal('Oguns');
@@ -360,6 +361,21 @@ describe('The authentication endpoint test', () => {
           expect(res).to.have.status(400);
           expect(res.body.status).to.be.equal(400);
           expect(res.body.error).to.be.equal('no user found');
+          done();
+        });
+    });
+
+    it('should upload a picture for a user', (done) => {
+      chai
+        .request(app)
+        .patch('/api/v1/user/upload')
+        .set('Authorization', staffToken)
+        .attach('profileImage', fs.readFileSync('git_pic.jpeg'), 'git_pic.jpeg')
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.status).to.be.equal(200);
+          expect(res.body.data).to.be.equal('file uploaded successfully');
+
           done();
         });
     });

@@ -238,6 +238,23 @@ class Model {
       return error;
     }
   }
+
+  /**
+   * @description returns all account depending on the type
+   * @static
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async Update(column, columnCondition, columnParameter, conditionParameter) {
+    const values = [columnParameter, conditionParameter];
+    try {
+      const sql = `update ${this.table} set ${column} = $1 where ${columnCondition} = $2`;
+      const result = await this.pool.query(sql, values);
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
 }
 
 export default Model;
