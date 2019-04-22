@@ -51,8 +51,8 @@ class Auth {
    */
   static staffCheck(req, res, next) {
     const { type } = req.decoded.user;
-    if (type === 'staff') {      
-      return next();    
+    if (type === 'staff') {
+      return next();
     }
     const error = 'You do not have the authorization or right to perform this action';
     return Helper.errorResponse(res, 401, error);

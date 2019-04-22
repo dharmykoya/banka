@@ -263,17 +263,11 @@ class AccountService {
    * @memberof AccountService
    */
   static async allAccounts() {
-    let response;
-    try {
-      const secondTable = 'users';
-      const model = new Model('accounts');
-      const allAccounts = await model.FindAllAccounts(secondTable);
-      response = allAccounts;
-      return response;
-    } catch (err) {
-      response = { error: true, err };
-      return response;
-    }
+    const secondTable = 'users';
+    const model = new Model('accounts');
+    const allAccounts = await model.FindAllAccounts(secondTable);
+    const response = allAccounts;
+    return response;
   }
 
   /**

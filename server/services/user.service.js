@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import Helper from './helper';
 import Model from '../models/Model';
+// import Mail from './mail';
 
 /**
  * @class UserService
@@ -39,8 +40,8 @@ class UserService {
    */
   static async findUserByEmail(email) {
     const model = new Model('users');
-    const foundUser = await model.FindByEmail(email);
-
+    // const foundUser = await model.FindByEmail(email);
+    const foundUser = await model.FindOne('email', email);
     // checks if the account does not exist
     if (!foundUser) {
       const response = { error: true, message: 'No account found/Incorrect account number' };
@@ -69,24 +70,12 @@ class UserService {
         const response = 'you have been registered earlier, please login';
         throw response;
       }
-      const userToken = {
-        id: newUser.id,
-        email: newUser.email,
-        firstName: newUser.first_name,
-        lastName: newUser.last_name,
-        type: newUser.type,
-        isAdmin: newUser.isAdmin,
-      };
+      const userToken = { ...Helper.tokenReturn(newUser) };
       // generating token
       const token = Helper.generateToken(userToken);
-      return {
-        token,
-        id: newUser.id,
-        email: newUser.email,
-        firstName: newUser.first_name,
-        lastName: newUser.last_name,
-        type: newUser.type,
-      };
+      // const payload = Helper.newUserPayload(email, 'Signup Success', firstName, lastName, 'Welcome to banka, we hope you enjoy our services');
+      // await Mail.sendMail(payload);
+      return { token, ...Helper.userReturn(newUser) };
     } catch (err) {
       const response = { error: true, err };
       return response;
@@ -117,24 +106,9 @@ class UserService {
         response = 'Authentication failed.Email/Wrong password.';
         throw response;
       }
-      const userToken = {
-        id: foundUser.id,
-        email: foundUser.email,
-        firstName: foundUser.first_name,
-        lastName: foundUser.last_name,
-        type: foundUser.type,
-        isAdmin: foundUser.isAdmin,
-      };
+      const userToken = { ...Helper.tokenReturn(foundUser) };
       const token = Helper.generateToken(userToken);
-      response = {
-        token,
-        id: foundUser.id,
-        firstName: foundUser.first_name,
-        lastName: foundUser.last_name,
-        email: foundUser.email,
-        type: foundUser.type,
-      };
-      return response;
+      return { token, ...Helper.userReturn(foundUser) };
     } catch (err) {
       response = { error: true, err };
       return response;

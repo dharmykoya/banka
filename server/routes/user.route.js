@@ -14,15 +14,18 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req, file, callback) => {
-  // REJECT A FILE
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
-    callback(null, true);
-  } else {
-    callback(new Error('Inavlid file'), false);
-  }
-};
-
+const fileFilter = async (req, file, callback) => {
+  try {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+      callback(null, true);
+    } else {
+      return await callback(new Error('upload the right format please'), false);
+    }
+  } catch (err) {
+    return err;
+  } 
+  return true; 
+}
 const upload = multer({
   storage,
   limits: {
