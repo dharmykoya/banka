@@ -172,6 +172,31 @@ class UserService {
       return response;
     }
   }
+
+  /**
+   * @description to veiw all accounts owned by a user
+   * @static
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} returns all acounts owned by a user
+   * @memberof UserService
+   */
+  static async uploadPicture(path, id) {
+    let response;
+    try {
+      const model = new Model('users');
+      const uploadedPicture = await model.Update('profile_image', 'id', path, id);
+      if (uploadedPicture === undefined || uploadedPicture.name === 'error') {
+        response = 'upload failed';
+        throw response;
+      }
+      response = 'file uploaded successfully';
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
 }
 
 export default UserService;
