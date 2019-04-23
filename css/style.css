@@ -1,5 +1,5 @@
 body {
-  font-family: "Comic Sans MS";
+  font-family: "Helvetica";
   margin: 0px;
 }
 
@@ -54,6 +54,16 @@ body {
   width: 150px;
 }
 
+.demo-container {
+  margin-top: 15px;
+}
+.demo-button {
+  background: #dd4f05;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {

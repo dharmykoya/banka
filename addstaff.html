@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="../css/signup.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/signup.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- // favicon Icons -->
-    <link rel="apple-touch-icon" sizes="57x57" href="../img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
-    <link rel="manifest" href="../img/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -24,9 +25,10 @@
 <body>
     <div class="topnav" id="myTopnav">
         <div class="logo-container">
-            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
         </div>
-        <a  class="topnav-anchor"href="adminDashboard.html">Profile</a>
+        <a  class="topnav-anchor"href="adminDashboard.html">Profile</a>        
+        <a class="topnav-anchor active" href="addstaff.html">New Staff</a>
         <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
@@ -39,7 +41,7 @@
 <main>  
     <div class="signup-container">
       <h2>Add Staff/Admin</h2>
-      <form class="register-form" action="createAccount.html" id="signupForm" onsubmit="return validate()"  method="POST">
+      <form class="register-form" action="adminDashboard.html" id="signupForm" onsubmit="return validate()"  method="POST">
         <div class="form">
             <div class="alert hide">
                 <span class="closebtn" onclick="return errorAlert()">&times;</span> 
@@ -55,13 +57,13 @@
           </select>
           <input type="password" placeholder="password" name="password" required/>
           <input type="password" placeholder="confirm password" name="password2" required/>
-          <a href="adminDashboard.html"><button>Create User</button></a>
+          <a href=""><button>Create User</button></a>
         </div>
       </form>
     </div>
 </main>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/signup.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/signup.js"></script>
 </body>
 </html>

@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="stylesheet" href="../css/account.css">
-    <link rel="stylesheet" href="../css/list_bank_accounts.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="css/list_bank_accounts.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
 
     <!-- // favicon Icons -->
-  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
-  <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
-  <link rel="manifest" href="./img/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
 
 
     <!-- Required meta tags -->
@@ -28,11 +28,11 @@
 <body>
     <div class="topnav" id="myTopnav">
         <div class="logo-container">
-            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
         </div>
         <a class="active topnav-anchor" href="adminDashboard.html">Profile</a>        
-        <a class="topnav-anchor" href="addstaff.html">Add Staff</a>
-        <a  class="topnav-anchor"href="account.html">All Account</a>
+        <a class="topnav-anchor" href="addstaff.html">New Staff</a>
+        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
@@ -122,7 +122,7 @@
                     <td>021</td>
                     <td>22nd Jan, 2019</td>
                     <td>Active</td>
-                    <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+                    <td><a href="staffDashboard.html" class="table-action">view</a></td>
                 </tr>
                 <tr class="list-tr-hover">
                   <td>Segun Obasanjo</td>
@@ -130,7 +130,7 @@
                   <td>034</td>
                   <td>29th Jan, 2019</td>
                   <td>Active</td>
-                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="staffDashboard.html" class="table-action">view</a></td>
               </tr>
               <tr class="list-tr-hover">
                   <td>Daniel Ogundipe</td>
@@ -138,7 +138,7 @@
                   <td>051</td>
                   <td>22nd Feb, 2019</td>
                   <td>Active</td>
-                  <td><a href="staffDashboard.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="staffDashboard.html" class="table-action">view</a></td>
               </tr>
                 </tbody>
                 <tfoot>
@@ -147,12 +147,8 @@
                 </tfoot>
             </table>
             <div class="admin-pagination">
-              <div class="pagination">
-                  <a href="#">&laquo;</a>
-                  <a href="#"  class="active">1</a>
-                  <a href="#">2</a>
-                  <a href="#">3</a>
-                  <a href="#">&raquo;</a>
+              <div class="recent-tran-footer">
+                  <a href="listUsers.html">See More >>></a>
               </div>
             </div>
         </div>
@@ -177,7 +173,7 @@
                   <td>31st Jan, 2019</td>
                   <td>0.00</td>
                   <td>Not Active</td>
-                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="account.html" class="table-action">view</a></td>
               </tr>
               <tr  class="list-tr-hover">
                 <td>Doyin Peters</td>
@@ -185,7 +181,7 @@
                 <td>14th Jan, 2019</td>
                 <td>400,000.00</td>
                 <td>Active</td>
-                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                <td><a href="account.html" class="table-action">view</a></td>
             </tr>
               <tr class="list-tr-hover">
                 <td>John Igwe</td>
@@ -193,7 +189,7 @@
                 <td>5th Feb, 2019</td>
                 <td>300,000.00</td>
                 <td>Active</td>
-                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                <td><a href="account.html" class="table-action">view</a></td>
             </tr>
               </tbody>
               <tfoot>
@@ -203,12 +199,8 @@
               </tfoot>
           </table>
           <div class="admin-pagination">
-            <div class="pagination">
-              <a href="#">&laquo;</a>
-              <a href="#"  class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">&raquo;</a>
+            <div class="recent-tran-footer">
+                <a href="listBankAccounts.html">See More >>></a>
             </div>
           </div>          
         </div>
@@ -217,6 +209,6 @@
 </main>
 
 <script src="js/navbar.js"></script>
-<script src="../js/listBankAccounts.js"></script> 
+<script src="js/listBankAccounts.js"></script> 
 </body>
 </html>

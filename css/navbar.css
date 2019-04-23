@@ -48,7 +48,7 @@ a {
   text-align: center;
   padding: 10px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 24px;
   height: 28px;
 }
 
@@ -59,13 +59,12 @@ a {
   text-align: center;
   padding: 10px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 18px;
   height: 28px;
 }
 
 /* Change the color of links on hover */
 .topnav-anchor:hover {
-  background-color: #ddd;
   color: black;
 }
 
@@ -104,6 +103,7 @@ a {
     float: right;
     display: block;
     cursor: pointer;
+    margin-top: 15px;
   }
   .logo-container {
     margin-left: 0px;
@@ -111,6 +111,10 @@ a {
   .right {
     float: left;
     cursor: pointer;
+  }
+
+  .topnav-anchor {
+    font-size: 18px;
   }
 }
 

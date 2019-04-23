@@ -1,5 +1,5 @@
 body {
-  font-family: "Comic Sans MS";
+  font-family: "Helvetica";
 }
 .list-account-main {
   margin: 20px auto;
@@ -11,9 +11,13 @@ body {
   margin: 0px auto;
 }
 table#listAccount-details, table#listAccount-details th, table#listAccount-details td {
-  border: 1px solid black;
   border-collapse: collapse;
   margin-bottom: 20px;
+}
+
+.tran-pagination {
+  border: none !important;
+  text-align: right !important;
 }
 
 
@@ -85,7 +89,13 @@ table#savings-account-table  th, table#savings-account-table  td {
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
+.table-action {
+  color: #dd4f05;
+}
 
+.table-action:hover {
+  color: white;
+}
 
 @media (min-width: 601px) and (max-width: 968px) {
   .navbar-right {

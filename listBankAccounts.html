@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title>Banka App</title>
 
-    <link rel="stylesheet" href="../css/list_bank_accounts.css">
-    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/list_bank_accounts.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <!-- // favicon Icons -->
-    <link rel="apple-touch-icon" sizes="57x57" href="../img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../img/android-chrome-512x512.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../img/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
-    <link rel="manifest" href="../img/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -24,16 +25,16 @@
 <body>
     <div class="topnav" id="myTopnav">
         <div class="logo-container">
-            <a href="index.html" class="logo-text"><img class="index-logo" src="../img/logo5.png">anka</a>
+            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
         </div>
-        <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
-        <a class="topnav-anchor" href="addstaff.html">Add Staff</a>
+        <a class="topnav-anchor" href="staffDashboard.html">Profile</a>        
+        <a class="topnav-anchor" href="transaction.html">Transaction</a>
         <a  class="topnav-anchor active"href="account.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
-            <a class=" topnav-anchor pointer-none">Admin</a>
+            <a class=" topnav-anchor pointer-none">Staff</a>
             <a class="topnav-anchor" href="signin.html">Logout</a>
         </div>
     </div>
@@ -67,7 +68,7 @@
                   <td>22nd Jan, 2019</td>
                   <td>3,000,000</td>
                   <td>Active</td>
-                  <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                  <td><a href="account.html" class="table-action">view</a></td>
               </tr>
               <tr class="list-tr-hover">
                 <td>Segun Obasanjo</td>
@@ -75,7 +76,7 @@
                 <td>29th Jan, 2019</td>
                 <td>2,000,000</td>
                 <td>Active</td>
-                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                <td><a href="account.html" class="table-action">view</a></td>
             </tr>
             <tr class="list-tr-hover">
                 <td>Daniel Ogundipe</td>
@@ -83,11 +84,20 @@
                 <td>22nd Feb, 2019</td>
                 <td>1,000,000</td>
                 <td>Active</td>
-                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                <td><a href="account.html" class="table-action">view</a></td>
             </tr>
               </tbody>
               <tfoot>
               <tr>
+                <td colspan="6" class="tran-pagination">
+                  <div class="pagination">
+                      <a href="#">&laquo;</a>
+                      <a href="#"  class="active">1</a>
+                      <a href="#">2</a>
+                      <a href="#">3</a>
+                      <a href="#">&raquo;</a>
+                    </div>
+                </td>
               </tr>
               </tfoot>
           </table>
@@ -113,7 +123,7 @@
                 <td>31st Jan, 2019</td>
                 <td>0.00</td>
                 <td>Not Active</td>
-                <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+                <td><a href="account.html" class="table-action">view</a></td>
             </tr>
             <tr  class="list-tr-hover">
               <td>Doyin Peters</td>
@@ -121,7 +131,7 @@
               <td>14th Jan, 2019</td>
               <td>400,000</td>
               <td>Active</td>
-              <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              <td><a href="account.html" class="table-action">view</a></td>
           </tr>
             <tr class="list-tr-hover">
               <td>John Igwe</td>
@@ -129,11 +139,20 @@
               <td>5th Feb, 2019</td>
               <td>300,000</td>
               <td>Active</td>
-              <td><a href="account.html"><i class="fa fa-eye"></i></a></td>
+              <td><a href="account.html" class="table-action">view</a></td>
           </tr>
             </tbody>
             <tfoot>
             <tr>
+              <td colspan="6" class="tran-pagination">
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#"  class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">&raquo;</a>
+                  </div>
+              </td>
             </tr>
             </tfoot>
         </table>
@@ -141,7 +160,7 @@
   </section>
 </main>
 
-<script src="../js/navbar.js"></script>
-<script src="../js/listBankAccounts.js"></script> 
+<script src="js/navbar.js"></script>
+<script src="js/listBankAccounts.js"></script> 
 </body>
 </html>

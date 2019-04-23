@@ -1,6 +1,6 @@
 
 body {
-    font-family: "Comic Sans MS";
+  font-family: "Helvetica";
 }
 
 /*styling of the Signup Page*/
@@ -85,6 +85,10 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+  .topnav a.icon {
+    margin-top: 0px;
+    margin-right: 15px;
+  }
     .header-container {
         max-width: 100%;
         grid-template-columns: auto;

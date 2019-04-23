@@ -1,5 +1,5 @@
 body {
-  font-family: "Comic Sans MS";
+  font-family: "Helvetica";
   background: #F5F6FA;
 }
 
@@ -238,6 +238,11 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {
+  /* .topnav a:not(:first-child) {display: none;} */
+  .topnav a.icon {
+    margin-top: 0px;
+  }
+
    main {
       margin-top: 20px;
   }

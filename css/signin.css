@@ -1,6 +1,6 @@
 
 body {
-  font-family: "Comic Sans MS";
+  font-family: "Helvetica";
 }
 
 /*styling of the Signup Page*/
@@ -84,7 +84,9 @@ body {
       max-width: 100%;
       grid-template-columns: auto;
   }
-
+  .topnav a.icon {
+    margin-right: 15px;
+  } 
   .login-page {
     width: 70%;
     margin: auto;
