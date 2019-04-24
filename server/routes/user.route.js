@@ -10,22 +10,25 @@ const storage = multer.diskStorage({
     callback(null, 'uploads/');
   },
   filename(req, file, callback) {
-    callback(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    callback(null, new Date().toISOString().replace(/:/g, '-')
+    + file.originalname);
   },
 });
 
 const fileFilter = async (req, file, callback) => {
   try {
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+    if (file.mimetype === 'image/jpeg'
+        || file.mimetype === 'image/jpg'
+        || file.mimetype === 'image/png') {
       callback(null, true);
     } else {
       return await callback(new Error('upload the right format please'), false);
     }
   } catch (err) {
     return err;
-  } 
-  return true; 
-}
+  }
+  return true;
+};
 const upload = multer({
   storage,
   limits: {
@@ -35,9 +38,14 @@ const upload = multer({
 });
 
 // returns all the accounts attached to a user
-router.get('/:email/accounts', Auth.getUser, Auth.staffCheck, UserController.userAccounts);
+router.get('/:email/accounts',
+  Auth.getUser, Auth.staffCheck,
+  UserController.userAccounts);
 
 // route to upload a picture
-router.patch('/upload', upload.single('profileImage'), Auth.getUser, UserController.uploadPicture);
+router.patch('/upload',
+  upload.single('profileImage'),
+  Auth.getUser,
+  UserController.uploadPicture);
 
 export default router;

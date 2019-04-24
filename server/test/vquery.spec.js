@@ -19,7 +19,9 @@ describe('Test for queries in the Model', () => {
     const newBalance = 2000;
     const transaction = await model.InsertTransaction(type,
       accountNumber, cashier, amount, oldBalance, newBalance);
-    expect(transaction).to.have.key('id', 'account_number', 'amount', 'cashier', 'type', 'old_balance', 'new_balance', 'created_on');
+    expect(transaction).to.have
+      .key('id', 'account_number', 'amount', 'cashier', 'type',
+        'old_balance', 'new_balance', 'created_on');
     expect(transaction.account_number).to.be.equal(2000000005);
     expect(transaction.new_balance).to.be.equal('2000.00');
     expect(transaction.amount).to.be.equal('2000.00');
@@ -35,7 +37,8 @@ describe('Test for queries in the Model', () => {
     const firstName = 'Dorcas';
     const lastName = 'shayo';
     const hashPassword = '456@#$*@(JDNSJ';
-    const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
+    const newUser = await model
+      .Insert(email, firstName, lastName, hashPassword, type);
     expect(newUser.email).to.be.equal('dor@gmail.com');
     expect(newUser.first_name).to.be.equal('Dorcas');
     expect(newUser.last_name).to.be.equal('shayo');

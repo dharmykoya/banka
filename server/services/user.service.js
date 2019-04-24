@@ -1,20 +1,17 @@
 /* eslint-disable max-len */
 import Helper from './helper';
 import Model from '../models/Model';
-// import Mail from './mail';
 
 /**
  * @class UserService
  * @description handles the request coming from the user controller.
  * @exports UserController
  */
-
 class UserService {
   /**
-   * @description return a user
+   * @description find a user by id
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Integer} id
    * @returns {Object} API response
    * @memberof UserService
    */
@@ -31,16 +28,14 @@ class UserService {
   }
 
   /**
-   * @description User can signin
+   * @description find user by email
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} email
    * @returns {Object} API response
    * @memberof UserService
    */
   static async findUserByEmail(email) {
     const model = new Model('users');
-    // const foundUser = await model.FindByEmail(email);
     const foundUser = await model.FindOne('email', email);
     // checks if the account does not exist
     if (!foundUser) {
@@ -53,8 +48,7 @@ class UserService {
   /**
    * @description Create a User
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} user
    * @returns {Object} API response
    * @memberof UserService
    */
@@ -73,9 +67,8 @@ class UserService {
       const userToken = { ...Helper.tokenReturn(newUser) };
       // generating token
       const token = Helper.generateToken(userToken);
-      // const payload = Helper.newUserPayload(email, 'Signup Success', firstName, lastName, 'Welcome to banka, we hope you enjoy our services');
-      // await Mail.sendMail(payload);
-      return { token, ...Helper.userReturn(newUser) };
+      const res = { token, ...Helper.userReturn(newUser) };
+      return res;
     } catch (err) {
       const response = { error: true, err };
       return response;
@@ -85,8 +78,7 @@ class UserService {
   /**
    * @description User can signin
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} user
    * @returns {Object} API response
    * @memberof UserService
    */
@@ -118,8 +110,7 @@ class UserService {
   /**
    * @description to veiw all accounts owned by a user
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} email
    * @returns {Object} returns all acounts owned by a user
    * @memberof UserService
    */
@@ -150,8 +141,8 @@ class UserService {
   /**
    * @description to veiw all accounts owned by a user
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} path
+   * @param {Object} id
    * @returns {Object} returns all acounts owned by a user
    * @memberof UserService
    */

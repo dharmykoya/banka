@@ -1,5 +1,6 @@
-/api/node_modules
-/api/.nyc_output
-/api/lcov.info
-/.vscode
-/api/dist
+.nyc_output
+lcov.info
+.vscode
+dist
+.env
+node_modules

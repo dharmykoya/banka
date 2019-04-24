@@ -1,5 +1,4 @@
 /* eslint-env mocha */
-import fs from 'fs';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
@@ -35,7 +34,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.be.equal(201);
-          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          expect(res.body.data).to.have
+            .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
           expect(res.body.data.email).to.be.equal('dami@gmail.com');
           expect(res.body.data.firstName).to.be.equal('damilola');
           expect(res.body.data.lastName).to.be.equal('Koya');
@@ -58,7 +58,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.status).to.be.equal(201);
-          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          expect(res.body.data).to.have
+            .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
           expect(res.body.data.email).to.be.equal('damilola@gmail.com');
           expect(res.body.data.firstName).to.be.equal('damilola');
           expect(res.body.data.lastName).to.be.equal('Koya');
@@ -67,7 +68,8 @@ describe('The authentication endpoint test', () => {
         });
     });
 
-    it('should return Please enter your first name if the firstName is missing', (done) => {
+    it(`should return Please enter your first name if the 
+    firstName is missing`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -82,13 +84,15 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
+          expect(res.body.error[0]).to.be
+            .equal('Must be only alphabetical chars');
 
           done();
         });
     });
 
-    it('should return Must be only alphabetical chars if the lastName is has a number', (done) => {
+    it(`should return Must be only alphabetical chars if the 
+    lastName is has a number`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -103,34 +107,38 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
+          expect(res.body.error[0]).to.be
+            .equal('Must be only alphabetical chars');
 
           done();
         });
     });
 
-    it('should return Please enter your last name if the lastName is missing', (done) => {
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send({
-          email: 'taiwo@gmail.com',
-          firstName: 'Taiwo',
-          lastName: '',
-          password: 'bankappclient',
-          confirm_password: 'bankappclient',
-          type: 'client',
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(422);
-          expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Must be only alphabetical chars');
+    it('should return Please enter your last name if the lastName is missing',
+      (done) => {
+        chai
+          .request(app)
+          .post('/api/v1/auth/signup')
+          .send({
+            email: 'taiwo@gmail.com',
+            firstName: 'Taiwo',
+            lastName: '',
+            password: 'bankappclient',
+            confirm_password: 'bankappclient',
+            type: 'client',
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(422);
+            expect(res.body.status).to.be.equal(422);
+            expect(res.body.error[0]).to.be
+              .equal('Must be only alphabetical chars');
 
-          done();
-        });
-    });
+            done();
+          });
+      });
 
-    it('should return Please enter a valid email if the email is not a type of email', (done) => {
+    it(`should return Please enter a valid email if the email 
+    is not a type of email`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -151,7 +159,8 @@ describe('The authentication endpoint test', () => {
         });
     });
 
-    it('should return Pasword can not be less than 6 characters if no password is provided', (done) => {
+    it(`should return Pasword can not be less than 6 characters 
+    if no password is provided`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -166,32 +175,35 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(422);
           expect(res.body.status).to.be.equal(422);
-          expect(res.body.error[0]).to.be.equal('Pasword can not be less than 8 characters');
+          expect(res.body.error[0]).to.be
+            .equal('Pasword can not be less than 8 characters');
 
           done();
         });
     });
-    it('should return passwords must match if passwords do not match', (done) => {
-      chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send({
-          email: 'tobi@gmail.com',
-          firstName: 'Tobi',
-          lastName: 'Koya',
-          password: 'damil',
-          confirm_password: 'dami',
-          type: 'client',
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(422);
-          expect(res.body.status).to.be.equal(422);
-          expect(res.body.error).to.be.equal('passwords must match');
+    it('should return passwords must match if passwords do not match',
+      (done) => {
+        chai
+          .request(app)
+          .post('/api/v1/auth/signup')
+          .send({
+            email: 'tobi@gmail.com',
+            firstName: 'Tobi',
+            lastName: 'Koya',
+            password: 'damil',
+            confirm_password: 'dami',
+            type: 'client',
+          })
+          .end((err, res) => {
+            expect(res).to.have.status(422);
+            expect(res.body.status).to.be.equal(422);
+            expect(res.body.error).to.be.equal('passwords must match');
 
-          done();
-        });
-    });
-    it('should return Email exist already, please login to conitnue for user registering with an exisiting email', (done) => {
+            done();
+          });
+      });
+    it(`should return Email exist already, please login to conitnue 
+    for user registering with an exisiting email`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signup')
@@ -206,7 +218,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(409);
           expect(res.body.status).to.be.equal(409);
-          expect(res.body.error).to.be.equal('Email exist already, please login to conitnue');
+          expect(res.body.error).to.be
+            .equal('Email exist already, please login to conitnue');
 
           done();
         });
@@ -218,28 +231,31 @@ describe('The authentication endpoint test', () => {
    * to see if the res body is an object
    */
   describe('Signin user endpoint', () => {
-    it('should let a user gain access to the app and create a token', (done) => {
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send({
-          email: 'dharmykoya38@gmail.com',
-          password: 'BankappClient132@',
-        })
-        .end((err, res) => {
-          staffToken = `Bearer ${res.body.data.token}`;
-          expect(res).to.have.status(200);
-          expect(res.body.status).to.be.equal(200);
-          expect(res.body.data).to.have.key('id', 'token', 'email', 'firstName', 'lastName', 'type');
-          expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
-          expect(res.body.data.firstName).to.be.equal('Damilola');
-          expect(res.body.data.lastName).to.be.equal('Adekoya');
-          expect(res.body.data.type).to.be.equal('staff');
-          done();
-        });
-    });
+    it('should let a user gain access to the app and create a token',
+      (done) => {
+        chai
+          .request(app)
+          .post('/api/v1/auth/signin')
+          .send({
+            email: 'dharmykoya38@gmail.com',
+            password: 'BankappClient132@',
+          })
+          .end((err, res) => {
+            staffToken = `Bearer ${res.body.data.token}`;
+            expect(res).to.have.status(200);
+            expect(res.body.status).to.be.equal(200);
+            expect(res.body.data).to.have
+              .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+            expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
+            expect(res.body.data.firstName).to.be.equal('Damilola');
+            expect(res.body.data.lastName).to.be.equal('Adekoya');
+            expect(res.body.data.type).to.be.equal('staff');
+            done();
+          });
+      });
 
-    it('should return Authentication failed.Email/Wrong password for wrong password', (done) => {
+    it(`should return Authentication failed.Email/Wrong password 
+    for wrong password`, (done) => {
       chai
         .request(app)
         .post('/api/v1/auth/signin')
@@ -250,7 +266,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res.body.status).to.be.equal(400);
-          expect(res.body.error).to.be.equal('Authentication failed.Email/Wrong password.');
+          expect(res.body.error).to.be
+            .equal('Authentication failed.Email/Wrong password.');
           done();
         });
     });
@@ -266,7 +283,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res.body.status).to.be.equal(400);
-          expect(res.body.error).to.be.equal('Email is not registered on this app. Please signup.');
+          expect(res.body.error).to.be
+            .equal('Email is not registered on this app. Please signup.');
           done();
         });
     });
@@ -287,23 +305,24 @@ describe('The authentication endpoint test', () => {
         });
     });
 
-    it('should return JsonWebTokenError if a wrong token was provided', (done) => {
-      chai
-        .request(app)
-        .post('/api/v1/accounts')
-        .send({
-          email: 'doyin.gmail.com',
-          password: 'bankappstaff',
-        })
-        .set('Authorization', token)
-        .end((err, res) => {
-          expect(res).to.have.status(500);
-          expect(res.body.status).to.be.equal(500);
-          expect(res.body.error.name).to.be.equal('JsonWebTokenError');
-          expect(res.body.error.message).to.be.equal('jwt malformed');
-          done();
-        });
-    });
+    it('should return JsonWebTokenError if a wrong token was provided',
+      (done) => {
+        chai
+          .request(app)
+          .post('/api/v1/accounts')
+          .send({
+            email: 'doyin.gmail.com',
+            password: 'bankappstaff',
+          })
+          .set('Authorization', token)
+          .end((err, res) => {
+            expect(res).to.have.status(500);
+            expect(res.body.status).to.be.equal(500);
+            expect(res.body.error.name).to.be.equal('JsonWebTokenError');
+            expect(res.body.error.message).to.be.equal('jwt malformed');
+            done();
+          });
+      });
 
     it('should return all accounts owned by a user', (done) => {
       chai
@@ -313,7 +332,9 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.be.equal(200);
-          expect(res.body.data[0]).to.have.key('id', 'account_number', 'owner', 'type', 'status', 'balance', 'created_on', 'updated_at');
+          expect(res.body.data[0]).to.have
+            .key('id', 'account_number', 'owner', 'type',
+              'status', 'balance', 'created_on', 'updated_at');
           expect(res.body.data[0].account_number).to.be.equal(2000000002);
           expect(res.body.data[0].owner).to.be.equal(4);
           expect(res.body.data[0].type).to.be.equal('current');
@@ -331,7 +352,8 @@ describe('The authentication endpoint test', () => {
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res.body.status).to.be.equal(400);
-          expect(res.body.error).to.be.equal(`user ${noAccountEmail} has no accounts`);
+          expect(res.body.error).to.be
+            .equal(`user ${noAccountEmail} has no accounts`);
           done();
         });
     });
@@ -340,7 +362,9 @@ describe('The authentication endpoint test', () => {
       const id = 3;
       const userAccounts = await UserService.findUserById(id);
       expect(userAccounts.id).to.be.equal(3);
-      expect(userAccounts).to.have.key('id', 'email', 'first_name', 'last_name', 'type', 'profile_image', 'admin', 'created_at', 'updated_at', 'password');
+      expect(userAccounts).to.have
+        .key('id', 'email', 'first_name', 'last_name', 'type',
+          'profile_image', 'admin', 'created_at', 'updated_at', 'password');
       expect(userAccounts.email).to.be.equal('martin@gmail.com');
       expect(userAccounts.first_name).to.be.equal('Martins');
       expect(userAccounts.last_name).to.be.equal('Oguns');
@@ -370,7 +394,7 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .patch('/api/v1/user/upload')
         .set('Authorization', staffToken)
-        .attach('profileImage', fs.readFileSync('git_pic.jpeg'), 'git_pic.jpeg')
+        .attach('profileImage', ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg')
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.status).to.be.equal(200);
@@ -385,7 +409,8 @@ describe('The authentication endpoint test', () => {
     //     .request(app)
     //     .patch('/api/v1/user/upload')
     //     .set('Authorization', staffToken)
-    //     .attach('profileImage', fs.readFileSync('testdoc.docx'), 'testdoc.docx')
+    //     .attach('profileImage',
+    //        fs.readFileSync('testdoc.docx'), 'testdoc.docx')
     //     .end((err, res) => {
     //       console.log(21, res.body);
     //       expect(res).to.have.status(500);
@@ -403,12 +428,15 @@ describe('The authentication endpoint test', () => {
       expect(uploadPic.err).to.be.equal('upload failed');
     });
 
-    it('userAccounts(email) should return user has no account for email without an account', async () => {
+    it(`userAccounts(email) should return user has no account 
+    for email without an account`, async () => {
       const userAccounts = await UserService.userAccounts(noAccountEmail);
-      expect(userAccounts.err).to.be.equal(`user ${noAccountEmail} has no accounts`);
+      expect(userAccounts.err).to.be
+        .equal(`user ${noAccountEmail} has no accounts`);
     });
 
-    it('userAccounts(email) should return user has no account for email not registered on the platform', async () => {
+    it(`userAccounts(email) should return user has no account for 
+    email not registered on the platform`, async () => {
       const userAccounts = await UserService.userAccounts(wrongUserEmail);
       expect(userAccounts.err).to.be.equal('no user found');
     });

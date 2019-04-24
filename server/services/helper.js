@@ -9,18 +9,24 @@ dotenv.config();
 const Helper = {
   /**
    * Gnerate Token
-   * @param {string} id
+   * @param {string} user
    * @returns {string} token
    */
   generateToken(user) {
-    const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '7h' });
+    const token = jwt.sign(
+      { user },
+      process.env.JWT_SECRET,
+      { expiresIn: '7h' }
+    );
     return token;
   },
 
   /**
    * Error format
+   * @param {string} res
    * @param {string} statusCode
-   * @returns {string} error format
+   * @param {string} error
+   * @returns {object} error format
    */
   errorResponse(res, statusCode, error) {
     return res.status(statusCode).send({
@@ -33,11 +39,10 @@ const Helper = {
    * @description Check if email exist
    * @static
    * @param {Object} email
-   * @returns true or false
+   * @returns {boolean} true or false
    */
   checkEmailExist(email) {
     const foundUser = UserData.users.find(user => email === user.email);
-
     // checks if the user exist
     if (foundUser) {
       return true;
@@ -49,7 +54,7 @@ const Helper = {
    * @description returns errors during validation
    * @static
    * @param {Object} errors
-   * @returns array of errors
+   * @returns {array} array of errors
    */
   validationError(errors) {
     const err = errors.map(error => error.msg);
@@ -57,10 +62,10 @@ const Helper = {
   },
 
   /**
-     * Hash Password Method
-     * @param {string} password
-     * @returns {string} returns hashed password
-     */
+   * Hash Password Method
+   * @param {string} pass
+   * @returns {string} returns hashed password
+   */
   hashPassword(pass) {
     const password = bcrypt.hashSync(pass, bcrypt.genSaltSync(8));
     return password;
@@ -68,8 +73,8 @@ const Helper = {
 
   /**
    * comparePassword
-   * @param {string} hashPassword
    * @param {string} password
+   * @param {string} hashPassword
    * @returns {Boolean} return True or False
    */
   comparePassword(password, hashPassword) {
@@ -78,8 +83,11 @@ const Helper = {
 
   /**
    * return format for transactions (credit or debit)
-   * @param {string} statusCode
-   * @returns {string} error format
+   * @param {object} newTransaction
+   * @param {integer} cashier
+   * @param {integer} newBalance
+   * @param {string} type
+   * @returns {object} transaction return format
    */
   transactionReturn(newTransaction, cashier, newBalance, type) {
     return {
@@ -93,9 +101,12 @@ const Helper = {
   },
 
   /**
-   * return format for create Account
-   * @param {string} statusCode
-   * @returns {string} error format
+   * return format for create account
+   * @param {object} newAccount
+   * @param {integer} accountDetails
+   * @param {integer} email
+   * @param {string} type
+   * @returns {object} account return format
    */
   accountReturn(newAccount, accountDetails, email, type) {
     return {
@@ -109,9 +120,9 @@ const Helper = {
     };
   },
   /**
-   * return format for new user
-   * @param {string} statusCode
-   * @returns {string} error format
+   * return format for user
+   * @param {object} newUser
+   * @returns {object} user return format
    */
   userReturn(newUser) {
     return {
@@ -125,7 +136,7 @@ const Helper = {
 
   /**
    * return format for user token
-   * @param {string} statusCode
+   * @param {string} newUser
    * @returns {string} error format
    */
   tokenReturn(newUser) {
@@ -138,9 +149,14 @@ const Helper = {
       isAdmin: newUser.admin,
     };
   },
+
   /**
    * return format for newUser mail
-   * @param {string} statusCode
+   * @param {string} email
+   * @param {string} subject
+   * @param {string} firstName
+   * @param {string} lastName
+   * @param {string} message
    * @returns {string} error format
    */
   newUserPayload(email, subject, firstName, lastName, message) {
@@ -155,9 +171,10 @@ const Helper = {
   },
 
   /**
-   * return format for transactions (credit or debit)
-   * @param {string} statusCode
-   * @returns {string} error format
+   * return mail format for transactions (credit or debit)
+   * @param {string} user
+   * @param {string} newTransaction
+   * @returns {string} mail format
    */
   transactionPayload(user, newTransaction) {
     const payload = {

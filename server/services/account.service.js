@@ -8,7 +8,6 @@ import UserService from './user.service';
  * @description handles the request coming from the user controller.
  * @exports AccountService
  */
-
 class AccountService {
   /**
    * @description generates an account number
@@ -43,7 +42,7 @@ class AccountService {
   /**
    * @description finds a bank account with accountNumber
    * @static
-   * @param {Object} req
+   * @param {Object} accountNumber
    * @param {Object} res
    * @returns {Object} API response
    * @memberof AccountService
@@ -65,7 +64,7 @@ class AccountService {
   /**
    * @description finds a bank account with accountNumber
    * @static
-   * @param {Object} req
+   * @param {Object} accountNumber
    * @param {Object} res
    * @returns {Object} API response
    * @memberof AccountService
@@ -83,8 +82,8 @@ class AccountService {
   /**
    * @description User can create account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountDetails
+   * @param {Object} type
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -114,8 +113,8 @@ class AccountService {
   /**
    * @description Admin/Staff can activate or deactivate a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} status
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -146,10 +145,9 @@ class AccountService {
   }
 
   /**
-   * @description Admin/Staff can activate or deactivate a bank account
+   * @description Admin/Staff delete a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -176,8 +174,8 @@ class AccountService {
   /**
    * @description updates a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} balance
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -201,8 +199,7 @@ class AccountService {
   /**
    * @description returns all transactions for a particular account number
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -227,8 +224,7 @@ class AccountService {
   /**
    * @description returns a the details of an account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -273,8 +269,7 @@ class AccountService {
   /**
    * @description returns a type of accounts
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} status
    * @returns {Object} API response
    * @memberof AccountService
    */

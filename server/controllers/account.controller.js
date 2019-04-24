@@ -6,7 +6,6 @@ import AccountService from '../services/account.service';
  * @description handles the request coming from the user route and interacts with the user service class
  * @exports AccountController
  */
-
 class AccountController {
   /**
   * @description User can create a bank account
@@ -37,13 +36,13 @@ class AccountController {
   }
 
   /**
-      * @description Admin/staff can activate or deactivate a bank account
-      * @static
-      * @param {Object} req
-      * @param {Object} res
-      * @returns {Object} API response
-      * @memberof AccountController
-      */
+  * @description Admin/staff can activate or deactivate a bank account
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} API response
+  * @memberof AccountController
+  */
   static async changeStatus(req, res) {
     const { status } = req.body;
     const { accountNumber } = req.params;
@@ -92,13 +91,13 @@ class AccountController {
   }
 
   /**
-      * @description Returns all the transactions for a particular account number
-      * @static
-      * @param {Object} req
-      * @param {Object} res
-      * @returns {Object} API response
-      * @memberof AccountController
-      */
+  * @description Returns all the transactions for a particular account number
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} API response
+  * @memberof AccountController
+  */
   static async allTransactions(req, res) {
     const { accountNumber } = req.params;
     try {
@@ -119,13 +118,13 @@ class AccountController {
   }
 
   /**
-      * @description can view a specific account details
-      * @static
-      * @param {Object} req
-      * @param {Object} res
-      * @returns {Object} API response
-      * @memberof AccountController
-      */
+  * @description can view a specific account details
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} API response
+  * @memberof AccountController
+  */
   static async accountDetails(req, res) {
     try {
       const { accountNumber } = req.params;

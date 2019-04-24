@@ -6,7 +6,6 @@ import TransactionService from '../services/transaction.service';
  * @description handles the request coming from the transaction route and interacts with the transaction service class
  * @exports TransactionController
  */
-
 class TransactionController {
   /**
       * @description Credit a User bank account
