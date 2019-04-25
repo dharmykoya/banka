@@ -121,23 +121,28 @@ class AccountService {
   static async changeStatus(status, accountNumber) {
     let response;
     try {
-      const parseAccountNumber = parseInt(accountNumber, Number);
-      const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
-      if (foundAccount.error) {
-        response = foundAccount.message;
-        throw response;
+      const type = ['active', 'dormant'];
+      if (type.includes(status)) {
+        const parseAccountNumber = parseInt(accountNumber, Number);
+        const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+        if (foundAccount.error) {
+          response = foundAccount.message;
+          throw response;
+        }
+        const model = new Model('accounts');
+        const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
+        if (updateAccount.name === 'error' || updateAccount === undefined) {
+          response = updateAccount.message;
+          throw response;
+        }
+        response = {
+          accountNumber: foundAccount.account_number,
+          status,
+        };
+        return response;
       }
-      const model = new Model('accounts');
-      const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
-      if (updateAccount.name === 'error' || updateAccount === undefined) {
-        response = updateAccount.message;
-        throw response;
-      }
-      response = {
-        accountNumber: foundAccount.account_number,
-        status,
-      };
-      return response;
+      response = 'Invalid status';
+      throw response;
     } catch (err) {
       response = { error: true, err };
       return response;
@@ -276,15 +281,19 @@ class AccountService {
   static async statusAccounts(status) {
     let response;
     try {
-      const secondTable = 'users';
-      const model = new Model('accounts');
-      const allAccounts = await model.FindStatusAccount(status, secondTable);
-      if (allAccounts === undefined || allAccounts.name === 'error') {
-        response = 'Invalid status';
-        throw response;
+      const type = ['active', 'dormant'];
+      if (type.includes(status)) {
+        const secondTable = 'users';
+        const model = new Model('accounts');
+        const allAccounts = await model.FindStatusAccount(status, secondTable);
+        response = allAccounts;
+        return response;
       }
-      response = allAccounts;
-      return response;
+
+      // if (allAccounts === undefined || allAccounts.name.length === 0) {
+      response = 'Invalid status';
+      throw response;
+      // }
     } catch (err) {
       response = { error: true, err };
       return response;

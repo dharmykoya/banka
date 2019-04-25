@@ -12,8 +12,8 @@ let adminToken = '';
 
 
 describe('The endpoint for Accounts Resource', () => {
-  before((done) => {
-    chai
+  it('register a client', async () => {
+    const res = await chai
       .request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -23,22 +23,19 @@ describe('The endpoint for Accounts Resource', () => {
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
         type: 'client',
-      })
-      .end((err, res) => {
-        clientToken = `Bearer ${res.body.data.token}`;
-        expect(res).to.have.status(201);
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body.data).to.have.key('id', 'token', 'email',
-          'firstName', 'lastName', 'type');
-        expect(res.body.data.email).to.be.equal('victor@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Victor');
-        expect(res.body.data.lastName).to.be.equal('Fayemi');
-        expect(res.body.data.type).to.be.equal('client');
-        done();
       });
+    clientToken = `Bearer ${res.body.data.token}`;
+    expect(res).to.have.status(201);
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('id', 'token', 'email',
+      'firstName', 'lastName', 'type');
+    expect(res.body.data.email).to.be.equal('victor@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('Victor');
+    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.type).to.be.equal('client');
   });
-  before((done) => {
-    chai
+  it('register a staff', async () => {
+    const res = await chai
       .request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -48,337 +45,266 @@ describe('The endpoint for Accounts Resource', () => {
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
         type: 'staff',
-      })
-      .end((err, res) => {
-        adminToken = `Bearer ${res.body.data.token}`;
-        expect(res).to.have.status(201);
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body.data).to.have.key('id', 'token', 'email',
-          'firstName', 'lastName', 'type');
-        expect(res.body.data.email).to.be.equal('peace@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Peace');
-        expect(res.body.data.lastName).to.be.equal('Fayemi');
-        expect(res.body.data.type).to.be.equal('staff');
-
-        done();
       });
+    adminToken = `Bearer ${res.body.data.token}`;
+    expect(res).to.have.status(201);
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('id', 'token', 'email',
+      'firstName', 'lastName', 'type');
+    expect(res.body.data.email).to.be.equal('peace@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('Peace');
+    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.type).to.be.equal('staff');
+  });
+  it('create a current account', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', clientToken)
+      .send({
+        type: 'current',
+        status: 'active',
+      });
+    expect(res).to.have.status(201);
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('accountNumber', 'email',
+      'firstName', 'lastName', 'type', 'openingBalance', 'status');
+    expect(res.body.data.accountNumber).to.be.equal(2000000002);
+    expect(res.body.data.email).to.be.equal('victor@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('Victor');
+    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.type).to.be.equal('current');
+    expect(res.body.data.openingBalance).to.be.equal(2000);
+    expect(res.body.data.status).to.be.equal('active');
   });
   it('should return Auth token is not supplied if header is not set',
-    (done) => {
-      chai
+    async () => {
+      const res = await chai
         .request(app)
         .post('/api/v1/accounts')
         .send({
           type: 'savings',
           status: 'active',
-        })
-        .end((err, res) => {
-          expect(res).to.have.status(403);
-          expect(res.body.status).to.be.equal(403);
-          expect(res.body.error).to.be.equal('Auth token is not supplied');
-          done();
         });
+      expect(res).to.have.status(403);
+      expect(res.body.status).to.be.equal(403);
+      expect(res.body.error).to.be.equal('Auth token is not supplied');
     });
   it(`should return Please select an appropriate account 
-      type if an account type is not selected`,
-  (done) => {
-    chai
+    type if an account type is not selected`,
+  async () => {
+    const res = await chai
       .request(app)
       .post('/api/v1/accounts')
+      .set('Authorization', clientToken)
       .send({
         type: '',
         status: 'active',
-      })
-      .set('Authorization', clientToken)
-      .end((err, res) => {
-        expect(res).to.have.status(422);
-        expect(res.body.status).to.be.equal(422);
-        expect(res.body.error[0]).to.be
-          .equal('Please select an appropriate account type');
-
-        done();
       });
+    expect(res).to.have.status(422);
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('Please select an appropriate account type');
   });
-  it('should create a savings account for a user', (done) => {
-    chai
+  it('create a savings account', async () => {
+    const res = await chai
       .request(app)
       .post('/api/v1/accounts')
+      .set('Authorization', clientToken)
       .send({
         type: 'savings',
         status: 'active',
-      })
-      .set('Authorization', clientToken)
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body.data).to.have
-          .key('accountNumber', 'email', 'firstName', 'lastName',
-            'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000003);
-        expect(res.body.data.email).to.be.equal('victor@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Victor');
-        expect(res.body.data.lastName).to.be.equal('Fayemi');
-        expect(res.body.data.type).to.be.equal('savings');
-        expect(res.body.data.openingBalance).to.be.equal(2000);
-        expect(res.body.data.status).to.be.equal('active');
-        done();
       });
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('accountNumber', 'email',
+      'firstName', 'lastName', 'type', 'openingBalance', 'status');
+    expect(res.body.data.accountNumber).to.be.equal(2000000003);
+    expect(res.body.data.email).to.be.equal('victor@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('Victor');
+    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.type).to.be.equal('savings');
+    expect(res.body.data.openingBalance).to.be.equal(2000);
+    expect(res.body.data.status).to.be.equal('active');
   });
-  before((done) => {
-    chai
-      .request(app)
-      .post('/api/v1/accounts')
-      .send({
-        type: 'current',
-        status: 'active',
-      })
-      .set('Authorization', clientToken)
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        expect(res.body.status).to.be.equal(201);
-        expect(res.body.data).to.have.key('accountNumber', 'email',
-          'firstName', 'lastName', 'type', 'openingBalance', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000002);
-        expect(res.body.data.email).to.be.equal('victor@gmil.com');
-        expect(res.body.data.firstName).to.be.equal('Victor');
-        expect(res.body.data.lastName).to.be.equal('Fayemi');
-        expect(res.body.data.type).to.be.equal('current');
-        expect(res.body.data.openingBalance).to.be.equal(2000);
-        expect(res.body.data.status).to.be.equal('active');
-        done();
-      });
-  });
+
   it(`should return You do not have the authorization or right to perform 
-  this action if the client hit the change status end point`, (done) => {
-    chai
+this action if the client hit the change status end point`, async () => {
+    const res = await chai
       .request(app)
       .patch('/api/v1/accounts/2000000000')
+      .set('Authorization', clientToken)
       .send({
         status: 'dormant',
-      })
-      .set('Authorization', clientToken)
-      .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body.status).to.be.equal(401);
-        expect(res.body.error).to.be
-          .equal('You do not have the authorization or right to perform this action');
-        done();
       });
+    expect(res.body.status).to.be.equal(401);
+    expect(res.body.error).to.be
+      .equal('You do not have the authorization or right to perform this action');
   });
-  it('should change the status of an account', (done) => {
-    chai
+  it('should change the status of an account', async () => {
+    const res = await chai
       .request(app)
       .patch('/api/v1/accounts/2000000001')
+      .set('Authorization', adminToken)
       .send({
         status: 'dormant',
-      })
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data).to.have.key('accountNumber', 'status');
-        expect(res.body.data.accountNumber).to.be.equal(2000000001);
-        expect(res.body.data.status).to.be.equal('dormant');
-        done();
       });
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.have.key('accountNumber', 'status');
+    expect(res.body.data.accountNumber).to.be.equal(2000000001);
+    expect(res.body.data.status).to.be.equal('dormant');
   });
 
   it(`should return No account found/Incorrect account number when changing 
-  the status of an account with a wrong account number`, (done) => {
-    chai
+the status of an account with a wrong account number`, async () => {
+    const res = await chai
       .request(app)
       .patch('/api/v1/accounts/200024544')
+      .set('Authorization', adminToken)
       .send({
         status: 'active',
-      })
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.be.equal(400);
-        expect(res.body.error).to.be
-          .equal('No account found/Incorrect account number');
-        done();
       });
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body.error).to.be
+      .equal('No account found/Incorrect account number');
   });
 
   it(`should return Please select an appropriate status if the 
-  status is not a valid status`, (done) => {
-    chai
+status is not a valid status`, async () => {
+    const res = await chai
       .request(app)
       .patch('/api/v1/accounts/2000000001')
+      .set('Authorization', adminToken)
       .send({
         status: 'wrongstatus',
-      })
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(422);
-        expect(res.body.status).to.be.equal(422);
-        expect(res.body.error[0]).to.be
-          .equal('Please select an appropriate status');
-
-        done();
       });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('Please select an appropriate status');
   });
 
-  it('should return all transactions for an account Number', (done) => {
-    chai
+  it('should return all transactions for an account Number', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts/2000000000/transactions')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data[0].id).to.be.equal(1);
-        expect(res.body.data[0].type).to.be.equal('credit');
-        expect(res.body.data[0].account_number).to.be.equal(2000000000);
-        expect(res.body.data[0].cashier).to.be.equal(2);
-        expect(res.body.data[0].amount).to.be.equal('3000.00');
-        expect(res.body.data[0].old_balance).to.be.equal('4000.00');
-        expect(res.body.data[0].new_balance).to.be.equal('7000.00');
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data[0].id).to.be.equal(1);
+    expect(res.body.data[0].type).to.be.equal('credit');
+    expect(res.body.data[0].account_number).to.be.equal(2000000000);
+    expect(res.body.data[0].cashier).to.be.equal(2);
+    expect(res.body.data[0].amount).to.be.equal('3000.00');
+    expect(res.body.data[0].old_balance).to.be.equal('4000.00');
+    expect(res.body.data[0].new_balance).to.be.equal('7000.00');
   });
 
-  it('should delete a user bank account', (done) => {
-    chai
+  it('should delete a user bank account', async () => {
+    const res = await chai
       .request(app)
       .delete('/api/v1/accounts/2000000001')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(202);
-        expect(res.body.status).to.be.equal(202);
-        expect(res.body.data).to.be
-          .equal('Account Number 2000000001 successfully deleted');
-
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res.body.status).to.be.equal(202);
+    expect(res.body.data).to.be
+      .equal('Account Number 2000000001 successfully deleted');
   });
 
-  it('should return No account found/Incorrect account number', (done) => {
-    chai
+  it('should return No account found/Incorrect account number', async () => {
+    const res = await chai
       .request(app)
       .delete('/api/v1/accounts/20000133')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.be.equal(400);
-        expect(res.body.error).to.be
-          .equal('No account found/Incorrect account number');
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res).to.have.status(400);
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body.error).to.be
+      .equal('No account found/Incorrect account number');
   });
 
-  it('should return accountdetails of a user', (done) => {
-    chai
+  it('should return accountdetails of a user', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts/2000000000')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data).to.have
-          .key('id', 'account_number', 'email', 'owner', 'type',
-            'status', 'balance', 'created_on', 'updated_at');
-        expect(res.body.data.account_number).to.be.equal(2000000000);
-        expect(res.body.data.email).to.be.equal('martin@gmail.com');
-        expect(res.body.data.owner).to.be.equal(3);
-        expect(res.body.data.type).to.be.equal('savings');
-        expect(res.body.data.balance).to.be.equal('4000.00');
-        expect(res.body.data.status).to.be.equal('dormant');
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.have
+      .key('id', 'account_number', 'email', 'owner', 'type',
+        'status', 'balance', 'created_on', 'updated_at');
+    expect(res.body.data.account_number).to.be.equal(2000000000);
+    expect(res.body.data.email).to.be.equal('martin@gmail.com');
+    expect(res.body.data.owner).to.be.equal(3);
+    expect(res.body.data.type).to.be.equal('savings');
+    expect(res.body.data.balance).to.be.equal('4000.00');
+    expect(res.body.data.status).to.be.equal('dormant');
   });
 
-  it('should return accountdetails of a user', (done) => {
-    chai
+  it('should return accountdetails of a user', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts/20000000005')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.have.key('status', 'error');
-        expect(res.body.error).to.be.equal('Account number not found');
-
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res).to.have.status(400);
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body).to.have.key('status', 'error');
+    expect(res.body.error).to.be.equal('Account number not found');
   });
 
-  it('should return all accounts in the app', (done) => {
-    chai
+  it('should return all accounts in the app', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data[0]).to.have
-          .key('account_number', 'type', 'status',
-            'balance', 'created_on', 'email');
-        expect(res.body.data[0].account_number).to.be.equal(2000000000);
-        expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
-        expect(res.body.data[0].type).to.be.equal('savings');
-        expect(res.body.data[0].balance).to.be.equal('4000.00');
-        expect(res.body.data[0].status).to.be.equal('dormant');
-
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res).to.have.status(200);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data[0]).to.have
+      .key('account_number', 'type', 'status',
+        'balance', 'created_on', 'email');
+    expect(res.body.data[0].account_number).to.be.equal(2000000000);
+    expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
+    expect(res.body.data[0].type).to.be.equal('savings');
+    expect(res.body.data[0].balance).to.be.equal('4000.00');
+    expect(res.body.data[0].status).to.be.equal('dormant');
   });
 
-  it('should return all active accounts in the app', (done) => {
-    chai
+  it('should return all active accounts in the app', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts?status=active')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data[0]).to.have
-          .key('account_number', 'type', 'status', 'balance',
-            'created_on', 'email');
-        expect(res.body.data[0].account_number).to.be.equal(2000000003);
-        expect(res.body.data[0].email).to.be.equal('victor@gmil.com');
-        expect(res.body.data[0].type).to.be.equal('savings');
-        expect(res.body.data[0].balance).to.be.equal('2000.00');
-        expect(res.body.data[0].status).to.be.equal('active');
-
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data[0]).to.have
+      .key('account_number', 'type', 'status', 'balance',
+        'created_on', 'email');
+    expect(res.body.data[0].account_number).to.be.equal(2000000003);
+    expect(res.body.data[0].email).to.be.equal('victor@gmil.com');
+    expect(res.body.data[0].type).to.be.equal('savings');
+    expect(res.body.data[0].balance).to.be.equal('2000.00');
+    expect(res.body.data[0].status).to.be.equal('active');
   });
 
-  it('should return all dormant accounts in the app', (done) => {
-    chai
+  it('should return all dormant accounts in the app', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts?status=dormant')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data[0]).to.have
-          .key('account_number', 'type', 'status',
-            'balance', 'created_on', 'email');
-        expect(res.body.data[0].account_number).to.be.equal(2000000000);
-        expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
-        expect(res.body.data[0].type).to.be.equal('savings');
-        expect(res.body.data[0].balance).to.be.equal('4000.00');
-        expect(res.body.data[0].status).to.be.equal('dormant');
-
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res).to.have.status(200);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data[0]).to.have
+      .key('account_number', 'type', 'status',
+        'balance', 'created_on', 'email');
+    expect(res.body.data[0].account_number).to.be.equal(2000000000);
+    expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
+    expect(res.body.data[0].type).to.be.equal('savings');
+    expect(res.body.data[0].balance).to.be.equal('4000.00');
+    expect(res.body.data[0].status).to.be.equal('dormant');
   });
 
-  it('should return error for improper status', (done) => {
-    chai
+  it('should return error for improper status', async () => {
+    const res = await chai
       .request(app)
       .get('/api/v1/accounts?status=somestatus')
-      .set('Authorization', adminToken)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.status).to.be.equal(400);
-        expect(res.body).to.have.key('status', 'error');
-        expect(res.body.error).to.be.equal('Invalid status');
-        done();
-      });
+      .set('Authorization', adminToken);
+    expect(res).to.have.status(400);
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body).to.have.key('status', 'error');
+    expect(res.body.error).to.be.equal('Invalid status');
   });
 
 
@@ -406,7 +332,7 @@ describe('The endpoint for Accounts Resource', () => {
     });
 
   it(`findAccountByAccountNumber(accountNumber) 
-  should return the account Details found`, async () => {
+should return the account Details found`, async () => {
     const accountDetails = await AccountService
       .findAccountByAccountNumber(2000000002);
     expect(accountDetails).to.have
@@ -419,13 +345,13 @@ describe('The endpoint for Accounts Resource', () => {
   });
 
   it(`checkDormantAccount(accountNumber)should return true 
-  if account is dormant`, async () => {
+if account is dormant`, async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000001);
     expect(checkDormant).to.be.equal(false);
   });
 
   it(`checkDormantAccount(accountNumber)should return false 
-  if account is not dormant`, async () => {
+if account is not dormant`, async () => {
     const checkDormant = await AccountService.checkDormantAccount(2000000002);
     expect(checkDormant).to.be.equal(false);
   });
@@ -437,7 +363,7 @@ describe('The endpoint for Accounts Resource', () => {
     });
 
   it(`findAccountByAccountNumber(accountNumber) should return 
-  the account Details found`, async () => {
+the account Details found`, async () => {
     const accountDetails = await AccountService
       .findAccountByAccountNumber(2000000002);
     expect(accountDetails).to.have
@@ -450,7 +376,7 @@ describe('The endpoint for Accounts Resource', () => {
   });
 
   it(`findAccountByAccountNumber(wrongAccountNumber) 
-  No account found/Incorrect account number`, async () => {
+No account found/Incorrect account number`, async () => {
     const accountDetails = await AccountService
       .findAccountByAccountNumber(2000055);
     expect(accountDetails.message).to.be
@@ -493,12 +419,12 @@ describe('The endpoint for Accounts Resource', () => {
   });
 
   it('changeStatus(type, accountNumber) return an error', async () => {
-    const type = 1;
+    const type = 'dami';
     const accountNumber = 2000000002;
     const changeStatus = await AccountService.changeStatus(type, accountNumber);
     expect(changeStatus.error).to.be.equal(true);
     expect(changeStatus.err).to.be
-      .equal('invalid input value for enum account_status: "1"');
+      .equal('Invalid status');
   });
 
 
@@ -514,7 +440,7 @@ describe('The endpoint for Accounts Resource', () => {
     expect(accountDetails[0].status).to.be.equal('dormant');
   });
 
-  it('allAccounts() should return error', async () => {
+  it('allAccounts() should return all accounts', async () => {
     const accountDetails = await AccountService.allAccounts();
     expect(accountDetails[0]).to.have
       .key('account_number', 'type', 'status',

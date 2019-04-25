@@ -1,5 +1,4 @@
 const SQL = {
-  account_status: "CREATE TYPE account_status AS ENUM ('active', 'dormant')",
   UsersTable: `CREATE TABLE IF NOT EXISTS users (
     id serial primary key NOT NULL,
     email varchar(128) NOT NULL UNIQUE,
@@ -17,7 +16,7 @@ const SQL = {
             account_number integer NOT NULL UNIQUE,
             owner integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
             type varchar(12) NOT NULL,
-            status account_status NOT NULL DEFAULT 'active',
+            status varchar(12) NOT NULL DEFAULT 'active',
             balance numeric(15, 2) NOT NULL,
             created_on TIMESTAMP WITH TIME ZONE DEFAULT now(),
             updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
