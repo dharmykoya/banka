@@ -14,8 +14,6 @@ cache:
 before_script:
     - psql -c 'create database bankaa;' -U postgres
     - npm run migrations
-script:
-  - npm run test:travis
 after_success:
     - npm run coverage
     - npm install codeclimate-test-reporter
