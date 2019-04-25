@@ -13,6 +13,7 @@ cache:
     - "node_modules"
 before_script:
     - psql -c 'create database bankaa;' -U postgres
+    - npm run migrations
 script:
   - npm run test-db
 after_success:
