@@ -148,6 +148,7 @@ this action if the client hit the change status end point`, async () => {
       .send({
         status: 'dormant',
       });
+      
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have.key('accountNumber', 'status');
     expect(res.body.data.accountNumber).to.be.equal(2000000001);
