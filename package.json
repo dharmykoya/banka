@@ -8,7 +8,7 @@
     "start-dev": "nodemon --exec babel-node server/index.js",
     "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit --watch",
     "test-watch": "nodemon --exec \"npm test\"",
-    "test:travis": "mocha server/test/ --require @babel/register --timeout 50000 --exit",
+    "test:travis": "set NODE_ENV=test && mocha server/test/ --require @babel/register --timeout 50000 --exit",
     "test:trav": "mocha **/*.spec.js --require @babel/register --exit",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
