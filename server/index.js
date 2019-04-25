@@ -1,22 +1,25 @@
 import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import expressValidator from 'express-validator';
-import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
+import dotenv from 'dotenv';
 
 // Routes for the app
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../swagger.json';
 import Auth from './routes/auth.route';
 import Account from './routes/account.route';
 import Transaction from './routes/transaction.route';
 import User from './routes/user.route';
 
-require('dotenv').config();
+dotenv.config();
 
 const app = express();
 
-
+app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 const PORT = process.env.PORT || 2500;

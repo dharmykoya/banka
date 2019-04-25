@@ -10,6 +10,7 @@ const { expect } = chai;
 const minBalance = 1000;
 let staffToken = '';
 let clientToken = '';
+let isAdminToken = '';
 let newAccountNumber;
 
 
@@ -17,10 +18,29 @@ chai.use(chaiHttp);
 
 
 describe('Transaction Resource', () => {
+  it('Login an Admin', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'dharmykoya38@gmail.com',
+        password: 'BankappClient132@',
+      });
+    isAdminToken = `Bearer ${res.body.data.token}`;
+    expect(res).to.have.status(200);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.have.key('id', 'token', 'email',
+      'firstName', 'lastName', 'type', 'isAdmin');
+    expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
+    expect(res.body.data.firstName).to.be.equal('Damilola');
+    expect(res.body.data.lastName).to.be.equal('Adekoya');
+    expect(res.body.data.type).to.be.equal('staff');
+  });
   it('signup a staff', async () => {
     const res = await chai
       .request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v1/auth/addstaff')
+      .set('Authorization', isAdminToken)
       .send({
         firstName: 'Mercy',
         lastName: 'Fayemi',
@@ -32,7 +52,7 @@ describe('Transaction Resource', () => {
     staffToken = `Bearer ${res.body.data.token}`;
     expect(res.body.status).to.be.equal(201);
     expect(res.body.data).to.have
-      .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+      .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('mercy@gmil.com');
     expect(res.body.data.firstName).to.be.equal('Mercy');
     expect(res.body.data.lastName).to.be.equal('Fayemi');
@@ -53,7 +73,7 @@ describe('Transaction Resource', () => {
     clientToken = `Bearer ${res.body.data.token}`;
     expect(res.body.status).to.be.equal(201);
     expect(res.body.data).to.have
-      .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+      .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('tope@gmil.com');
     expect(res.body.data.firstName).to.be.equal('Tope');
     expect(res.body.data.lastName).to.be.equal('Fayemi');

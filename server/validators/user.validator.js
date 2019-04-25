@@ -31,9 +31,6 @@ const UserValidator = {
       .withMessage('Password must contain an upper case letter')
       .matches('[~, !, @, #, $, %, ^, &, *, (, ), -, _, +, =, <, >, ?]')
       .withMessage('Password must contain a special char');
-    req.check('type')
-      .isIn(['client', 'staff'])
-      .withMessage('Please select an appropriate type');
     const errors = req.validationErrors();
     if (errors) {
       const err = Helper.validationError(errors);

@@ -81,6 +81,26 @@ class Auth {
     const error = 'You do not have the authorization or right to perform this action';
     return Helper.errorResponse(res, 401, error);
   }
+
+  /**
+   *
+   * Checks if the current user is a staff or not
+   * and applies appropriate access control
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {(function|Object)} Function next() or an error Object
+   * @memberof Auth
+   */
+  static AdminCheck(req, res, next) {
+    const { isAdmin } = req.decoded.user;
+    if (isAdmin === true) {
+      return next();
+    }
+    const error = 'You do not have the authorization or right to perform this action';
+    return Helper.errorResponse(res, 401, error);
+  }
 }
 
 export default Auth;

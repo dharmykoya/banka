@@ -119,6 +119,33 @@ class UserController {
       });
     }
   }
+
+  /**
+  * @description Create a User
+  * @static
+  * @param {Object} req
+  * @param {Object} res
+  * @returns {Object} API response
+  * @memberof UserController
+  */
+  static async createStaff(req, res) {
+    const user = req.body;
+    try {
+      const newUser = await UserService.createStaff(user);
+      if (newUser.error) {
+        throw newUser;
+      }
+      return res.status(201).send({
+        status: 201,
+        data: newUser,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
 }
 
 export default UserController;

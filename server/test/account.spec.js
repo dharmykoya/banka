@@ -9,6 +9,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 let clientToken = '';
 let adminToken = '';
+let isAdminToken = '';
 
 
 describe('The endpoint for Accounts Resource', () => {
@@ -28,29 +29,47 @@ describe('The endpoint for Accounts Resource', () => {
     expect(res).to.have.status(201);
     expect(res.body.status).to.be.equal(201);
     expect(res.body.data).to.have.key('id', 'token', 'email',
-      'firstName', 'lastName', 'type');
+      'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('victor@gmil.com');
     expect(res.body.data.firstName).to.be.equal('Victor');
     expect(res.body.data.lastName).to.be.equal('Fayemi');
     expect(res.body.data.type).to.be.equal('client');
   });
+  it('Login an Admin', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send({
+        email: 'dharmykoya38@gmail.com',
+        password: 'BankappClient132@',
+      });
+    isAdminToken = `Bearer ${res.body.data.token}`;
+    expect(res).to.have.status(200);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.have.key('id', 'token', 'email',
+      'firstName', 'lastName', 'type', 'isAdmin');
+    expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
+    expect(res.body.data.firstName).to.be.equal('Damilola');
+    expect(res.body.data.lastName).to.be.equal('Adekoya');
+    expect(res.body.data.type).to.be.equal('staff');
+  });
   it('register a staff', async () => {
     const res = await chai
       .request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v1/auth/addstaff')
+      .set('Authorization', isAdminToken)
       .send({
         firstName: 'Peace',
         lastName: 'Fayemi',
         email: 'peace@gmil.com',
         password: 'Bankappclient1!',
         confirm_password: 'Bankappclient1!',
-        type: 'staff',
       });
     adminToken = `Bearer ${res.body.data.token}`;
     expect(res).to.have.status(201);
     expect(res.body.status).to.be.equal(201);
     expect(res.body.data).to.have.key('id', 'token', 'email',
-      'firstName', 'lastName', 'type');
+      'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('peace@gmil.com');
     expect(res.body.data.firstName).to.be.equal('Peace');
     expect(res.body.data.lastName).to.be.equal('Fayemi');
@@ -148,7 +167,7 @@ this action if the client hit the change status end point`, async () => {
       .send({
         status: 'dormant',
       });
-      
+
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have.key('accountNumber', 'status');
     expect(res.body.data.accountNumber).to.be.equal(2000000001);

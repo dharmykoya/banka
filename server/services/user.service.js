@@ -54,13 +54,14 @@ class UserService {
    */
   static async signUp(user) {
     const {
-      email, firstName, lastName, password, type,
+      email, firstName, lastName, password,
     } = user;
     try {
+      const type = 'client';
       const hashPassword = Helper.hashPassword(password);
       const model = new Model('users');
       const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
-      if (newUser.name === 'error') {
+      if (newUser.name === 'error' || newUser === undefined) {
         const response = 'you have been registered earlier, please login';
         throw response;
       }
@@ -159,6 +160,37 @@ class UserService {
       return response;
     } catch (err) {
       response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description Create a User
+   * @static
+   * @param {Object} user
+   * @returns {Object} API response
+   * @memberof UserService
+   */
+  static async createStaff(user) {
+    const {
+      email, firstName, lastName, password,
+    } = user;
+    try {
+      const type = 'staff';
+      const hashPassword = Helper.hashPassword(password);
+      const model = new Model('users');
+      const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
+      if (newUser.name === 'error' || newUser === undefined) {
+        const response = 'you have been registered earlier, please login';
+        throw response;
+      }
+      const userToken = { ...Helper.tokenReturn(newUser) };
+      // generating token
+      const token = Helper.generateToken(userToken);
+      const res = { token, ...Helper.userReturn(newUser) };
+      return res;
+    } catch (err) {
+      const response = { error: true, err };
       return response;
     }
   }
