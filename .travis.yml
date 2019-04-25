@@ -5,22 +5,20 @@ env:
   global: 
     - CODECLIMATE_REPO_TOKEN=a8dc429b5b7acaecdd7ad43c5b4099050996568267b5b81e0e979c27d3ef396b 
 install:
+  - cd server
   - npm install
 services:
   - postgresql      
 cache:
   directories:
-    - "node_modules"
+    - "server/node_modules"
 before_script:
     - psql -c 'create database bankaa;' -U postgres
-    - npm run migrations
 script:
-  - npm run test:travis    
+  - npm run test-db
 after_success:
     - npm run coverage
     - npm install codeclimate-test-reporter
     - codeclimate-test-reporter < coverage/lcov.info
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT  
-
-  
