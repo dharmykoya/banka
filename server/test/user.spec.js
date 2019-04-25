@@ -33,7 +33,8 @@ describe('The authentication endpoint test', () => {
         });
       expect(res.body.status).to.be.equal(201);
       expect(res.body.data).to.have
-        .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        .key('id', 'token', 'email', 'firstName', 'lastName',
+          'type', 'isAdmin');
       expect(res.body.data.email).to.be.equal('dami@gmail.com');
       expect(res.body.data.firstName).to.be.equal('damilola');
       expect(res.body.data.lastName).to.be.equal('Koya');
@@ -49,15 +50,16 @@ describe('The authentication endpoint test', () => {
           lastName: 'Koya',
           password: 'Bankappclient2@',
           confirm_password: 'Bankappclient2@',
-          type: 'staff',
+          type: 'client',
         });
       expect(res.body.status).to.be.equal(201);
       expect(res.body.data).to.have
-        .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+        .key('id', 'token', 'email', 'firstName', 'lastName', 'type',
+          'isAdmin');
       expect(res.body.data.email).to.be.equal('damilola@gmail.com');
       expect(res.body.data.firstName).to.be.equal('damilola');
       expect(res.body.data.lastName).to.be.equal('Koya');
-      expect(res.body.data.type).to.be.equal('staff');
+      expect(res.body.data.type).to.be.equal('client');
     });
 
     it(`should return Please enter your first name if the 
@@ -201,7 +203,7 @@ describe('The authentication endpoint test', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
         expect(res.body.data).to.have
-          .key('id', 'token', 'email', 'firstName', 'lastName', 'type');
+          .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
         expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
         expect(res.body.data.firstName).to.be.equal('Damilola');
         expect(res.body.data.lastName).to.be.equal('Adekoya');

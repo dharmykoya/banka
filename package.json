@@ -4,7 +4,7 @@
   "description": "A simple banking app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server/index.js",
+    "start": "node server/index.js",
     "start-dev": "nodemon --exec babel-node server/index.js",
     "test": "mocha **/*.spec.js --require @babel/register --timeout 50000 --exit --watch",
     "test-watch": "nodemon --exec \"npm test\"",
@@ -14,7 +14,7 @@
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
     "coverage": "nyc npm run test-db && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage",
-    "babel-build": "babel controllers data middleware models routes services test validators index.js -d dist",
+    "babel-build": "babel server -d dist",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean && npm run babel-build",
     "migrate": "babel-node server/models/createTableMigrations",
@@ -29,13 +29,15 @@
     "@sendgrid/mail": "^6.3.1",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "multer": "^1.4.1",
-    "pg": "^7.10.0"
+    "pg": "^7.10.0",
+    "swagger-ui-express": "^4.0.2"
   },
   "repository": {
     "type": "git",

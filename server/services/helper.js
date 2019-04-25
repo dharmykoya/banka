@@ -131,6 +131,7 @@ const Helper = {
       firstName: newUser.first_name,
       lastName: newUser.last_name,
       type: newUser.type,
+      isAdmin: newUser.admin,
     };
   },
 

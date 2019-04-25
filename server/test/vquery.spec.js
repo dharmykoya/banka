@@ -2,11 +2,14 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import Model from '../models/Model';
+import app from '../index';
 
 const { expect } = chai;
 
 
 chai.use(chaiHttp);
+
+let clientToken = '';
 
 describe('Test for queries in the Model', () => {
   it('should insert a new data into transaction table', async () => {
@@ -58,5 +61,44 @@ describe('Test for queries in the Model', () => {
     expect(newAccount.owner).to.be.equal(2);
     expect(newAccount.type).to.be.equal('current');
     expect(newAccount.id).to.be.equal(7);
+  });
+  it('register a client', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        firstName: 'Sodiq',
+        lastName: 'Fayemi',
+        email: 'sodiq@gmil.com',
+        password: 'Bankappclient1!',
+        confirm_password: 'Bankappclient1!',
+        type: 'client',
+      });
+    clientToken = `Bearer ${res.body.data.token}`;
+    expect(res).to.have.status(201);
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('id', 'token', 'email',
+      'firstName', 'lastName', 'type', 'isAdmin');
+    expect(res.body.data.email).to.be.equal('sodiq@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('Sodiq');
+    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.type).to.be.equal('client');
+  });
+  it('register a staff', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/auth/addstaff')
+      .set('Authorization', clientToken)
+      .send({
+        firstName: 'Peace',
+        lastName: 'Fayemi',
+        email: 'peace@gmil.com',
+        password: 'Bankappclient1!',
+        confirm_password: 'Bankappclient1!',
+      });
+    expect(res.body.status).to.be.equal(401);
+    expect(res.body).to.have.key('error', 'status');
+    expect(res.body.error).to.be
+      .equal('You do not have the authorization or right to perform this action');
   });
 });
