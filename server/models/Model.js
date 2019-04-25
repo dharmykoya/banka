@@ -70,6 +70,7 @@ class Model {
       const sql = `insert into ${this.table} (${columns}) 
       values(${parameters}) returning *`;
       const result = await this.pool.query(sql, values);
+      await this.pool.end();
       return result.rows[0];
     } catch (error) {
       return error;
@@ -89,6 +90,7 @@ class Model {
       const result = await this.pool.query(
         `select * from ${this.table} where ${column} = '${param}'`
       );
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;
@@ -108,6 +110,7 @@ class Model {
       const result = await this.pool.query(
         `select * from ${this.table} where ${column} = '${param}'`
       );
+      await this.pool.end();
       return result.rows[0];
     } catch (error) {
       return error;
@@ -130,6 +133,7 @@ class Model {
           users.email  from accounts inner join 
           ${secondTable} on ${this.table}.owner = ${secondTable}.id`;
       const result = await this.pool.query(sql);
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;
@@ -147,6 +151,7 @@ class Model {
       const sql = `select account_number from 
           ${this.table} order by created_on desc limit 1`;
       const result = await this.pool.query(sql);
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;
@@ -166,6 +171,7 @@ class Model {
           (account_number, owner, type, balance) 
           values($1, $2, $3, $4) returning *`;
       const result = await this.pool.query(sql, values);
+      await this.pool.end();
       return result.rows[0];
     } catch (error) {
       return error;
@@ -185,6 +191,7 @@ class Model {
           (type, account_number, cashier, amount, old_balance, new_balance) 
           values($1, $2, $3, $4, $5, $6) returning *`;
       const res = await this.pool.query(sql, values);
+      await this.pool.end();
       return res.rows[0];
     } catch (error) {
       return error;
@@ -205,6 +212,7 @@ class Model {
       const sql = `update ${this.table} 
           set status = $1 where account_number = $2`;
       const res = await this.pool.query(sql, values);
+      await this.pool.end();
       return res.rows;
     } catch (error) {
       return error;
@@ -224,6 +232,7 @@ class Model {
       const sql = `select id, type, created_on, account_number, 
           owner, status, balance from ${this.table} where account_number = $1`;
       const res = await this.pool.query(sql, values);
+      await this.pool.end();
       return res.rows[0];
     } catch (error) {
       return error;
@@ -242,6 +251,7 @@ class Model {
     try {
       const sql = `delete from ${this.table} where account_number = $1`;
       const res = await this.pool.query(sql, values);
+      await this.pool.end();
       return res.rows;
     } catch (error) {
       return error;
@@ -262,6 +272,7 @@ class Model {
       const sql = `update ${this.table} 
           set balance = $1 where account_number = $2`;
       const result = await this.pool.query(sql, values);
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;
@@ -284,6 +295,7 @@ class Model {
           on ${this.table}.owner = ${secondTable}.id 
           where status = '${status}' `;
       const result = await this.pool.query(sql);
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;
@@ -306,6 +318,7 @@ class Model {
       const sql = `update ${this.table} 
           set ${column} = $1 where ${columnCondition} = $2`;
       const result = await this.pool.query(sql, values);
+      await this.pool.end();
       return result.rows;
     } catch (error) {
       return error;

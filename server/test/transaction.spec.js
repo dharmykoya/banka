@@ -17,7 +17,7 @@ chai.use(chaiHttp);
 
 
 describe('Transaction Resource', () => {
-  before(async () => {
+  it('signup a staff', async () => {
     const res = await chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -38,7 +38,7 @@ describe('Transaction Resource', () => {
     expect(res.body.data.lastName).to.be.equal('Fayemi');
     expect(res.body.data.type).to.be.equal('staff');
   });
-  before(async () => {
+  it('signup a client', async () => {
     const res = await chai
       .request(app)
       .post('/api/v1/auth/signup')
@@ -59,7 +59,7 @@ describe('Transaction Resource', () => {
     expect(res.body.data.lastName).to.be.equal('Fayemi');
     expect(res.body.data.type).to.be.equal('client');
   });
-  before(async () => {
+  it('create a savings account', async () => {
     const res = await chai
       .request(app)
       .post('/api/v1/accounts')

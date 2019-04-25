@@ -60,6 +60,8 @@ const transactionD = async () => {
 };
 
 
+model.pool.on('remove', () => process.exit(0));
+
 (async () => {
   try {
     await createTablesSchema();
