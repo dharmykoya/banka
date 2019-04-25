@@ -4,3 +4,5 @@ exclude_patterns:
 - "server/runMigration.js"
 - "server/test"
 - "/UI"
+method-lines:
+  

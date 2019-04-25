@@ -289,11 +289,8 @@ class AccountService {
         response = allAccounts;
         return response;
       }
-
-      // if (allAccounts === undefined || allAccounts.name.length === 0) {
       response = 'Invalid status';
       throw response;
-      // }
     } catch (err) {
       response = { error: true, err };
       return response;
