@@ -3,7 +3,9 @@ import Helper from '../services/helper';
 
 const AccountValidator = {
   createAccountValidator(req, res, next) {
-    req.check('type').isIn(['savings', 'current']).withMessage('Please select an appropriate account type');
+    req.check('type')
+      .isIn(['savings', 'current'])
+      .withMessage('Please select an appropriate account type');
 
     // checks for the validation errors
     const errors = req.validationErrors();
@@ -15,7 +17,9 @@ const AccountValidator = {
   },
 
   changeAccountStatusValidator(req, res, next) {
-    req.check('status').isIn(['active', 'dormant']).withMessage('Please select an appropriate status');
+    req.check('status')
+      .isIn(['active', 'dormant'])
+      .withMessage('Please select an appropriate status');
 
     // checks for the validation errors
     const errors = req.validationErrors();

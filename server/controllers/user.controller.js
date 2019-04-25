@@ -6,7 +6,6 @@ import UserService from '../services/user.service';
  * @description handles the request coming from the user route and interacts with the user service class
  * @exports UserController
  */
-
 class UserController {
   /**
   * @description Create a User

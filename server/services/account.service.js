@@ -8,7 +8,6 @@ import UserService from './user.service';
  * @description handles the request coming from the user controller.
  * @exports AccountService
  */
-
 class AccountService {
   /**
    * @description generates an account number
@@ -43,7 +42,7 @@ class AccountService {
   /**
    * @description finds a bank account with accountNumber
    * @static
-   * @param {Object} req
+   * @param {Object} accountNumber
    * @param {Object} res
    * @returns {Object} API response
    * @memberof AccountService
@@ -65,7 +64,7 @@ class AccountService {
   /**
    * @description finds a bank account with accountNumber
    * @static
-   * @param {Object} req
+   * @param {Object} accountNumber
    * @param {Object} res
    * @returns {Object} API response
    * @memberof AccountService
@@ -83,8 +82,8 @@ class AccountService {
   /**
    * @description User can create account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountDetails
+   * @param {Object} type
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -114,31 +113,36 @@ class AccountService {
   /**
    * @description Admin/Staff can activate or deactivate a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} status
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
   static async changeStatus(status, accountNumber) {
     let response;
     try {
-      const parseAccountNumber = parseInt(accountNumber, Number);
-      const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
-      if (foundAccount.error) {
-        response = foundAccount.message;
-        throw response;
+      const type = ['active', 'dormant'];
+      if (type.includes(status)) {
+        const parseAccountNumber = parseInt(accountNumber, Number);
+        const foundAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+        if (foundAccount.error) {
+          response = foundAccount.message;
+          throw response;
+        }
+        const model = new Model('accounts');
+        const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
+        if (updateAccount.name === 'error' || updateAccount === undefined) {
+          response = updateAccount.message;
+          throw response;
+        }
+        response = {
+          accountNumber: foundAccount.account_number,
+          status,
+        };
+        return response;
       }
-      const model = new Model('accounts');
-      const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
-      if (updateAccount.name === 'error' || updateAccount === undefined) {
-        response = updateAccount.message;
-        throw response;
-      }
-      response = {
-        accountNumber: foundAccount.account_number,
-        status,
-      };
-      return response;
+      response = 'Invalid status';
+      throw response;
     } catch (err) {
       response = { error: true, err };
       return response;
@@ -146,10 +150,9 @@ class AccountService {
   }
 
   /**
-   * @description Admin/Staff can activate or deactivate a bank account
+   * @description Admin/Staff delete a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -176,8 +179,8 @@ class AccountService {
   /**
    * @description updates a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} balance
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -201,8 +204,7 @@ class AccountService {
   /**
    * @description returns all transactions for a particular account number
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -227,8 +229,7 @@ class AccountService {
   /**
    * @description returns a the details of an account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
@@ -273,23 +274,26 @@ class AccountService {
   /**
    * @description returns a type of accounts
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} status
    * @returns {Object} API response
    * @memberof AccountService
    */
   static async statusAccounts(status) {
     let response;
     try {
-      const secondTable = 'users';
-      const model = new Model('accounts');
-      const allAccounts = await model.FindStatusAccount(status, secondTable);
-      if (allAccounts === undefined || allAccounts.name === 'error') {
-        response = 'Invalid status';
-        throw response;
+      const type = ['active', 'dormant'];
+      if (type.includes(status)) {
+        const secondTable = 'users';
+        const model = new Model('accounts');
+        const allAccounts = await model.FindStatusAccount(status, secondTable);
+        response = allAccounts;
+        return response;
       }
-      response = allAccounts;
-      return response;
+
+      // if (allAccounts === undefined || allAccounts.name.length === 0) {
+      response = 'Invalid status';
+      throw response;
+      // }
     } catch (err) {
       response = { error: true, err };
       return response;

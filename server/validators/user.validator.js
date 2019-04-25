@@ -11,12 +11,18 @@ const UserValidator = {
       const error = 'passwords must match';
       return Helper.errorResponse(res, 422, error);
     }
-    req.check('firstName').isAlpha().withMessage('Must be only alphabetical chars').isLength({ min: 2 })
+    req.check('firstName')
+      .isAlpha().withMessage('Must be only alphabetical chars')
+      .isLength({ min: 2 })
       .withMessage('Please enter your first name');
-    req.check('lastName').isAlpha().withMessage('Must be only alphabetical chars').isLength({ min: 2 })
+    req.check('lastName')
+      .isAlpha().withMessage('Must be only alphabetical chars')
+      .isLength({ min: 2 })
       .withMessage('Please enter your last name');
     req.check('email').isEmail().withMessage('Please enter a valid email');
-    req.check('password').isLength({ min: 8 }).withMessage('Pasword can not be less than 8 characters')
+    req.check('password')
+      .isLength({ min: 8 })
+      .withMessage('Pasword can not be less than 8 characters')
       .matches('[0-9]')
       .withMessage('Password must contain a number')
       .matches('[a-z]')
@@ -25,7 +31,9 @@ const UserValidator = {
       .withMessage('Password must contain an upper case letter')
       .matches('[~, !, @, #, $, %, ^, &, *, (, ), -, _, +, =, <, >, ?]')
       .withMessage('Password must contain a special char');
-    req.check('type').isIn(['client', 'staff']).withMessage('Please select an appropriate type');
+    req.check('type')
+      .isIn(['client', 'staff'])
+      .withMessage('Please select an appropriate type');
     const errors = req.validationErrors();
     if (errors) {
       const err = Helper.validationError(errors);
@@ -36,7 +44,9 @@ const UserValidator = {
 
   signInValidator(req, res, next) {
     req.check('email').isEmail().withMessage('Please enter a valid email');
-    req.check('password').isLength({ min: 6 }).withMessage('Pasword can not be less than 6 characters');
+    req.check('password')
+      .isLength({ min: 8 })
+      .withMessage('Pasword can not be less than 6 characters');
 
     const errors = req.validationErrors();
     if (errors) {

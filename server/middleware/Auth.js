@@ -12,7 +12,8 @@ dotenv.config();
 class Auth {
   /**
    *
-   * Handles Authorization and checks who is currently logged in if authorization is successful
+   * Handles Authorization and checks who is currently logged in
+   * if authorization is successful
    * @static
    * @param {Object} req
    * @param {Object} res
@@ -21,7 +22,9 @@ class Auth {
    * @memberof Auth
    */
   static getUser(req, res, next) {
-    let token = req.body.token || req.query.token || req.headers['x-access-token'] || req.headers.Authorization || req.headers.authorization;
+    let token = req.body.token || req.query.token
+        || req.headers['x-access-token'] || req.headers.Authorization
+        || req.headers.authorization;
     token = token ? token.substring(7) : token;
 
     if (token) {
@@ -41,7 +44,8 @@ class Auth {
 
   /**
    *
-   * Checks if the current user is a staff or not and applies appropriate access control
+   * Checks if the current user is a staff or not
+   * and applies appropriate access control
    * @static
    * @param {object} req
    * @param {object} res
@@ -60,7 +64,8 @@ class Auth {
 
   /**
    *
-   * Checks if the current user is a staff or not and applies appropriate access control
+   * Checks if the current user is a staff or not
+   * and applies appropriate access control
    * @static
    * @param {object} req
    * @param {object} res

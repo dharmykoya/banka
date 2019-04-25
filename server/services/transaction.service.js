@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import Helper from './helper';
-// import Mail from './mail';
 import AccountService from './account.service';
 import Model from '../models/Model';
 
@@ -9,13 +8,13 @@ import Model from '../models/Model';
  * @description handles the request coming from the service controller.
  * @exports TransactionService
  */
-
 class TransactionService {
   /**
    * @description credit a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} userAccountNumber
+   * @param {Object} tranAmount
+   * @param {Object} cashier
    * @returns {Object} API response
    * @memberof TransactionService
    */
@@ -46,9 +45,6 @@ class TransactionService {
       }
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
-      // const user = await UserService.findUserById(foundAccount.owner);
-      // const payload = Helper.transactionPayload(user, newTransaction);
-      // await Mail.sendMail(payload);
       response = transaction;
       return response;
     } catch (err) {
@@ -60,8 +56,9 @@ class TransactionService {
   /**
    * @description debit a bank account
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} accountNumber
+   * @param {Object} amount
+   * @param {Object} cashier
    * @returns {Object} API response
    * @memberof TransactionService
    */
@@ -95,9 +92,6 @@ class TransactionService {
       }
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
-      // const user = await UserService.findUserById(foundAccount.owner);
-      // const payload = Helper.transactionPayload(user, newTransaction);
-      // await Mail.sendMail(payload);
       response = transaction;
       return response;
     } catch (err) {
@@ -109,8 +103,11 @@ class TransactionService {
   /**
    * @description makes the transaction depending on the type
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} type
+   * @param {Object} cashier
+   * @param {Object} parseAccountNumber
+   * @param {Object} parseAmount
+   * @param {Object} oldBalance
    * @returns {Object} API response
    * @memberof TransactionService
    */
@@ -142,8 +139,7 @@ class TransactionService {
   /**
    * @description get a particular transaction
    * @static
-   * @param {Object} req
-   * @param {Object} res
+   * @param {Object} transactionId
    * @returns {Object} returns the transaction details
    * @memberof TransactionService
    */
