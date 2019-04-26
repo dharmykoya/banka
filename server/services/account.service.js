@@ -62,6 +62,26 @@ class AccountService {
   }
 
   /**
+   * @description finds a bank account with userId
+   * @static
+   * @param {Object} userId
+   * @param {Object} res
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async findAccountByUserId(userId) {
+    const parseUserId = parseInt(userId, Number);
+    const model = new Model('accounts');
+    const foundAccount = await model.FindAccountById(parseUserId);
+    // checks if the account does not exist
+    if (!foundAccount || foundAccount.name === 'error') {
+      const response = { error: true, message: 'No account found/Incorrect account number' };
+      return response;
+    }
+    return foundAccount;
+  }
+
+  /**
    * @description finds a bank account with accountNumber
    * @static
    * @param {Object} accountNumber

@@ -68,7 +68,7 @@ class TransactionController {
   }
 
   /**
-      * @description get a specific transaction
+      * @description get single transaction
       * @static
       * @param {Object} req
       * @param {Object} res
@@ -77,8 +77,9 @@ class TransactionController {
       */
   static async getTransaction(req, res) {
     const { transactionId } = req.params;
+    const { user } = req.decoded;
     try {
-      const transaction = await TransactionService.getTransaction(transactionId);
+      const transaction = await TransactionService.getTransaction(user, transactionId);
       if (transaction.error) {
         throw transaction;
       }

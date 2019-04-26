@@ -137,17 +137,26 @@ class TransactionService {
   }
 
   /**
-   * @description get a particular transaction
+   * @description get a single transaction
    * @static
+   * @param {Object} user
    * @param {Object} transactionId
    * @returns {Object} returns the transaction details
    * @memberof TransactionService
    */
-  static async getTransaction(transactionId) {
+  static async getTransaction(user, transactionId) {
     const parseTransactionId = parseInt(transactionId, Number);
     const column = 'id';
     let response;
     try {
+      const { type } = user;
+      if (type === 'client') {
+        const singleTransaction = await this.getSingleClientTransaction(user, transactionId);
+        if (singleTransaction.error) {
+          throw singleTransaction.err;
+        }
+        return singleTransaction;
+      }
       const model = new Model('transactions');
       const singleTransaction = await model.FindOne(column, parseTransactionId);
       if (singleTransaction.name === 'error' || singleTransaction === undefined) {
@@ -155,6 +164,42 @@ class TransactionService {
         throw response;
       }
       return singleTransaction;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description get a single transaction for client
+   * @static
+   * @param {Object} user
+   * @param {Object} transactionId
+   * @returns {Object} returns the transaction details
+   * @memberof TransactionService
+   */
+  static async getSingleClientTransaction(user, transactionId) {
+    const parseTransactionId = parseInt(transactionId, Number);
+    const { id } = user;
+    let response;
+    try {
+      const model = new Model('transactions');
+      const column = 'id';
+      const singleTransaction = await model.FindOne(column, parseTransactionId);
+      if (singleTransaction === undefined || singleTransaction.name === 'error') {
+        response = 'Invalid transaction detail provided';
+        throw response;
+      }
+      const accountNumber = singleTransaction.account_number;
+      const clientAccount = await AccountService.findAccountByAccountNumber(accountNumber);
+      if (clientAccount.error) {
+        throw clientAccount;
+      }
+      if (id === clientAccount.owner) {
+        return singleTransaction;
+      }
+      response = 'You are not Authorized to view this transaction';
+      throw response;
     } catch (err) {
       response = { error: true, err };
       return response;

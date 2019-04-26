@@ -303,6 +303,28 @@ class Model {
   }
 
   /**
+   * @description returns the account by Id
+   * @static
+   * @param {Integer} id
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindAccountById(id) {
+    try {
+      const sql = `select accounts.account_number, accounts.type, 
+          accounts.created_on, accounts.status, accounts.balance, 
+          users.email  from accounts inner join users 
+          on ${this.table}.owner = users.id 
+          where id = '${id}' `;
+      const result = await this.pool.query(sql);
+      await this.pool.end();
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
    * @description returns all account depending on the type
    * @static
    * @param {String} column

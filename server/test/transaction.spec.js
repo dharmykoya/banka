@@ -123,6 +123,30 @@ describe('Transaction Resource', () => {
     expect(res.body.error).to.be
       .equal('You do not have the authorization or right to perform this action');
   });
+  it('should return Please input an appropriate number', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/transactions/2000000000/debit')
+      .set('Authorization', clientToken)
+      .send({
+        amount: -20000,
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error).to.be
+      .equal('Please input an appropriate number');
+  });
+  it('should return Please input an appropriate number', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/transactions/2000000000/debit')
+      .set('Authorization', clientToken)
+      .send({
+        amount: 'dami',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('Please input a number');
+  });
   it('should credit a user account', async () => {
     const res = await chai
       .request(app)
@@ -260,6 +284,33 @@ describe('Transaction Resource', () => {
     expect(res.body.data.type).to.be.equal('debit');
     expect(res.body.data.id).to.be.equal(2);
   });
+
+  it('should return you are not authorized to view this transaction',
+    async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/transactions/1')
+        .set('Authorization', clientToken)
+        .send({
+          amount: 3000,
+        });
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body).to.have.key('status', 'error');
+      expect(res.body.error).to.be
+        .equal('You are not Authorized to view this transaction');
+    });
+  it('should return invalid transaction details', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/transactions/damilola')
+      .set('Authorization', clientToken)
+      .send({
+        amount: 3000,
+      });
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body).to.have.key('status', 'error');
+    expect(res.body.error).to.be.equal('Invalid transaction detail provided');
+  });
   it('transactionAction()should return a debit transaction', async () => {
     const transaction = await TransactionService
       .transactionAction('debit', 2, 2000000015, 3000, 7000);
@@ -273,6 +324,7 @@ describe('Transaction Resource', () => {
     expect(transaction.transactionType).to.be.equal('debit');
     expect(transaction.transactionId).to.be.equal(7);
   });
+
   it('transactionAction()should return a credit transaction', async () => {
     const transaction = await TransactionService
       .transactionAction('debit', 2, 2000000015, 3000, 7000);

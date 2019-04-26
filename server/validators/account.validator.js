@@ -4,6 +4,8 @@ import Helper from '../services/helper';
 const AccountValidator = {
   createAccountValidator(req, res, next) {
     req.check('type')
+      .not().isEmpty()
+      .withMessage('Type cannot be empty')
       .isIn(['savings', 'current'])
       .withMessage('Please select an appropriate account type');
 
