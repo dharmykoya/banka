@@ -233,6 +233,30 @@ status is not a valid status`, async () => {
     expect(res.body.data[0].new_balance).to.be.equal('7000.00');
   });
 
+  it('should return you are not authorized to view this transaction',
+    async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/accounts/2000000000/transactions')
+        .set('Authorization', clientToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body).to.have.key('status', 'error');
+      expect(res.body.error).to.be
+        .equal('You are not authorized to view this transaction');
+    });
+
+  it('should return you are not authorized to view this transaction',
+    async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/accounts/2000000000')
+        .set('Authorization', clientToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body).to.have.key('status', 'error');
+      expect(res.body.error).to.be
+        .equal('You are not authorized to view this transaction');
+    });
+
   it('should delete a user bank account', async () => {
     const res = await chai
       .request(app)

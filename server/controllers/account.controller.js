@@ -100,8 +100,9 @@ class AccountController {
   */
   static async allTransactions(req, res) {
     const { accountNumber } = req.params;
+    const { user } = req.decoded;
     try {
-      const allTransactions = await AccountService.allTransactions(accountNumber);
+      const allTransactions = await AccountService.allTransactions(user, accountNumber);
       if (allTransactions.error) {
         throw allTransactions;
       }
@@ -128,7 +129,8 @@ class AccountController {
   static async accountDetails(req, res) {
     try {
       const { accountNumber } = req.params;
-      const accountDetails = await AccountService.accountDetails(accountNumber);
+      const { user } = req.decoded;
+      const accountDetails = await AccountService.accountDetails(user, accountNumber);
       if (accountDetails.error) {
         throw accountDetails;
       }

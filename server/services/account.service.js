@@ -224,16 +224,33 @@ class AccountService {
   /**
    * @description returns all transactions for a particular account number
    * @static
+   * @param {Object} user
    * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static async allTransactions(accountNumber) {
+  static async allTransactions(user, accountNumber) {
     let response;
     const parseAccountNumber = parseInt(accountNumber, Number);
     try {
       const column = 'account_number';
       const model = new Model('transactions');
+      const { id, type } = user;
+
+      // checking the type of user
+      if (type === 'client') {
+        // finding the owner of account
+        const ownerAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+        if (ownerAccount.error) {
+          throw ownerAccount.messgae;
+        }
+        if (id !== ownerAccount.owner) {
+          response = 'You are not authorized to view this transaction';
+          throw response;
+        }
+        const allTransactions = await model.Find(column, parseAccountNumber);
+        return allTransactions;
+      }
       const allTransactions = await model.Find(column, parseAccountNumber);
       if (allTransactions.name === 'error' || allTransactions === undefined) {
         response = allTransactions.message;
@@ -249,16 +266,34 @@ class AccountService {
   /**
    * @description returns a the details of an account
    * @static
+   * @param {Object} userDetails
    * @param {Object} accountNumber
    * @returns {Object} API response
    * @memberof AccountService
    */
-  static async accountDetails(accountNumber) {
+  static async accountDetails(userDetails, accountNumber) {
     let response;
     try {
+      const { id, type, } = userDetails;
+      const userEmail = userDetails.email;
       const parseAccountNumber = parseInt(accountNumber, Number);
       const column = 'account_number';
       const model = new Model('accounts');
+
+      // checking the type of user
+      if (type === 'client') {
+        // finding the owner of account
+        const ownerAccount = await this.findAccountByAccountNumber(parseAccountNumber);
+        if (ownerAccount.error) {
+          throw ownerAccount.message;
+        }
+        if (id !== ownerAccount.owner) {
+          response = 'You are not authorized to view this transaction';
+          throw response;
+        }
+        const accountDetails = await model.FindOne(column, parseAccountNumber);
+        return { ...accountDetails, userEmail };
+      }
       const accountDetails = await model.FindOne(column, parseAccountNumber);
       if (accountDetails === undefined || accountDetails.name === 'error') {
         response = 'Account number not found';
