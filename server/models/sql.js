@@ -25,7 +25,7 @@ const SQL = {
             id serial primary key NOT NULL,
             type varchar(12) NOT NULL,
             account_number integer NOT NULL,
-            cashier integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            cashier integer NOT NULL,
             amount numeric(15, 2) NOT NULL,
             old_balance numeric(15, 2) NOT NULL,
             new_balance numeric(15, 2) NOT NULL,

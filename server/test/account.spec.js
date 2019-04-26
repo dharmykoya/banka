@@ -123,6 +123,22 @@ describe('The endpoint for Accounts Resource', () => {
     expect(res).to.have.status(422);
     expect(res.body.status).to.be.equal(422);
     expect(res.body.error[0]).to.be
+      .equal('Type cannot be empty');
+  });
+  it(`should return Please select an appropriate account 
+    type if an account type is not selected`,
+  async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', clientToken)
+      .send({
+        type: 'saved',
+        status: 'active',
+      });
+    expect(res).to.have.status(422);
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
       .equal('Please select an appropriate account type');
   });
   it('create a savings account', async () => {
