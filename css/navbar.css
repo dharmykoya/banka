@@ -18,10 +18,17 @@ body {
   margin-right: 115px;
 }
 
+.clearfix {
+  clear: both;
+}
+
 a {
   text-decoration: none;
 }
 
+.white {
+  color: white !important;
+}
 .width-80 {
   width: 80%;
   margin: 0px auto;

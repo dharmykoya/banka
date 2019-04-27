@@ -6,13 +6,13 @@
   
   const validate = () => {
     if(form.firstName.value == "" ) {
-      message.innerText = "Please provide your First Name!";
+      message.innerText = 'Please provide your First Name!';
       alert.style.display = 'block';
       form.email.focus() ;
       return false;
     }
     if( form.lastName.value == "" ) {
-      message.innerText = "Please provide your Last Name!";
+      message.innerText = 'Please provide your Last Name!';
       alert.style.display = 'block';
       form.password.focus() ;
       return false;
@@ -44,6 +44,7 @@
 
   // function to sign a user up
   const signUp = (e) => {
+    let errors;
     e.preventDefault();
     const firstName = document.querySelector('#firstName').value;
     const lastName = document.querySelector('#lastName').value;
@@ -69,10 +70,30 @@
       redirect: 'follow',
     }).then(res => res.json())
       .then((response) => {
-        if (response.status === 422) {
-          console.log(21, 'wrong details');
-        } else if (response.status === 400) {
-          console.log(22, 'email has been taken');
+        
+        if (response.status === 422) {          
+          alert.classList.remove('hide');
+          errors = response.error; 
+          while(message.firstChild) {
+            message.removeChild(message.firstChild);
+          }  
+          errors.map((error) => {
+            const item = document.createElement('li');
+            item.style.color = 'white';
+            let newContent = document.createTextNode(`${error}`);
+            item.appendChild(newContent)            
+            message.appendChild(item)
+          })
+        } else if (response.status === 409) {
+          alert.classList.remove('hide');
+          const item = document.createElement('li');
+          item.style.color = 'white';
+          let newContent = document.createTextNode(response.error);
+          item.appendChild(newContent)  
+          while(message.firstChild) {
+            message.removeChild(message.firstChild);
+          }        
+          message.appendChild(item)
         } else if (response.status === 201) {
           setInterval(() => {
             sessionStorage.setItem('token', response.data.token);

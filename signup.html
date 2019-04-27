@@ -40,13 +40,14 @@
         <div class="form">
             <div class="alert hide">
                 <span class="closebtn" id="closebtn">&times;</span> 
-                <h3 class="message"></h3>
+                <div class="clearfix"></div>
+                <ul class="message white"></ul>
             </div>
-          <input type="text" id="firstName" placeholder="First Name" name="firstName" />
-          <input type="text" id="lastName" placeholder="Last Name" name="lastName" />
-          <input type="email" id="email" placeholder="Email address" name="email" />
-          <input type="password" id="password" placeholder="password" name="password" />
-          <input type="password" id="confirm_password" placeholder="confirm password" name="password2" />
+          <input type="text" id="firstName" placeholder="First Name" name="firstName" required/>
+          <input type="text" id="lastName" placeholder="Last Name" name="lastName" required/>
+          <input type="email" id="email" placeholder="Email address" name="email" required/>
+          <input type="password" id="password" placeholder="password" name="password" required/>
+          <input type="password" id="confirm_password" placeholder="confirm password" name="password2" required/>
           <a><button>Sign UP</button></a>
           <p class="message">Registered? <a href="signin.html">Login</a></p>
         </div>
