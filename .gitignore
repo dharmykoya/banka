@@ -1,6 +1,6 @@
-/api/node_modules
-/api/.nyc_output
-/api/lcov.info
-/.vscode
-/api/dist
-/.DS_STORE
+node_modules
+.nyc_output
+lcov.info
+.vscode
+dist
+.DS_STORE
