@@ -54,8 +54,8 @@ describe('Transaction Resource', () => {
     expect(res.body.data).to.have
       .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('mercy@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Mercy');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('mercy');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('staff');
   });
   it('signup a client', async () => {
@@ -75,8 +75,8 @@ describe('Transaction Resource', () => {
     expect(res.body.data).to.have
       .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('tope@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Tope');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('tope');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('client');
   });
   it('create a savings account', async () => {
@@ -95,8 +95,8 @@ describe('Transaction Resource', () => {
       .key('accountNumber', 'email', 'firstName', 'lastName',
         'type', 'openingBalance', 'status');
     expect(res.body.data.email).to.be.equal('tope@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Tope');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('tope');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('savings');
   });
   it('should return Please login to perform this action if header is not set',
@@ -376,12 +376,12 @@ describe('Transaction Resource', () => {
     };
     const newTransaction = {
       amount: 2999,
-      new_balance: 13000,
-      type: 'credit',
+      new_accountBalance: 13000,
+      transactionType: 'credit',
     };
     const payload = Helper.transactionPayload(user, newTransaction);
     expect(payload.email).to.be.equal('dami@gmail.com');
-    expect(payload.subject).to.be.equal('credit Transaction from Banka');
+    expect(payload.subject).to.be.equal('credit Alert from Banka');
     expect(payload.firstName).to.be.equal('dami');
     expect(payload.lastName).to.be.equal('koya');
   });

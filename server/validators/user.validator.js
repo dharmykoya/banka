@@ -23,8 +23,9 @@ const UserValidator = {
       .trim();
     req.check('email')
       .isEmail()
-      .withMessage('Please enter a valid email').trim();
-    req.check('password')      
+      .withMessage('Please enter a valid email').trim()
+      .normalizeEmail();
+    req.check('password')
       .not().isEmpty()
       .isLength({ min: 8 })
       .withMessage('Pasword can not be less than 8 characters')

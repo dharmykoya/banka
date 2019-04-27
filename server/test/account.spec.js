@@ -31,8 +31,8 @@ describe('The endpoint for Accounts Resource', () => {
     expect(res.body.data).to.have.key('id', 'token', 'email',
       'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('victor@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Victor');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('victor');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('client');
   });
   it('Login an Admin', async () => {
@@ -71,8 +71,8 @@ describe('The endpoint for Accounts Resource', () => {
     expect(res.body.data).to.have.key('id', 'token', 'email',
       'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('peace@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Peace');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('peace');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('staff');
   });
   it('create a current account', async () => {
@@ -90,8 +90,8 @@ describe('The endpoint for Accounts Resource', () => {
       'firstName', 'lastName', 'type', 'openingBalance', 'status');
     expect(res.body.data.accountNumber).to.be.equal(2000000002);
     expect(res.body.data.email).to.be.equal('victor@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Victor');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('victor');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('current');
     expect(res.body.data.openingBalance).to.be.equal(2000);
     expect(res.body.data.status).to.be.equal('active');
@@ -155,8 +155,8 @@ describe('The endpoint for Accounts Resource', () => {
       'firstName', 'lastName', 'type', 'openingBalance', 'status');
     expect(res.body.data.accountNumber).to.be.equal(2000000003);
     expect(res.body.data.email).to.be.equal('victor@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Victor');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('victor');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('savings');
     expect(res.body.data.openingBalance).to.be.equal(2000);
     expect(res.body.data.status).to.be.equal('active');

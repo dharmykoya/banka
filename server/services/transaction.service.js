@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import Helper from './helper';
+import Mail from './mail';
+import UserService from './user.service';
 import AccountService from './account.service';
 import Model from '../models/Model';
 
@@ -39,12 +41,15 @@ class TransactionService {
       const type = 'credit';
       const oldBalance = parseFloat(foundAccount.balance);
       const transaction = await this.transactionAction(type, cashier, parseAccountNumber, parseAmount, oldBalance);
+      const user = await UserService.findUserById(foundAccount.owner);
 
       if (transaction.error) {
         throw transaction;
       }
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
+      const payload = Helper.transactionPayload(user, transaction);
+      await Mail.sendMail(payload);
       response = transaction;
       return response;
     } catch (err) {
@@ -86,6 +91,7 @@ class TransactionService {
         throw response;
       }
       const transaction = await this.transactionAction(type, cashier, parseAccountNumber, parseAmount, oldBalance);
+      const user = await UserService.findUserById(foundAccount.owner);
 
       if (transaction.error) {
         throw transaction.err;
@@ -93,6 +99,8 @@ class TransactionService {
       // updating the account record after transaction is successfull
       await AccountService.updateAccountBalance(transaction.accountBalance, parseAccountNumber);
       response = transaction;
+      const payload = Helper.transactionPayload(user, transaction);
+      await Mail.sendMail(payload);
       return response;
     } catch (err) {
       response = { error: true, err };

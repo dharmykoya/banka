@@ -23,7 +23,6 @@ describe('Test for the App entry point', () => {
       .request(app)
       .get('/damilola')
       .end((err, res) => {
-        console.log(42, res.body)
         expect(res.body).to.have.key('status', 'error', 'success', 'message');
         expect(res.body.message).to
           .equal('Route Does not Exist');
