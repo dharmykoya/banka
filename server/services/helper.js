@@ -154,19 +154,17 @@ const Helper = {
   /**
    * return format for newUser mail
    * @param {string} email
-   * @param {string} subject
    * @param {string} firstName
    * @param {string} lastName
-   * @param {string} message
    * @returns {string} error format
    */
-  newUserPayload(email, subject, firstName, lastName, message) {
+  newUserPayload(email, firstName, lastName) {
     const payload = {
       email,
-      subject,
+      subject: 'Signup Success',
       firstName,
       lastName,
-      message,
+      message: 'Welcome to banka, we hope you enjoy our services',
     };
     return payload;
   },
@@ -180,11 +178,12 @@ const Helper = {
   transactionPayload(user, newTransaction) {
     const payload = {
       email: user.email,
-      subject: `${newTransaction.type} Transaction from Banka`,
+      subject: `${newTransaction.transactionType} Alert from Banka`,
       firstName: user.first_name,
       lastName: user.last_name,
-      message: `Amount: ${newTransaction.amount}<br>
-                New Balance: ${newTransaction.new_balance}`,
+      message: `Account Number: ${newTransaction.accountNumber} 
+      <br> Amount: &#8358;${newTransaction.amount}<br>
+                New Balance: &#8358;${newTransaction.accountBalance}`,
     };
     return payload;
   },

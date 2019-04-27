@@ -80,8 +80,8 @@ describe('Test for queries in the Model', () => {
     expect(res.body.data).to.have.key('id', 'token', 'email',
       'firstName', 'lastName', 'type', 'isAdmin');
     expect(res.body.data.email).to.be.equal('sodiq@gmil.com');
-    expect(res.body.data.firstName).to.be.equal('Sodiq');
-    expect(res.body.data.lastName).to.be.equal('Fayemi');
+    expect(res.body.data.firstName).to.be.equal('sodiq');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
     expect(res.body.data.type).to.be.equal('client');
   });
   it('register a staff', async () => {

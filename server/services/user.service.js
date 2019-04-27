@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import Helper from './helper';
 import Model from '../models/Model';
+import Mail from './mail';
 
 /**
  * @class UserService
@@ -60,7 +61,9 @@ class UserService {
       const type = 'client';
       const hashPassword = Helper.hashPassword(password);
       const model = new Model('users');
-      const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
+      const newUser = await model
+        .Insert(email.toLowerCase(), firstName.toLowerCase(),
+          lastName.toLowerCase(), hashPassword, type);
       if (newUser.name === 'error' || newUser === undefined) {
         const response = 'you have been registered earlier, please login';
         throw response;
@@ -69,6 +72,8 @@ class UserService {
       // generating token
       const token = Helper.generateToken(userToken);
       const res = { token, ...Helper.userReturn(newUser) };
+      const payload = Helper.newUserPayload(email, firstName, lastName);
+      await Mail.sendMail(payload);
       return res;
     } catch (err) {
       const response = { error: true, err };
@@ -179,7 +184,9 @@ class UserService {
       const type = 'staff';
       const hashPassword = Helper.hashPassword(password);
       const model = new Model('users');
-      const newUser = await model.Insert(email, firstName, lastName, hashPassword, type);
+      const newUser = await model
+        .Insert(email.toLowerCase(), firstName.toLowerCase(),
+          lastName.toLowerCase(), hashPassword, type);
       if (newUser.name === 'error' || newUser === undefined) {
         const response = 'you have been registered earlier, please login';
         throw response;

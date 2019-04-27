@@ -22,7 +22,7 @@ class Mail {
       to: payload.email,
       from: 'banktoday@banka.com',
       subject: payload.subject,
-      html: `Hello <b> ${payload.firstName} ${payload.lastName}</b>
+      html: `Hello <b> ${payload.firstName} ${payload.lastName},</b>
               <br> <br>
               ${payload.message}.
               <br><br> from Banka by Damilola Adekoya`,

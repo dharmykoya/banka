@@ -37,7 +37,7 @@ describe('The authentication endpoint test', () => {
           'type', 'isAdmin');
       expect(res.body.data.email).to.be.equal('dami@gmail.com');
       expect(res.body.data.firstName).to.be.equal('damilola');
-      expect(res.body.data.lastName).to.be.equal('Koya');
+      expect(res.body.data.lastName).to.be.equal('koya');
       expect(res.body.data.type).to.be.equal('client');
     });
     it('should add a new user and return a token', async () => {
@@ -58,7 +58,7 @@ describe('The authentication endpoint test', () => {
           'isAdmin');
       expect(res.body.data.email).to.be.equal('damilola@gmail.com');
       expect(res.body.data.firstName).to.be.equal('damilola');
-      expect(res.body.data.lastName).to.be.equal('Koya');
+      expect(res.body.data.lastName).to.be.equal('koya');
       expect(res.body.data.type).to.be.equal('client');
     });
 

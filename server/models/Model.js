@@ -36,14 +36,8 @@ class Model {
    * @returns {object} connection to the database
    */
   static initConn() {
-    let connectionString;
-    if (process.env.NODE === 'test') {
-      connectionString = process.env.DATABASE_URL_TEST;
-    } else {
-      connectionString = process.env.DATABASE_URL;
-    }
     const pool = new Pool({
-      connectionString,
+      connectionString: process.env.DATABASE_URL,
     });
     return pool;
   }
