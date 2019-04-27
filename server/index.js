@@ -30,11 +30,29 @@ app.get('/', (req, res) => res.send({
   message: 'Welcome to Banka App by Damilola Adekoya',
 }));
 
-app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/v1/auth', Auth);
 app.use('/api/v1/accounts', Account);
 app.use('/api/v1/transactions', Transaction);
 app.use('/api/v1/user', User);
+
+
+app.use((req, res, next) => {
+  const error = new Error('Route Does not Exist');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    status: error.status || 500,
+    success: false,
+    error: error.name,
+    message: error.message
+  });
+  next();
+});
 
 app.listen(PORT, () => {});
 

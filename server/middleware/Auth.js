@@ -36,7 +36,7 @@ class Auth {
         return next();
       });
     } else {
-      const error = 'Auth token is not supplied';
+      const error = 'Please login to perform this action';
       return Helper.errorResponse(res, 403, error);
     }
     return false;

@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a bank",
+    "description": "Banka is a light-weight core banking application that powers banking operations like account  creation, customer deposit and withdrawals. This app is meant to support a single bank, where  users can signup and create bank accounts online. \n\n **UI template:** (https://dharmykoya.github.io/banka/UI/index)\n\n**Pivotal Tracker:** Project is currently being managed with pivotal tracker, at https://www.pivotaltracker.com/n/projects/2320086,\n \n**Github:** https://github.com/dharmykoya/banka",
     "version": "1.0.0",
     "title": "Banka",
     "termsOfService": "http://swagger.io/terms/",
@@ -117,7 +117,7 @@
             "description": "Not authorized"
           },
           "403": {
-            "description": "Auth token not supplied"
+            "description": "You are not signed in"
           },
           "422": {
             "description": "Invalid input"
@@ -236,7 +236,7 @@
         "tags": [
           "accounts"
         ],
-        "summary": "get all transactions on an account number",
+        "summary": "To get all transactions on an account number",
         "description": "",
         "operationId": "getTransactions",
         "produces": [
@@ -284,7 +284,7 @@
           "accounts"
         ],
         "summary": "Returns all the accounts in the app",
-        "description": "",
+        "description": "It can also return accounts based on their status by selecting the status.",
         "operationId": "allAccounts",
         "produces": [
           "application/json"
@@ -331,8 +331,8 @@
         "tags": [
           "transactions"
         ],
-        "summary": "credit or debit an account",
-        "description": "",
+        "summary": "To credit or debit an account",
+        "description": "Just pick the action from dropdown menu",
         "operationId": "transaction",
         "produces": [
           "application/json"
@@ -484,13 +484,6 @@
             "description": "type to confirm password",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "formData",
-            "description": "type of user",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -506,12 +499,81 @@
         }
       }
     },
+    "/auth/addstaff": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Create a staff",
+        "description": "Action can only be done by an Admin",
+        "operationId": "createStaff",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "firstName",
+            "in": "formData",
+            "description": "user first name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lastName",
+            "in": "formData",
+            "description": "user last name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "email of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "users password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "confirm_password",
+            "in": "formData",
+            "description": "type to confirm password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "email exist"
+          },
+          "422": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/auth/signin": {
       "post": {
         "tags": [
           "auth"
         ],
-        "summary": "Logs user into the system",
+        "summary": "Signin a User into the system",
         "description": "",
         "operationId": "loginUser",
         "produces": [
@@ -547,6 +609,97 @@
             "description": "Invalid input"
           }
         }
+      }
+    },
+    "/user/{email}/accounts": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "To get all accounts owned by a user",
+        "description": "",
+        "operationId": "getAccountsByEmail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "The email of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "No account available"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Auth token not supplied"
+          },
+          "500": {
+            "description": "Auth token expired"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/user/upload": {
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Uploads a profile Image",
+        "description": "",
+        "operationId": "profileImage",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "profileImage",
+            "in": "formData",
+            "description": "picture to be uploaded",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "No account available"
+          },
+          "401": {
+            "description": "Not authorized"
+          },
+          "403": {
+            "description": "Auth token not supplied"
+          },
+          "500": {
+            "description": "Auth token expired"
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     }
   },

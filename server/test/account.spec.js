@@ -107,7 +107,7 @@ describe('The endpoint for Accounts Resource', () => {
         });
       expect(res).to.have.status(403);
       expect(res.body.status).to.be.equal(403);
-      expect(res.body.error).to.be.equal('Auth token is not supplied');
+      expect(res.body.error).to.be.equal('Please login to perform this action');
     });
   it(`should return Please select an appropriate account 
     type if an account type is not selected`,

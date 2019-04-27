@@ -4,5 +4,13 @@ exclude_patterns:
 - "server/runMigration.js"
 - "server/test"
 - "/UI"
-method-lines:
+checks:
+  return-statements:
+    enabled: false
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
+  file-lines:
+    enabled: false      
   

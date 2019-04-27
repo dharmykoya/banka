@@ -12,15 +12,20 @@ const UserValidator = {
       return Helper.errorResponse(res, 422, error);
     }
     req.check('firstName')
-      .isAlpha().withMessage('Must be only alphabetical chars')
+      .isAlpha().withMessage('First name must be only alphabetical chars')
       .isLength({ min: 2 })
-      .withMessage('Please enter your first name');
+      .withMessage('Please enter your first name')
+      .trim();
     req.check('lastName')
-      .isAlpha().withMessage('Must be only alphabetical chars')
+      .isAlpha().withMessage('Last name must be only alphabetical chars')
       .isLength({ min: 2 })
-      .withMessage('Please enter your last name');
-    req.check('email').isEmail().withMessage('Please enter a valid email');
-    req.check('password')
+      .withMessage('Please enter your last name')
+      .trim();
+    req.check('email')
+      .isEmail()
+      .withMessage('Please enter a valid email').trim();
+    req.check('password')      
+      .not().isEmpty()
       .isLength({ min: 8 })
       .withMessage('Pasword can not be less than 8 characters')
       .matches('[0-9]')
@@ -40,10 +45,11 @@ const UserValidator = {
   },
 
   signInValidator(req, res, next) {
-    req.check('email').isEmail().withMessage('Please enter a valid email');
+    req.check('email')
+      .isEmail().withMessage('Please enter a valid email').trim();
     req.check('password')
       .isLength({ min: 8 })
-      .withMessage('Pasword can not be less than 6 characters');
+      .withMessage('Pasword can not be less than 8 characters');
 
     const errors = req.validationErrors();
     if (errors) {
