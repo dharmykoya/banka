@@ -38,14 +38,16 @@
     </div>
 <main>  
     <div class="create-account-container">
-        <h3>Please create a bank account to continue</h3>
-      <form class="account-form" action="dashboard.html" id="createAccountForm" onsubmit="return validate()"  method="POST">
+        <h3>Welcome <strong class="welcome-name"></strong>, 
+          Please create a bank account to continue
+        </h3>
+      <form class="account-form" id="createAccountForm" method="POST">
         <div class="form">
             <div class="alert hide">
-                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <span class="closebtn" id="closebtn">&times;</span> 
                 <h3 class="message"></h3>
             </div>
-          <select name="role" aria-placeholder="Transaction type">
+          <select name="role" id = "accountType" aria-placeholder="Transaction type">
             <option selected="selected">Account type</option>
             <option value="savings">Savings</option>
             <option value="current">Current</option>

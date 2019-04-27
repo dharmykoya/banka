@@ -1,10 +1,9 @@
-    
   const api = 'https://banktoday.herokuapp.com';
   const form = document.querySelector('#signupForm');
   const message = document.querySelector('.message');
   const alert = document.querySelector('.alert');
   const closeBtn = document.querySelector('#closebtn');
-
+  
   const validate = () => {
     if(form.firstName.value == "" ) {
       message.innerText = "Please provide your First Name!";
@@ -43,6 +42,7 @@
     span.parentElement.style.display = 'none';
   }
 
+  // function to sign a user up
   const signUp = (e) => {
     e.preventDefault();
     const firstName = document.querySelector('#firstName').value;
@@ -78,6 +78,7 @@
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
+            localStorage.setItem('firstName', response.data.firstName);
             localStorage.setItem('email', response.data.email);
             window.location.replace('./createAccount.html');
           }, 1000);
