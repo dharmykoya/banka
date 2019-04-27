@@ -1,7 +1,8 @@
-  
+  const api = 'https://banktoday.herokuapp.com';  
   const form = document.querySelector('#signinForm');
   const message = document.querySelector('.message');
   const alert = document.querySelector('.alert');
+  const closeBtn = document.querySelector('#closebtn');
   const validate = () => {
 
     if(form.email.value == "" ) {
@@ -22,3 +23,42 @@
     const span = document.querySelector('.closebtn');
     span.parentElement.style.display = 'none';
   }
+
+  const signIn = (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+  
+    const data = { email, password };
+    fetch(`${api}/api/v1/auth/signin`, {
+      method: 'POST', // or 'PUT'
+      mode: 'cors',
+      cache: 'no-cache',
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      redirect: 'follow',
+    }).then(res => res.json())
+      .then((response) => {
+        if (response.status === 422) {
+          console.log(21, 'wrong details');
+        } else if (response.status === 400) {
+          console.log(22, 'wrong Information provided');
+        } else if (response.status === 200) {
+          setInterval(() => {
+            sessionStorage.setItem('token', response.data.token);
+            sessionStorage.setItem('email', response.data.email);
+            sessionStorage.setItem('id', response.data.id);
+            localStorage.setItem('firstName', response.data.firstName);
+            localStorage.setItem('email', response.data.email);
+            window.location.replace('./dashboard.html');
+          }, 1000);
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  form.addEventListener('submit', validate);
+  closeBtn.addEventListener('click', errorAlert);
+  form.addEventListener('submit', signIn);

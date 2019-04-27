@@ -36,14 +36,14 @@
     </div>
 <main>  
     <div class="login-container">
-      <form class="register-form" action="dashboard.html" name="signinForm" id="signinForm" onsubmit="return validate()"  method="POST">
+      <form class="register-form" action="" name="signinForm" id="signinForm" method="POST">
         <div class="form">
             <div class="alert hide">
-                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
+                <span class="closebtn" id="closebtn">&times;</span> 
                 <h3 class="message"></h3>
             </div>
-          <input type="email" placeholder="Email address" name="email" required/>
-          <input type="password" placeholder="password" name="password" required/>
+          <input type="email" id="email" placeholder="Email address" name="email"/>
+          <input type="password" id="password" placeholder="password" name="password"/>
           <a href=""><button>Login</button></a>
           <p class="message">Not Registered? <a href="signup.html">Signup</a></p>
         </div>

@@ -29,8 +29,8 @@
   }
 
   
-  // function to sign a user up
-  const signUp = (e) => {
+  // function to create an account for a user 
+  const createAccount = (e) => {
     e.preventDefault();
     const option = document.querySelector('#accountType');
     const type = option.options[option.selectedIndex].value;
@@ -65,4 +65,4 @@
 
   form.addEventListener('submit', validate);
   closeBtn.addEventListener('click', errorAlert);
-  form.addEventListener('click', signUp);
+  form.addEventListener('click', createAccount);
