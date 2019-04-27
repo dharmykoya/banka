@@ -1,6 +1,7 @@
-node_modules
 .nyc_output
 lcov.info
 .vscode
 dist
+.env
+node_modules
 .DS_STORE
