@@ -77,7 +77,7 @@ describe('The authentication endpoint test', () => {
         });
       expect(res.body.status).to.be.equal(422);
       expect(res.body.error[0]).to.be
-        .equal('Must be only alphabetical chars');
+        .equal('First name must be only alphabetical chars');
     });
 
     it(`should return Must be only alphabetical chars if the 
@@ -95,7 +95,7 @@ describe('The authentication endpoint test', () => {
         });
       expect(res.body.status).to.be.equal(422);
       expect(res.body.error[0]).to.be
-        .equal('Must be only alphabetical chars');
+        .equal('Last name must be only alphabetical chars');
     });
 
     it('should return Please enter your last name if the lastName is missing',
@@ -113,7 +113,7 @@ describe('The authentication endpoint test', () => {
           });
         expect(res.body.status).to.be.equal(422);
         expect(res.body.error[0]).to.be
-          .equal('Must be only alphabetical chars');
+          .equal('Last name must be only alphabetical chars');
       });
 
     it(`should return Please enter a valid email if the email 

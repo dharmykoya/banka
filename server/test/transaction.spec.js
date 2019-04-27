@@ -99,7 +99,7 @@ describe('Transaction Resource', () => {
     expect(res.body.data.lastName).to.be.equal('Fayemi');
     expect(res.body.data.type).to.be.equal('savings');
   });
-  it('should return Auth token is not supplied if header is not set',
+  it('should return Please login to perform this action if header is not set',
     async () => {
       const res = await chai
         .request(app)
@@ -108,7 +108,7 @@ describe('Transaction Resource', () => {
           amount: 30000000000,
         });
       expect(res.body.status).to.be.equal(403);
-      expect(res.body.error).to.be.equal('Auth token is not supplied');
+      expect(res.body.error).to.be.equal('Please login to perform this action');
     });
   it(`should return You do not have the authorization or right to perform
   this action if client try to debit an account`, async () => {
