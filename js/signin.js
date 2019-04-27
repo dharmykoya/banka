@@ -46,6 +46,29 @@
         } else if (response.status === 400) {
           console.log(22, 'wrong Information provided');
         } else if (response.status === 200) {
+          console.log(21, response.data);
+          if (response.data.isAdmin) {
+            console.log(25, 'admin')
+            setInterval(() => {
+              sessionStorage.setItem('token', response.data.token);
+              sessionStorage.setItem('email', response.data.email);
+              sessionStorage.setItem('id', response.data.id);
+              localStorage.setItem('firstName', response.data.firstName);
+              localStorage.setItem('email', response.data.email);
+              window.location.replace('./adminDashboard.html');
+            }, 1000);
+          } else if (response.data.type === 'staff') {
+            console.log(25, 'staff')
+            setInterval(() => {
+              sessionStorage.setItem('token', response.data.token);
+              sessionStorage.setItem('email', response.data.email);
+              sessionStorage.setItem('id', response.data.id);
+              localStorage.setItem('firstName', response.data.firstName);
+              localStorage.setItem('email', response.data.email);
+              window.location.replace('./staffDashboard.html');
+            }, 1000);
+          } else {
+            console.log(25, 'client')
           setInterval(() => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
@@ -54,6 +77,8 @@
             localStorage.setItem('email', response.data.email);
             window.location.replace('./dashboard.html');
           }, 1000);
+          }
+          
         }
       })
       .catch(error => console.error('Error:', error));
