@@ -1,0 +1,112 @@
+body {
+  font-family: "Helvetica";
+  margin: 0px;
+}
+
+.index-logo {
+  width: 30px;
+  height: 22px;
+}
+
+.index-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.index-text-container {
+  margin-top: 150px;
+  width: 57%;
+  margin: 150px auto;
+}
+.index-text-1 {
+  line-height: 80px;
+  font-size: 55px;
+  color: #dd4f05;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.index-text-2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #8a2e00;
+  font-size: 20px;
+}
+
+.index-text-3 {
+  font-size: 35px; 
+  color: peachpuff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.index-text-images {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 100px;
+  margin-right: 132px;
+  text-align: center;
+  color: #8a2e00;
+  height: 400px;
+}
+
+
+.index-image img {
+  width: 150px;
+}
+
+.demo-container {
+  margin-top: 15px;
+}
+.demo-button {
+  background: #dd4f05;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media(max-width: 600px) {
+  .icon {
+    margin-top: 11px;
+    margin-right: 10px;
+  }
+
+  .index-container {
+    display: block;
+  }
+  .index-text-container {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+  } 
+  .index-text-1 {
+    line-height: 15px;
+    font-size: 25px;;
+  }
+  .index-text-2 {
+    margin-top: 21px;
+  }
+  .index-text-3 {
+    font-size: 25px;
+  }
+  .index-text-images {
+    margin-right: 0px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 968px) {
+  .index-text-container {
+    width: 80%;
+  }
+  .index-text-container {
+    margin: 100px auto;
+  }
+  .index-text-1 {
+    margin-top: 0px;
+  }
+
+  .index-text-images {
+    margin-top: 100px;
+  }
+}

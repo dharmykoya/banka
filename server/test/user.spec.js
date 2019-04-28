@@ -166,23 +166,6 @@ describe('The authentication endpoint test', () => {
         expect(res.body.status).to.be.equal(422);
         expect(res.body.error).to.be.equal('passwords must match');
       });
-    it(`should return Email exist already, please login to conitnue 
-    for user registering with an exisiting email`, async () => {
-      const res = await chai
-        .request(app)
-        .post('/api/v1/auth/signup')
-        .send({
-          email: 'dharmykoya38@gmail.com',
-          firstName: 'Tobi',
-          lastName: 'Koya',
-          password: 'damilola',
-          confirm_password: 'damilola',
-          type: 'client',
-        });
-      expect(res.body.status).to.be.equal(409);
-      expect(res.body.error).to.be
-        .equal('Email exist already, please login to conitnue');
-    });
   });
 
   /**

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banka App</title>
+
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/list_bank_accounts.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- // favicon Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192"  href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div class="topnav" id="myTopnav">
+        <div class="logo-container">
+            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
+        </div>
+        <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
+        <a class="topnav-anchor" href="addstaff.html">Add Staff</a>
+        <a  class="topnav-anchor active" href="listUsers.html">All Users</a>
+        <a class="icon topnav-anchor" onclick="navToggle()">
+            <i class="fa fa-bars"></i>
+        </a>
+        <div class="right navbar-right">
+            <a class=" topnav-anchor pointer-none">Admin</a>
+            <a class="topnav-anchor" href="signin.html">Logout</a>
+        </div>
+    </div>
+<main class="list-account-main">
+  <h3 class="page-title">List of all Staffs</h3>
+  <section class="list-account-container">
+
+      <!-- Tab content -->
+      <div id="savings_account" class="tabcontent-list-account show-tabcontent">
+          <table id="savings-account-table" class="list-account-table">
+              <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Staff ID</th>
+                  <th>Date Created</th>
+                  <th>Status</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr  class="list-tr-hover">
+                  <td>Atiku Abubaka</td>
+                  <td>001</td>
+                  <td>22nd Jan, 2019</td>
+                  <td>Active</td>
+                  <td><a href="account.html" class="table-action">view</a></td>
+              </tr>
+              <tr class="list-tr-hover">
+                <td>Segun Obasanjo</td>
+                <td>021</td>
+                <td>29th Jan, 2019</td>
+                <td>Active</td>
+                <td><a href="account.html" class="table-action">view</a></td>
+            </tr>
+            <tr class="list-tr-hover">
+                <td>Daniel Ogundipe</td>
+                <td>041</td>
+                <td>22nd Feb, 2019</td>
+                <td>Active</td>
+                <td><a href="account.html" class="table-action">view</a></td>
+            </tr>
+              </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="6" class="tran-pagination">
+                  <div class="pagination">
+                      <a href="#">&laquo;</a>
+                      <a href="#"  class="active">1</a>
+                      <a href="#">2</a>
+                      <a href="#">3</a>
+                      <a href="#">&raquo;</a>
+                    </div>
+                </td>
+              </tr>
+              </tfoot>
+          </table>
+      </div>
+  </section>
+</main>
+
+<script src="js/navbar.js"></script>
+<script src="js/listBankAccounts.js"></script> 
+</body>
+</html>

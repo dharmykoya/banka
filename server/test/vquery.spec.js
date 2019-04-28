@@ -101,4 +101,21 @@ describe('Test for queries in the Model', () => {
     expect(res.body.error).to.be
       .equal('You do not have the authorization or right to perform this action');
   });
+  it(`should return Email exist already, please login to conitnue 
+    for user registering with an exisiting email`, async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send({
+        email: 'dharmykoya38@gmail.com',
+        firstName: 'Tobi',
+        lastName: 'Koya',
+        password: 'Damilola1@',
+        confirm_password: 'Damilola1@',
+        type: 'client',
+      });
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body.error).to.be
+      .equal('Email exist already, please login to conitnue');
+  });
 });

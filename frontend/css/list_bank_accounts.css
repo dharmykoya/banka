@@ -1,0 +1,107 @@
+body {
+  font-family: "Helvetica";
+}
+.list-account-main {
+  margin: 20px auto;
+  width: 80%;
+}
+
+.list-staff-container {
+  width: 80%;
+  margin: 0px auto;
+}
+table#listAccount-details, table#listAccount-details th, table#listAccount-details td {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tran-pagination {
+  border: none !important;
+  text-align: right !important;
+}
+
+
+.tab-list-account {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab-list-account button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab-list-account button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab-list-account button.active {
+  background-color: #dd4f05;
+  color: white;
+}
+
+.tab-active {
+  background-color: #dd4f05;
+  color: black;
+}
+
+/* Style the tab content */
+.tabcontent-list-account {
+  padding: 6px 12px;
+  border-top: none;
+  overflow: auto;
+}
+
+.show-tabcontent {
+  display: block;
+}
+
+.hide-tabcontent {
+  display: none;
+}
+
+.list-tr-hover:hover {background-color: #dd4f05;}
+
+.list-account-table {
+  border-collapse: collapse;
+  margin: 0px auto;
+  width: 90%;
+}
+
+table#current-account-table th, table#current-account-table td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+table#savings-account-table  th, table#savings-account-table  td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.table-action {
+  color: #dd4f05;
+}
+
+.table-action:hover {
+  color: white;
+}
+
+@media (min-width: 601px) and (max-width: 968px) {
+  .navbar-right {
+    margin-right: 21px;
+  }
+  .logo-container {
+    margin-left: 21px;
+  }
+}

@@ -17,9 +17,8 @@ export default {
       owner: 2,
       type: 'savings',
       status: 'active',
-      balance: 2000,
+      balance: 1000000,
     },
-
 
     {
       id: 3,
