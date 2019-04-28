@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import UserData from '../data/user';
 
 dotenv.config();
 
@@ -33,21 +32,6 @@ const Helper = {
       status: statusCode,
       error,
     });
-  },
-
-  /**
-   * @description Check if email exist
-   * @static
-   * @param {Object} email
-   * @returns {boolean} true or false
-   */
-  checkEmailExist(email) {
-    const foundUser = UserData.users.find(user => email === user.email);
-    // checks if the user exist
-    if (foundUser) {
-      return true;
-    }
-    return false;
   },
 
   /**

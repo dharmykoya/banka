@@ -65,7 +65,7 @@ class UserService {
         .Insert(email.toLowerCase(), firstName.toLowerCase(),
           lastName.toLowerCase(), hashPassword, type);
       if (newUser.name === 'error' || newUser === undefined) {
-        const response = 'you have been registered earlier, please login';
+        const response = 'Email exist already, please login to conitnue';
         throw response;
       }
       const userToken = { ...Helper.tokenReturn(newUser) };
