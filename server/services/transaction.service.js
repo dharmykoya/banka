@@ -167,7 +167,7 @@ class TransactionService {
       }
       const model = new Model('transactions');
       const singleTransaction = await model.FindOne(column, parseTransactionId);
-      if (singleTransaction.name === 'error' || singleTransaction === undefined) {
+      if (singleTransaction === undefined || singleTransaction.name === 'error') {
         response = 'invalid transaction detail provided';
         throw response;
       }

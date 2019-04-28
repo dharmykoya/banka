@@ -118,4 +118,33 @@ describe('Test for queries in the Model', () => {
     expect(res.body.error).to.be
       .equal('Email exist already, please login to conitnue');
   });
+  it('create a current account', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/v1/accounts')
+      .set('Authorization', clientToken)
+      .send({
+        type: 'current',
+        status: 'active',
+      });
+    expect(res).to.have.status(201);
+    expect(res.body.status).to.be.equal(201);
+    expect(res.body.data).to.have.key('accountNumber', 'email',
+      'firstName', 'lastName', 'type', 'openingBalance', 'status');
+    expect(res.body.data.email).to.be.equal('sodiq@gmil.com');
+    expect(res.body.data.firstName).to.be.equal('sodiq');
+    expect(res.body.data.lastName).to.be.equal('fayemi');
+    expect(res.body.data.type).to.be.equal('current');
+    expect(res.body.data.openingBalance).to.be.equal(2000);
+    expect(res.body.data.status).to.be.equal('active');
+  });
+  it('should return all transactions for an account Number', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/accounts/2000100006/transactions')
+      .set('Authorization', clientToken);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.be
+      .equal('No transaction on this account number yet');
+  });
 });

@@ -31,5 +31,17 @@ const AccountValidator = {
     }
     return next();
   },
+
+  accountNumberValidator(req, res, next) {
+    req.checkParams('accountNumber')
+      .isNumeric().withMessage('account number must be a number');
+    const errors = req.validationErrors();
+    if (errors) {
+      const err = Helper.validationError(errors);
+      return Helper.errorResponse(res, 422, err);
+    }
+    // checks for the validation errors
+    return next();
+  },
 };
 export default AccountValidator;

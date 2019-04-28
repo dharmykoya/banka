@@ -68,8 +68,9 @@ const signIn = (e) => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
-            localStorage.setItem('firstName', response.data.firstName);
+            sessionStorage.setItem('firstName', response.data.firstName);
             localStorage.setItem('email', response.data.email);
+
             window.location.replace('./adminDashboard.html');
           }, 1000);
         } else if (response.data.type === 'staff') {
@@ -77,7 +78,9 @@ const signIn = (e) => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
-            localStorage.setItem('firstName', response.data.firstName);
+            sessionStorage.setItem('firstName', response.data.firstName);
+            sessionStorage.setItem('token', response.data.token);
+            document.cookie = `token=John Doe; expires=Thu,  Dec 2019 12:00:00 UTC`;
             localStorage.setItem('email', response.data.email);
             window.location.replace('./staffDashboard.html');
           }, 1000);
@@ -86,7 +89,7 @@ const signIn = (e) => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
-            localStorage.setItem('firstName', response.data.firstName);
+            sessionStorage.setItem('firstName', response.data.firstName);
             localStorage.setItem('email', response.data.email);
             window.location.replace('./dashboard.html');
           }, 1000);

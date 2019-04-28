@@ -183,7 +183,6 @@ this action if the client hit the change status end point`, async () => {
       .send({
         status: 'dormant',
       });
-
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have.key('accountNumber', 'status');
     expect(res.body.data.accountNumber).to.be.equal(2000000001);
@@ -231,6 +230,15 @@ status is not a valid status`, async () => {
     expect(res.body.data[0].amount).to.be.equal('3000.00');
     expect(res.body.data[0].old_balance).to.be.equal('4000.00');
     expect(res.body.data[0].new_balance).to.be.equal('7000.00');
+  });
+  it('should return all transactions for an account Number', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/accounts/damilola/transactions')
+      .set('Authorization', adminToken);
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('account number must be a number');
   });
 
   it('should return you are not authorized to view this transaction',
@@ -285,7 +293,7 @@ status is not a valid status`, async () => {
       .set('Authorization', adminToken);
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have
-      .key('id', 'account_number', 'email', 'owner', 'type',
+      .key('id', 'account_number', 'email', 'owner', 'type', 'fName', 'lName',
         'status', 'balance', 'created_on', 'updated_at');
     expect(res.body.data.account_number).to.be.equal(2000000000);
     expect(res.body.data.email).to.be.equal('martin@gmail.com');
