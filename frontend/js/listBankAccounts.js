@@ -8,10 +8,14 @@ const listAccount = ((evt, accountsType) => {
     const tablinks = [...tablelinks];
     
     // Get all elements with class="tabcontent" and hide them
-    tabcontents.map(tabcontent => tabcontent.style.display = 'none');
+    tabcontents.map((tabcontent) => { 
+      tabcontent.style.display = 'none'
+});
 
     // Get all elements with class="tablinks" and remove the class "active"
-    tablinks.map(tablink => tablink.className = tablink.className.replace(' active', ''));
+    tablinks.map((tablink) => {
+      tablink.className = tablink.className.replace(' active', '');
+    });
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(accountsType).style.display = "block";
