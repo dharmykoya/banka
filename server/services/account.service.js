@@ -150,11 +150,7 @@ class AccountService {
           throw response;
         }
         const model = new Model('accounts');
-        const updateAccount = await model.UpdateAccountStatus(status, foundAccount.account_number);
-        if (updateAccount.name === 'error' || updateAccount === undefined) {
-          response = updateAccount.message;
-          throw response;
-        }
+        await model.UpdateAccountStatus(status, foundAccount.account_number);
         response = {
           accountNumber: foundAccount.account_number,
           status,
@@ -249,6 +245,10 @@ class AccountService {
           throw response;
         }
         const allTransactions = await model.Find(column, parseAccountNumber);
+        if (Object.entries(allTransactions).length === 0) {
+          response = 'No transaction on this account number yet';
+          return response;
+        }
         return allTransactions;
       }
       const allTransactions = await model.Find(column, parseAccountNumber);
@@ -274,7 +274,9 @@ class AccountService {
   static async accountDetails(userDetails, accountNumber) {
     let response;
     try {
-      const { id, type, } = userDetails;
+      const {
+        id, type, firstName, lastName,
+      } = userDetails;
       const userEmail = userDetails.email;
       const parseAccountNumber = parseInt(accountNumber, Number);
       const column = 'account_number';
@@ -292,7 +294,9 @@ class AccountService {
           throw response;
         }
         const accountDetails = await model.FindOne(column, parseAccountNumber);
-        return { ...accountDetails, userEmail };
+        return {
+          ...accountDetails, userEmail, firstName, lastName,
+        };
       }
       const accountDetails = await model.FindOne(column, parseAccountNumber);
       if (accountDetails === undefined || accountDetails.name === 'error') {
@@ -301,8 +305,13 @@ class AccountService {
       }
       const user = await UserService.findUserById(accountDetails.owner);
       const { email } = user;
+      const fName = user.first_name;
+      const lName = user.last_name;
 
-      response = { ...accountDetails, email };
+
+      response = {
+        ...accountDetails, email, fName, lName,
+      };
       return response;
     } catch (err) {
       response = { error: true, err };

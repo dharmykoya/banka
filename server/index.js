@@ -38,7 +38,7 @@ app.use('/api/v1/user', User);
 
 
 app.use((req, res, next) => {
-  const error = new Error('Route Does not Exist');
+  const error = new Error('You are trying to access a wrong Route');
   error.status = 404;
   next(error);
 });

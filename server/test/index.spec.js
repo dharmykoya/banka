@@ -18,24 +18,24 @@ describe('Test for the App entry point', () => {
           .equal('Welcome to Banka App by Damilola Adekoya');
       });
   });
-  it('Should throw error', () => {
+  it('Should throw error for accessing a wrong route', () => {
     chai
       .request(app)
       .get('/damilola')
       .end((err, res) => {
         expect(res.body).to.have.key('status', 'error', 'success', 'message');
         expect(res.body.message).to
-          .equal('Route Does not Exist');
+          .equal('You are trying to access a wrong Route');
       });
   });
-  it('Should return Welcome message', () => {
+  it('Should return error for a wrong route', () => {
     chai
       .request(app)
       .get('/api/v1/user')
       .end((err, res) => {
         expect(res.body).to.have.key('status', 'error', 'success', 'message');
         expect(res.body.message).to
-          .equal('Route Does not Exist');
+          .equal('You are trying to access a wrong Route');
       });
   });
 });

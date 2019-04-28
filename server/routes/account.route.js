@@ -14,6 +14,7 @@ router.post('/',
 
 // this route changes the status of an account
 router.patch('/:accountNumber',
+  AccountValidator.accountNumberValidator,
   Auth.getUser,
   Auth.staffAdminCheck,
   AccountValidator.changeAccountStatusValidator,
@@ -21,6 +22,7 @@ router.patch('/:accountNumber',
 
 // this route delete a bank account
 router.delete('/:accountNumber',
+  AccountValidator.accountNumberValidator,
   Auth.getUser,
   Auth.staffAdminCheck,
   AccountController.deleteAccount);
@@ -28,12 +30,9 @@ router.delete('/:accountNumber',
 // GET  /accounts/<account-number>/transactions
 // return all the transactions for an account number
 router.get('/:accountNumber/transactions',
+  AccountValidator.accountNumberValidator,
   Auth.getUser,
   AccountController.allTransactions);
-
-// GET  /accounts/<account-number>
-// get a particular account details
-router.get('/:accountNumber', Auth.getUser, AccountController.accountDetails);
 
 
 // GET  /accounts
@@ -42,5 +41,13 @@ router.get('/',
   Auth.getUser,
   Auth.staffAdminCheck,
   AccountController.allAccounts);
+
+
+// GET  /accounts/<account-number>
+// get a particular account details
+router.get('/:accountNumber',
+  AccountValidator.accountNumberValidator,
+  Auth.getUser,
+  AccountController.accountDetails);
 
 export default router;

@@ -44,7 +44,7 @@
   <section class="transaction-container">
     <section class="">
       <div class="account-search">
-        <form class="check-form" action="/action_page.php">
+        <form class="check-form" action="" id="check_form">            
           <input class="check-input" type="text" id="account-no" placeholder="ACCOUNT NUMBER" name="account-no">
           <input class="check-input" type="text" id="account_name" placeholder="ACCOUNT NAME" name="account-name">
           <button class="check-button" type="submit" class="account-confirm">Check</button>
@@ -70,7 +70,7 @@
         <div class="credit-debit-form">
           <div class="credit-debit">
             <h2>CREDIT/DEBIT</h2>
-            <form class="register-form">
+            <form class="register-form" id='confirm_form'>
               <div class="form">
                 <input type="text" placeholder="Name" name="name" required/>
                 <input type="text" placeholder="Account Number" name="account_no" required/>
@@ -91,6 +91,6 @@
 </main>
 
 <script src="js/navbar.js"></script>
-<script src="js/listBankAccounts.js"></script> 
+<script src="js/transaction.js"></script>
 </body>
 </html>

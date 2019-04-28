@@ -18,8 +18,7 @@ const UserValidator = {
       .trim();
     req.check('email')
       .isEmail()
-      .withMessage('Please enter a valid email').trim()
-      .normalizeEmail();
+      .withMessage('Please enter a valid email').trim();
     req.check('password')
       .not().isEmpty()
       .isLength({ min: 8 })

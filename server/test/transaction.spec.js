@@ -307,6 +307,18 @@ describe('Transaction Resource', () => {
       .send({
         amount: 3000,
       });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body).to.have.key('status', 'error');
+    expect(res.body.error[0]).to.be.equal('transaction ID must be a number');
+  });
+  it('should return invalid transaction details', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/transactions/20009')
+      .set('Authorization', clientToken)
+      .send({
+        amount: 3000,
+      });
     expect(res.body.status).to.be.equal(400);
     expect(res.body).to.have.key('status', 'error');
     expect(res.body.error).to.be.equal('Invalid transaction detail provided');

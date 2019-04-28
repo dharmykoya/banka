@@ -97,7 +97,7 @@ const signUp = (e) => {
           sessionStorage.setItem('token', response.data.token);
           sessionStorage.setItem('email', response.data.email);
           sessionStorage.setItem('id', response.data.id);
-          localStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('firstName', response.data.firstName);
           localStorage.setItem('email', response.data.email);
           window.location.replace('./createAccount.html');
         }, 1000);

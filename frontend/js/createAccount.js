@@ -4,7 +4,7 @@ const message = document.querySelector('.message');
 const alert = document.querySelector('.alert');
 const closeBtn = document.querySelector('#closebtn');
 const welcomeName = document.querySelector('.welcome-name');
-const name = localStorage.getItem('firstName');
+const name = sessionStorage.getItem('firstName');
 const token = sessionStorage.getItem('token');
 
 window.onload = () => {
