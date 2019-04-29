@@ -127,3 +127,9 @@ body {
     margin-right: 20px;
   }
 }
+
+@media (min-width: 1024px) and (max-width: 2968px) {
+  .account-search {
+    width: 65%;
+  }
+}
