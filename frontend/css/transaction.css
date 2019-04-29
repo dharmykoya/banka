@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica";
+  font-family: "Ubuntu";
 }
 .transaction-container {
   text-align: center;
@@ -7,12 +7,25 @@ body {
   padding: 20px;
 }
 
+#account-found-details {
+  text-align: left;
+}
+
+.no-account-found {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 15px;
+  width: 30%;
+  margin: 0px auto;
+}
 .account-search {
   display: flex;
   padding: 10px;
   justify-content: center;
   width: 55%;
   margin: 0px auto;
+  max-width: 703px;
 }
 
 .check-form {

@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica";
+  font-family: "Ubuntu";
   background: #F5F6FA;
 }
 
@@ -170,7 +170,6 @@ body {
 .recent-tran-footer {
   padding: 10px 40px;
   display: flex;
-  border-top: 1px solid #eaeaea;
   flex-direction: row-reverse;
   color: #dd4f05;
   cursor: pointer;

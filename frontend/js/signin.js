@@ -80,7 +80,6 @@ const signIn = (e) => {
             sessionStorage.setItem('id', response.data.id);
             sessionStorage.setItem('firstName', response.data.firstName);
             sessionStorage.setItem('token', response.data.token);
-            document.cookie = `token=John Doe; expires=Thu,  Dec 2019 12:00:00 UTC`;
             localStorage.setItem('email', response.data.email);
             window.location.replace('./staffDashboard.html');
           }, 1000);

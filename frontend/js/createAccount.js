@@ -48,18 +48,21 @@ const createAccount = (e) => {
   }).then(res => res.json())
     .then((response) => {
       if (response.status === 403) {
-        console.log(21, 'You must be logged in to create an account');
-      } else if (response.status === 400) {
-        console.log(22, 'Something went wrong');
-      } else if (response.status === 422) {
-        console.log(22, 'Please select an appropriate account type');
-      } else if (response.status === 201) {
+        return 'You must be logged in to create an account';
+      }
+      if (response.status === 400) {
+        return 'Something went wrong';
+      }
+      if (response.status === 422) {
+        return 'Please select an appropriate account type';
+      }
+      if (response.status === 201) {
         setInterval(() => {
           window.location.replace('./dashboard.html');
         }, 1000);
       }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => error);
 };
 
 form.addEventListener('submit', validate);
