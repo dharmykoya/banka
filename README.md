@@ -16,6 +16,9 @@ Banka is a light-weight core banking application that powers banking operations 
 - [React](https://reactjs.org)
 - [Express](https://expressjs.com)
 - [PostgresSQL](https://postgresql.org)
+- Javascript
+- Html
+- CSS
 
 ## Features
 - User (client) can sign up.  
@@ -24,6 +27,11 @@ Banka is a light-weight core banking application that powers banking operations 
 - Staff (cashier) can debit user (client) account.  
 - Staff (cashier) can credit user (client) account.  
 - Admin/staff can activate or deactivate an account. 
+- Admin/staff can view all user accounts.  
+- Admin/staff can view a specific user account.  
+- Admin/staff can activate or deactivate an account.  
+- Admin/staff can delete a specific user account.  
+- Admin can create staff.
 
 ## Installation
 1. Ensure you have Node.js and npm installed
@@ -38,7 +46,7 @@ npm install
 ```
 4. Start server
 ```bash
-npm start
+npm run start-dev
 ```
 
 ## Supporting Packages
@@ -66,7 +74,7 @@ npm install
 ```
 4. Run Test
 ```bash
-npm run test-watch
+npm test
 ```
 5. Run Coverage Report
 ```bash
@@ -84,17 +92,23 @@ npm run coverage
 |       Sign up User        | POST        | /api/v1/auth/signup                  |
 |        Log in User        | POST        | /api/v1/auth/signin                  |
 |   Create a bank account   | POST        | /api/v1/accounts                     |
-|  Activate a bank account  | PATCH       | /api/v1/accounts/account-number      |
-| Deactivate a bank account | PATCH       | /api/v1/accounts/{account-number}    |
+|  Activate or Deactive a bank account  | PATCH       | /api/v1/accounts/account-number      |
 |   Delete a bank account   | DELETE      | /api/v1/accounts/{account-number}    |
 |   Credit a bank account   | POST        | /api/v1/transactions/account-number/credit |
 |   Debit a bank account    | POST         | /api/v1/transactions/account-number/debit |
-
+|      View account transaction history      | GET         | /api/v1/transactions/accounts/{account-number}/transaction |
+|        View a specific transaction         | GET         | /api/v1/transactions/{transaction-id}                      |
+| View all accounts owned by a specific user | GET         | /api/v1/user/{user-email}/accounts                         |
+|      View specific account's details       | GET         | /api/v1/accounts/{account-number}                          |
+|      View a list of all bank accounts      | GET         | /api/v1/accounts/                                          |
+|  View a list of all active bank accounts   | GET         | /api/v1/accounts?status=active                             |
+|  View a list of all dormant bank accounts  | GET         | /api/v1/accounts?status=dormant                            |
 ## References
 
 - ALC tutorial by Bolaji Olajide - https://www.youtube.com/watch?v=WLIqvJzD9DE
 - StackOverflow
-
+- https://stackoverflow.com/questions/19876764/how-to-create-a-enum-field-with-default-value
+- https://www.postgresql.org/docs/9.1/datatype-enum.html
 ## License
 
 &copy; Damilola Adekoya
