@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica";
+  font-family: "Ubuntu";
 }
 
 .account-action > h5 {
@@ -126,7 +126,9 @@ body {
   opacity: 0.9;
 }
 
-
+.user-profile-table {
+  margin: 0px auto;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media(max-width: 600px) {

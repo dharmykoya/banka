@@ -32,7 +32,7 @@
         </div>
         <a class="active topnav-anchor" href="adminDashboard.html">Profile</a>        
         <a class="topnav-anchor" href="addstaff.html">New Staff</a>
-        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
+        <a  class="topnav-anchor"href="listUsers.html">All Staffs</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
@@ -142,15 +142,15 @@
               </tr>
                 </tbody>
                 <tfoot>
-                <tr>
-                </tr>
+                    <tr>
+                        <td colspan="6" class="tran-pagination">
+                            <div class="recent-tran-footer">
+                                <a href="listUsers.html">See More >>></a>
+                            </div>
+                        </td>
+                      </tr>
                 </tfoot>
             </table>
-            <div class="admin-pagination">
-              <div class="recent-tran-footer">
-                  <a href="listUsers.html">See More >>></a>
-              </div>
-            </div>
         </div>
   
         <div id="current_account" class="tabcontent-list-account show-tabcontent">
@@ -173,7 +173,7 @@
                   <td>31st Jan, 2019</td>
                   <td>0.00</td>
                   <td>Not Active</td>
-                  <td><a href="account.html" class="table-action">view</a></td>
+                  <td><a href="" class="table-action">view</a></td>
               </tr>
               <tr  class="list-tr-hover">
                 <td>Doyin Peters</td>
@@ -181,7 +181,7 @@
                 <td>14th Jan, 2019</td>
                 <td>400,000.00</td>
                 <td>Active</td>
-                <td><a href="account.html" class="table-action">view</a></td>
+                <td><a href="" class="table-action">view</a></td>
             </tr>
               <tr class="list-tr-hover">
                 <td>John Igwe</td>
@@ -189,20 +189,23 @@
                 <td>5th Feb, 2019</td>
                 <td>300,000.00</td>
                 <td>Active</td>
-                <td><a href="account.html" class="table-action">view</a></td>
+                <td><a href="" class="table-action">view</a></td>
             </tr>
               </tbody>
               <tfoot>
-              <tr>
-                    
-              </tr>
+                  <tr>
+                      <td colspan="6" class="tran-pagination">
+                        <div class="pagination">
+                            <a href="#">&laquo;</a>
+                            <a href="#"  class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">&raquo;</a>
+                          </div>
+                      </td>
+                    </tr>
               </tfoot>
-          </table>
-          <div class="admin-pagination">
-            <div class="recent-tran-footer">
-                <a href="listBankAccounts.html">See More >>></a>
-            </div>
-          </div>          
+          </table>          
         </div>
     </section>
   </section>    

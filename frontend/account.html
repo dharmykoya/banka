@@ -28,7 +28,7 @@
         <div class="logo-container">
             <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
         </div>
-        <a class="active topnav-anchor" href="staffDashboard.html">Profile</a>
+        <a class="topnav-anchor" href="staffDashboard.html">Profile</a>
         <a  class="topnav-anchor"href="transaction.html">Transaction</a>
         <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
         <a class="icon" onclick="return navToggle()">
@@ -118,7 +118,7 @@
   <section>
       <div class="transaction-table">
           <p class="text-center">Transaction Details</p>
-          <table id="transaction-summary">
+          <table id="transaction-summary" class="user-profile-table">
               <thead>
               <tr>
                   <th class="transaction-date">Date</th>
@@ -188,16 +188,19 @@
               </tr>          
               </tbody>
               <tfoot>
-              
+                <tr>
+                  <td colspan="6">
+                      <div class="pagination">
+                          <a href="#">&laquo;</a>
+                          <a href="#"  class="active">1</a>
+                          <a href="#">2</a>
+                          <a href="#">3</a>
+                          <a href="#">&raquo;</a>
+                      </div>
+                  </td>
+                </tr>
               </tfoot>
           </table>
-          <div class="pagination">
-              <a href="#">&laquo;</a>
-              <a href="#"  class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">&raquo;</a>
-          </div>
         </div>    
   </section>
 </main>

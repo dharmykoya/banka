@@ -53,17 +53,24 @@
     </section>
 
     <section>
-      <div class="account-transaction-container">
+      <div id="no-account-found" class="no-account-found hide">
+        <div class="error">
+          <ul id="error"></ul>
+        </div>
+      </div>
+      <div class="account-transaction-container" id="t-container">
         <div class="account-found">
           <div class="transaction-container">
             <div class="user-photo">
                 <img class="profilepic" src="https://via.placeholder.com/150">
             </div>
-            <div>
-              <p>Name: Segun Odusole </p>
-              <p>Account No: 0002223002</p>
-              <p>Balance: 200,050.65</p>
-              <p>Phone No: 08037145164</p>
+            <div id="account-found-details">
+              <p>Name: <strong  id="name-found"></strong></p>
+              <p>Account No: <strong id="account-no-found"></strong></p>
+              <p>Balance: <strong id="account-balance-found"></strong></p>
+              <p>Email: <strong id="email-found"></strong></p>
+              <p>Type: <strong id="account-type-found"></strong></p>
+              <p>Status: <strong id="account-status-found"></strong></p>
             </div>
           </div>
         </div>
@@ -73,14 +80,14 @@
             <form class="register-form" id='confirm_form'>
               <div class="form">
                 <input type="text" placeholder="Name" name="name" required/>
-                <input type="text" placeholder="Account Number" name="account_no" required/>
-                <select name="role" aria-placeholder="Transaction type">
+                <input type="text" id="account-number" placeholder="Account Number" name="account_no" required/>
+                <input type="text" id="amount-pay" placeholder="Amount" name="amount" required/>
+                <select name="role" aria-placeholder="Transaction type" id="transaction-type">
                     <option selected="selected">Select transaction type</option>
-                    <option value="admin">Credit</option>
-                    <option value="staff">Debit</option>
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
                 </select>
-                <textarea class="transaction-narration" placeholder="description here..."></textarea>
-                <a href="adminDashboard.html"><button>POST</button></a>
+                <a href=""><button>POST</button></a>
               </div>
             </form>
           </div>
