@@ -11,15 +11,35 @@ const foundType = document.querySelector('#account-type-found');
 const foundStatus = document.querySelector('#account-status-found');
 const error = document.querySelector('#error');
 const errorContainer = document.querySelector('#no-account-found');
+const closeBtn = document.querySelector('.close');
+let accountNumberTransaction;
 
+if (!token) {
+  window.location.replace('./index.html');
+}
 
 window.onload = () => {
   transactionBox.style.display = 'none';
 };
 
+// eslint-disable-next-line no-alert
+const alertUser = (message => alert(message));
+
+const errorAlert = () => {
+  errorContainer.classList.add('hide');
+};
+
+if (!navigator.onLine) {
+  alertUser('Please connect to the internet');
+}
 
 const getAccountDetail = (e) => {
   e.preventDefault();
+  const postLoader = document.querySelector('.check-transaction-loader');
+  const postButton = document.querySelector('.check-button');
+
+  postButton.classList.add('hide');
+  postLoader.classList.add('loader');
 
   const accountNumber = document.querySelector('#account-no').value;
   fetch(`${api}/api/v1/accounts/${accountNumber}`, {
@@ -33,7 +53,9 @@ const getAccountDetail = (e) => {
     redirect: 'follow',
   }).then(res => res.json())
     .then(async (response) => {
-      if (response.status === 403) {
+      postLoader.classList.remove('loader');
+      postButton.classList.remove('hide');
+      if (response.status === 403 || response.status === 500) {
         window.location.replace('./signin.html');
       }
       if (response.status === 422) {
@@ -64,6 +86,7 @@ const getAccountDetail = (e) => {
         error.appendChild(item);
       }
       if (response.status === 200) {
+        accountNumberTransaction = response.data.account_number;
         errorContainer.classList.add('hide');
         transactionBox.style.display = 'grid';
         fName.textContent = `${response.data.fName} ${response.data.lName}`;
@@ -79,12 +102,18 @@ const getAccountDetail = (e) => {
 
 const makeTransaction = (e) => {
   e.preventDefault();
-  const accountNumber = document.querySelector('#account-number').value;
+  const postLoader = document.querySelector('.make-transaction-loader');
+  const postButton = document.querySelector('.make-transaction-button');
+  // hides the post button
+  postButton.classList.add('hide');
   const amount = document.querySelector('#amount-pay').value;
+  postLoader.classList.add('loader');
+
+  // to get the type of transaction selected
   const option = document.querySelector('#transaction-type');
   const transactionType = option.options[option.selectedIndex].value;
   const data = { amount };
-  fetch(`${api}/api/v1/transactions/${accountNumber}/${transactionType}`, {
+  fetch(`${api}/api/v1/transactions/${accountNumberTransaction}/${transactionType}`, {
     method: 'POST', // or 'PUT'
     mode: 'cors',
     cache: 'no-cache',
@@ -96,14 +125,14 @@ const makeTransaction = (e) => {
     redirect: 'follow',
   }).then(res => res.json())
     .then((response) => {
-      if (response.status === 403) {
+      postLoader.classList.remove('loader');
+      postButton.classList.remove('hide');
+      if (response.status === 403 || response.status === 500) {
         window.location.replace('./signin.html');
       }
       if (response.status === 400) {
-        const tBox = document.querySelector('#t-container');
-        tBox.classList.add('hide');
-        tBox.style.display = 'none !important';
         errorContainer.classList.remove('hide');
+        transactionBox.style.display = 'none';
         const errorFound = response.error;
         while (error.firstChild) {
           error.removeChild(error.firstChild);
@@ -147,6 +176,9 @@ const makeTransaction = (e) => {
         errorContainer.classList.remove('hide');
         errorContainer.style.backgroundColor = '#66bb6a';
         transactionBox.style.display = 'none';
+        while (error.firstChild) {
+          error.removeChild(error.firstChild);
+        }
         const item = document.createElement('li');
         item.style.listStyle = 'none';
         const newContent = document.createTextNode('Transaction successful');
@@ -157,4 +189,5 @@ const makeTransaction = (e) => {
     .catch(err => err);
 };
 check.addEventListener('submit', getAccountDetail);
+closeBtn.addEventListener('click', errorAlert);
 form.addEventListener('submit', makeTransaction);

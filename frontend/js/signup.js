@@ -3,6 +3,8 @@ const form = document.querySelector('#signupForm');
 const message = document.querySelector('.message');
 const alert = document.querySelector('.alert');
 const closeBtn = document.querySelector('#closebtn');
+const signUpBtn = document.querySelector('.signup-button');
+const buttonLoader = document.querySelector('.button-loader');
 
 const validate = () => {
   if (form.firstName.value === '') {
@@ -46,6 +48,9 @@ const errorAlert = () => {
 const signUp = (e) => {
   let errors;
   e.preventDefault();
+  signUpBtn.classList.add('hide');
+  buttonLoader.classList.add('loader');
+
   const firstName = document.querySelector('#firstName').value;
   const lastName = document.querySelector('#lastName').value;
   const email = document.querySelector('#email').value;
@@ -56,9 +61,8 @@ const signUp = (e) => {
     lastName,
     email,
     password,
-    confirm_password: confirmPassword,
+    confirmPassword,
   };
-
   fetch(`${api}/api/v1/auth/signup`, {
     method: 'POST', // or 'PUT'
     mode: 'cors',
@@ -70,6 +74,8 @@ const signUp = (e) => {
     redirect: 'follow',
   }).then(res => res.json())
     .then((response) => {
+      buttonLoader.classList.remove('loader');
+      signUpBtn.classList.remove('hide');
       if (response.status === 422) {
         alert.classList.remove('hide');
         errors = response.error;
