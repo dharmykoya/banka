@@ -46,7 +46,7 @@ describe('Transaction Resource', () => {
         lastName: 'Fayemi',
         email: 'mercy@gmil.com',
         password: 'Bankappclient2@',
-        confirm_password: 'Bankappclient2@',
+        confirmPassword: 'Bankappclient2@',
         type: 'staff',
       });
     staffToken = `Bearer ${res.body.data.token}`;
@@ -67,7 +67,7 @@ describe('Transaction Resource', () => {
         lastName: 'Fayemi',
         email: 'tope@gmil.com',
         password: 'Bankappclient2@',
-        confirm_password: 'Bankappclient2@',
+        confirmPassword: 'Bankappclient2@',
         type: 'client',
       });
     clientToken = `Bearer ${res.body.data.token}`;

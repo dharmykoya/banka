@@ -64,34 +64,30 @@ const signIn = (e) => {
         message.appendChild(item);
       } else if (response.status === 200) {
         if (response.data.isAdmin) {
-          setInterval(() => {
-            sessionStorage.setItem('token', response.data.token);
+          sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
             sessionStorage.setItem('firstName', response.data.firstName);
             localStorage.setItem('email', response.data.email);
 
             window.location.replace('./adminDashboard.html');
-          }, 1000);
-        } else if (response.data.type === 'staff') {
-          setInterval(() => {
-            sessionStorage.setItem('token', response.data.token);
-            sessionStorage.setItem('email', response.data.email);
-            sessionStorage.setItem('id', response.data.id);
-            sessionStorage.setItem('firstName', response.data.firstName);
-            sessionStorage.setItem('token', response.data.token);
-            localStorage.setItem('email', response.data.email);
-            window.location.replace('./staffDashboard.html');
-          }, 1000);
+        } else if (response.data.type === 'staff') {          
+          sessionStorage.setItem('token', response.data.token);
+          sessionStorage.setItem('email', response.data.email);
+          sessionStorage.setItem('id', response.data.id);
+          sessionStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('token', response.data.token);
+          localStorage.setItem('email', response.data.email);
+
+          window.location.replace('./staffDashboard.html');
         } else {
-          setInterval(() => {
             sessionStorage.setItem('token', response.data.token);
             sessionStorage.setItem('email', response.data.email);
             sessionStorage.setItem('id', response.data.id);
             sessionStorage.setItem('firstName', response.data.firstName);
             localStorage.setItem('email', response.data.email);
+            
             window.location.replace('./dashboard.html');
-          }, 1000);
         }
       }
     })

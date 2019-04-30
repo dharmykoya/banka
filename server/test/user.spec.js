@@ -28,7 +28,7 @@ describe('The authentication endpoint test', () => {
           firstName: 'damilola',
           lastName: 'Koya',
           password: 'Bankappclient2@',
-          confirm_password: 'Bankappclient2@',
+          confirmPassword: 'Bankappclient2@',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(201);
@@ -49,7 +49,7 @@ describe('The authentication endpoint test', () => {
           firstName: 'damilola',
           lastName: 'Koya',
           password: 'Bankappclient2@',
-          confirm_password: 'Bankappclient2@',
+          confirmPassword: 'Bankappclient2@',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(201);
@@ -72,7 +72,7 @@ describe('The authentication endpoint test', () => {
           firstName: '2',
           lastName: 'Koya',
           password: 'bankappclient',
-          confirm_password: 'bankappclient',
+          confirmPassword: 'bankappclient',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(422);
@@ -90,7 +90,7 @@ describe('The authentication endpoint test', () => {
           firstName: 'Taiwo',
           lastName: '2',
           password: 'bankappclient',
-          confirm_password: 'bankappclient',
+          confirmPassword: 'bankappclient',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(422);
@@ -108,7 +108,7 @@ describe('The authentication endpoint test', () => {
             firstName: 'Taiwo',
             lastName: '',
             password: 'bankappclient',
-            confirm_password: 'bankappclient',
+            confirmPassword: 'bankappclient',
             type: 'client',
           });
         expect(res.body.status).to.be.equal(422);
@@ -126,7 +126,7 @@ describe('The authentication endpoint test', () => {
           firstName: 'Felix',
           lastName: 'Koya',
           password: 'bankappclient',
-          confirm_password: 'bankappclient',
+          confirmPassword: 'bankappclient',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(422);
@@ -143,7 +143,7 @@ describe('The authentication endpoint test', () => {
           firstName: 'Tobi',
           lastName: 'Koya',
           password: 'dami',
-          confirm_password: 'dami',
+          confirmPassword: 'dami',
           type: 'client',
         });
       expect(res.body.status).to.be.equal(422);
@@ -160,7 +160,7 @@ describe('The authentication endpoint test', () => {
             firstName: 'Tobi',
             lastName: 'Koya',
             password: 'damil',
-            confirm_password: 'dami',
+            confirmPassword: 'dami',
             type: 'client',
           });
         expect(res.body.status).to.be.equal(422);

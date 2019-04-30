@@ -2,7 +2,7 @@ import Helper from '../services/helper';
 
 const UserValidator = {
   signUpValidator(req, res, next) {
-    if (req.body.password !== req.body.confirm_password) {
+    if (req.body.password !== req.body.confirmPassword) {
       const error = 'passwords must match';
       return Helper.errorResponse(res, 422, error);
     }
