@@ -22,7 +22,7 @@ describe('The endpoint for Accounts Resource', () => {
         lastName: 'Fayemi',
         email: 'victor@gmil.com',
         password: 'Bankappclient1!',
-        confirm_password: 'Bankappclient1!',
+        confirmPassword: 'Bankappclient1!',
         type: 'client',
       });
     clientToken = `Bearer ${res.body.data.token}`;
@@ -63,7 +63,7 @@ describe('The endpoint for Accounts Resource', () => {
         lastName: 'Fayemi',
         email: 'peace@gmil.com',
         password: 'Bankappclient1!',
-        confirm_password: 'Bankappclient1!',
+        confirmPassword: 'Bankappclient1!',
       });
     adminToken = `Bearer ${res.body.data.token}`;
     expect(res).to.have.status(201);
