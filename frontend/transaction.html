@@ -45,15 +45,17 @@
     <section class="">
       <div class="account-search">
         <form class="check-form" action="" id="check_form">            
-          <input class="check-input" type="text" id="account-no" placeholder="ACCOUNT NUMBER" name="account-no">
+          <input class="check-input" type="text" id="account-no" placeholder="ACCOUNT NUMBER" name="account-no" required>
           <input class="check-input" type="text" id="account_name" placeholder="ACCOUNT NAME" name="account-name">
           <button class="check-button" type="submit" class="account-confirm">Check</button>
+          <div class="check-transaction-loader"></div>
         </form>
       </div>
     </section>
 
     <section>
       <div id="no-account-found" class="no-account-found hide">
+        <span class="close">&times;</span>
         <div class="error">
           <ul id="error"></ul>
         </div>
@@ -79,15 +81,14 @@
             <h2>CREDIT/DEBIT</h2>
             <form class="register-form" id='confirm_form'>
               <div class="form">
-                <input type="text" placeholder="Name" name="name" required/>
-                <input type="text" id="account-number" placeholder="Account Number" name="account_no" required/>
                 <input type="text" id="amount-pay" placeholder="Amount" name="amount" required/>
                 <select name="role" aria-placeholder="Transaction type" id="transaction-type">
                     <option selected="selected">Select transaction type</option>
                     <option value="credit">Credit</option>
                     <option value="debit">Debit</option>
                 </select>
-                <a href=""><button>POST</button></a>
+                <div class="make-transaction-loader"></div>
+                <button class="make-transaction-button">POST</button>
               </div>
             </form>
           </div>
