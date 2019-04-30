@@ -71,7 +71,7 @@ describe('Test for queries in the Model', () => {
         lastName: 'Fayemi',
         email: 'sodiq@gmil.com',
         password: 'Bankappclient1!',
-        confirm_password: 'Bankappclient1!',
+        confirmPassword: 'Bankappclient1!',
         type: 'client',
       });
     clientToken = `Bearer ${res.body.data.token}`;
@@ -94,7 +94,7 @@ describe('Test for queries in the Model', () => {
         lastName: 'Fayemi',
         email: 'peace@gmil.com',
         password: 'Bankappclient1!',
-        confirm_password: 'Bankappclient1!',
+        confirmPassword: 'Bankappclient1!',
       });
     expect(res.body.status).to.be.equal(401);
     expect(res.body).to.have.key('error', 'status');
@@ -111,7 +111,7 @@ describe('Test for queries in the Model', () => {
         firstName: 'Tobi',
         lastName: 'Koya',
         password: 'Damilola1@',
-        confirm_password: 'Damilola1@',
+        confirmPassword: 'Damilola1@',
         type: 'client',
       });
     expect(res.body.status).to.be.equal(400);

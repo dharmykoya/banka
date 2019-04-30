@@ -7,6 +7,7 @@ const welcomeName = document.querySelector('.welcome-name');
 const name = sessionStorage.getItem('firstName');
 const token = sessionStorage.getItem('token');
 
+
 window.onload = () => {
   welcomeName.innerText = name.toUpperCase();
 };
