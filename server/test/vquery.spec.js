@@ -147,4 +147,25 @@ describe('Test for queries in the Model', () => {
     expect(res.body.data).to.be
       .equal('No transaction on this account number yet');
   });
+  it('should return all accounts owned by a user', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/user/11')
+      .set('Authorization', clientToken);
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data[0].id).to.be.equal(8);
+    expect(res.body.data[0].type).to.be.equal('current');
+    expect(res.body.data[0].status).to.be.equal('active');
+    expect(res.body.data.user.id).to.be.equal(11);
+    expect(res.body.data.user.email).to.be.equal('sodiq@gmil.com');
+    expect(res.body.data.user.firstName).to.be.equal('sodiq');
+  });
+  it('should return all accounts owned by a user', async () => {
+    const res = await chai
+      .request(app)
+      .get('/api/v1/user/3')
+      .set('Authorization', clientToken);
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body.error).to.be.equal('You are not authorized to view another account');
+  });
 });

@@ -137,7 +137,59 @@ class UserService {
         response = `user ${email} has no accounts`;
         throw response;
       }
-      return userAccounts;
+      const userDetails = Helper.userReturn(user);
+      response = { userDetails, ...userAccounts };
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
+
+  /**
+   * @description to veiw all accounts owned by a user
+   * @static
+   * @param {Object} paramUserId
+   * @param {Integer} user
+   * @returns {Object} returns all acounts owned by a user
+   * @memberof UserService
+   */
+  static async userAccountsById(paramUserId, user) {
+    let response;
+    try {
+      const {
+        id, firstName, lastName, type,
+      } = user;
+      const column = 'owner';
+      const model = new Model('accounts');
+      if (type === 'client' && id !== parseInt(paramUserId, Number)) {
+        response = 'You are not authorized to view another account';
+        throw response;
+      }
+      if (type === 'client' && id === parseInt(paramUserId, Number)) {
+        const userAccounts = await model.Find(column, paramUserId);
+        if (userAccounts.length === 0 || userAccounts.name === 'error') {
+          response = `user ${firstName} ${lastName} has no accounts`;
+          throw response;
+        }
+        response = { user, ...userAccounts };
+        return response;
+      }
+
+      // finds the user, the admin or staff is trying to get all their account details
+      const userDetails = await this.findUserById(paramUserId);
+      if (userDetails.error) {
+        response = 'no user found';
+        throw response;
+      }
+      const userAccounts = await model.Find(column, paramUserId);
+      if (userAccounts.length === 0 || userAccounts.name === 'error') {
+        response = `user ${userDetails.first_name} ${userDetails.last_name} has no accounts`;
+        throw response;
+      }
+      const formatDetail = Helper.userReturn(userDetails);
+      response = { formatDetail, ...userAccounts };
+      return response;
     } catch (err) {
       response = { error: true, err };
       return response;
