@@ -186,7 +186,8 @@ describe('The authentication endpoint test', () => {
         expect(res).to.have.status(200);
         expect(res.body.status).to.be.equal(200);
         expect(res.body.data).to.have
-          .key('id', 'token', 'email', 'firstName', 'lastName', 'type', 'isAdmin');
+          .key('id', 'token', 'email', 'firstName',
+            'lastName', 'type', 'isAdmin');
         expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
         expect(res.body.data.firstName).to.be.equal('Damilola');
         expect(res.body.data.lastName).to.be.equal('Adekoya');
@@ -273,6 +274,64 @@ describe('The authentication endpoint test', () => {
         .equal(`user ${noAccountEmail} has no accounts`);
     });
 
+    it('should return all accounts owned by a user', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/1')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body.error).to.be
+        .equal('user Damilola Adekoya has no accounts');
+    });
+
+    it('should return all accounts owned by a user', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/4')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(200);
+      expect(res.body.data[0].id).to.be.equal(3);
+      expect(res.body.data[0].type).to.be.equal('current');
+      expect(res.body.data[0].status).to.be.equal('active');
+      expect(res.body.data[0].account_number).to.be.equal(2000000002);
+      expect(res.body.data.formatDetail.id).to.be.equal(4);
+      expect(res.body.data.formatDetail.email).to.be.equal('victor@gmil.com');
+      expect(res.body.data.formatDetail.firstName).to.be.equal('victor');
+    });
+    it('should return no user found for an id not in the app', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/76')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body.error).to.be.equal('no user found');
+    });
+    it('should return no user found for an id not in the app', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/+76')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(422);
+      expect(res.body.error[0]).to.be.equal('User ID must be a number');
+    });
+    it('should return no user found for an id not in the app', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/-76')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(422);
+      expect(res.body.error[0]).to.be.equal('User ID must be a number');
+    });
+    it('should return no user found for an id not in the app', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/-')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(422);
+      expect(res.body.error[0]).to.be.equal('Invalid value');
+      expect(res.body.error[1]).to.be.equal('User ID must be a number');
+    });
+
     it('findUserById(id) should return a user', async () => {
       const id = 3;
       const userAccounts = await UserService.findUserById(id);
@@ -306,7 +365,8 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .patch('/api/v1/user/upload')
         .set('Authorization', staffToken)
-        .attach('profileImage', ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg');
+        .attach('profileImage',
+          ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg');
       expect(res).to.have.status(200);
       expect(res.body.status).to.be.equal(200);
       expect(res.body.data).to.be.equal('file uploaded successfully');
@@ -317,7 +377,8 @@ describe('The authentication endpoint test', () => {
         .request(app)
         .patch('/api/v1/user/upload')
         .set('Authorization', staffToken)
-        .attach('profileImage', ('./server/test/testImages/testdoc.docx'), 'image.jpeg');
+        .attach('profileImage',
+          ('./server/test/testImages/testdoc.docx'), 'image.jpeg');
       expect(res.body.status).to.be.equal(500);
       expect(res.body.message).to.be.equal('This image format is not allowed');
     });
