@@ -33,8 +33,12 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
-            <a class=" topnav-anchor pointer-none">Client</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
+          <a class="topnav-anchor" href="signin.html">Logout</a>
+          <div class="dropdown">
+            <a class=" topnav-anchor pointer-none dropbtn">Client<i class="far fa-sort-down"></i></a>
+            <div class="dropdown-content">
+            </div>
+          </div>  
         </div>
     </div>
 <main>
@@ -47,12 +51,12 @@
         </div>
 
         <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Damilola Adekoya</h4>
+            <h4 id="accountName"></h4>
         </div>
 
 
         <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">&#8358; 280,000.00<br><small>Savings Balance</small></li>
+            <li class="list-inline-item list-small">&#8358;<div id="accountBalance"></div><small>Savings Balance</small></li>
         </ul>
     </div>
 
@@ -60,8 +64,8 @@
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item">Account No: 0003423233</li>
-                <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
+                <li class="list-inline-item" id="account-number"></li>
+                <li class="list-inline-item" id="email"></li>
                 <li class="list-inline-item">Phone No: 08037145164</li>
             </ul>
         </div>
