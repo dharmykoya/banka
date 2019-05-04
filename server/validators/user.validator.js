@@ -54,5 +54,19 @@ const UserValidator = {
     }
     return next();
   },
+
+  userIdValidator(req, res, next) {
+    req.checkParams('userId')
+      .isNumeric()
+      .not()
+      .matches('[-, +, %]')
+      .withMessage('User ID must be a number');
+    const errors = req.validationErrors();
+    if (errors) {
+      const err = Helper.validationError(errors);
+      return Helper.errorResponse(res, 422, err);
+    }
+    return next();
+  },
 };
 export default UserValidator;

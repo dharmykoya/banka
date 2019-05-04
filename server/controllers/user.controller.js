@@ -146,6 +146,34 @@ class UserController {
       });
     }
   }
+
+  /**
+      * @description to view all accounts owned by a user
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
+      */
+  static async userAccountsById(req, res) {
+    const paramUserId = req.params.userId;
+    const { user } = req.decoded;
+    try {
+      const userAccounts = await UserService.userAccountsById(paramUserId, user);
+      if (userAccounts.error) {
+        throw userAccounts;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: userAccounts,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
 }
 
 export default UserController;
