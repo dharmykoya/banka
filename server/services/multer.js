@@ -18,7 +18,6 @@ const fileFilter = async (req, file, callback) => {
         || file.mimetype === 'image/png') {
       callback(null, true);
     } else {
-      // return await callback(new Error('upload the right format please'), false);
       return await callback(
         { message: 'This image format is not allowed' },
         false

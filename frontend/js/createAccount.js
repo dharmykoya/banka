@@ -18,9 +18,6 @@ window.onload = () => {
 };
 
 const validate = () => {
-  const accountsType = ['savings', 'current'];
-  const check = accountsType.includes(form.role.value);
-
   if (form.role.value === 'Account type') {
     message.innerText = 'Please select an account type';
     alert.style.display = 'block';

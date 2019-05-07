@@ -6,6 +6,7 @@ const accountName = document.querySelector('#accountName');
 const userEmail = document.querySelector('#email');
 const accountBalance = document.querySelector('#accountBalance');
 const accountNumber = document.querySelector('#account-number');
+const accountStatus = document.querySelector('#status');
 const drpDown = document.querySelector('.dropdown-content');
 
 if (!token) {
@@ -30,8 +31,14 @@ window.onload = () => {
         }
         const { firstName, lastName } = response.data.user;
         accountName.textContent = `${firstName} ${lastName}`;
+
         userEmail.textContent = `Email: ${email}`;
+
+        accountStatus
+          .textContent = `Status: ${response.data[0].status.toUpperCase()}`;
+
         accountBalance.textContent = response.data[0].balance;
+
         foundAccountNumber = response.data[0].account_number;
         accountNumber
           .textContent = `Account Number: ${response.data[0].account_number}`;
@@ -39,6 +46,11 @@ window.onload = () => {
 
         // deletting the user property from the response data
         delete data.user;
+        const accountsNumbers = Object.values(data);
+        accountsNumbers.forEach((account, index) => {
+          sessionStorage
+            .setItem(`accountNumber${index + 1}`, account.account_number);
+        });
 
         const accounts = Object.values(data);
         accounts.map((account) => {
