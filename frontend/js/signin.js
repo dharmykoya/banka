@@ -83,7 +83,9 @@ const signIn = (e) => {
           sessionStorage.setItem('email', response.data.email);
           sessionStorage.setItem('id', response.data.id);
           sessionStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('lastName', response.data.lastName);
           sessionStorage.setItem('token', response.data.token);
+          sessionStorage.setItem('type', response.data.type);
           localStorage.setItem('email', response.data.email);
 
           window.location.replace('./staffDashboard.html');
