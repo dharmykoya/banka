@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/transactionHistory.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://momentjs.com/downloads/moment.js"></script>
 
     <!-- // favicon Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon.png">
@@ -28,7 +29,7 @@
           <a href="index.html" class="logo-text"><img class="index-logo" src="./img/logo5.png">anka</a>
         </div> 
           <a class="topnav-anchor" href="dashboard.html">Profile</a> 
-          <a class="active topnav-anchor" href="transactionHistory.html">Transactions</a>
+          <a class="active topnav-anchor" href="transactionHistory.html">My Transactions</a>
           <a class="icon" onclick="navToggle()">
               <i class="fa fa-bars"></i>
           </a>
@@ -39,30 +40,14 @@
     </div>
 <main>
   <section class="dashboard-container">
-    <div class="dashboard-header">
-        <div class="dashboard-header-item-1">
-            <div class="user-photo">
-                <img class="profilepic" src="https://via.placeholder.com/150">
-            </div>
-        </div>
-
-        <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Damilola Adekoya</h4>
-        </div>
-
-
-        <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">&#8358; 280,000.00<br><small>Savings Balance</small></li>
-        </ul>
-    </div>
-
     <div class="dashboard-profile">
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item">Account No: 0003423233</li>
-                <li class="list-inline-item">Account Type: Savings</li>
-                <li class="list-inline-item">Phone No: 08037145164</li>
+              <li class="list-inline-item" id="account-number"></li>
+              <li class="list-inline-item" id="email"></li>
+              <li class="list-inline-item" id="status"></li>
+              <li class="list-inline-item" id="accountBalance">Account Balance: &#8358;</li>
             </ul>
         </div>
     </div>
@@ -75,15 +60,15 @@
             <thead>
             <tr>
                 <th class="transaction-date">Date</th>
-                <th class="text-center">Transaction By</th>
-                <th class="text-center">Debits (&#8358;)</th>
-                <th class="text-center">Credits (&#8358;)</th>
-                <th class="text-center">Balance (&#8358;)</th>
-                <th class="text-center">Remarks</th>
+                <th class="text-center">Cashier</th>
+                <th class="text-center">Debit (&#8358;)</th>
+                <th class="text-center">Credit (&#8358;)</th>
+                <th class="text-center">Old Balance (&#8358;)</th>
+                <th class="text-center">New Balance (&#8358;)</th>
             </tr>
             </thead>
   
-            <tbody>
+            <tbody class="tbody">
             <tr class="">
                 <td>02-Jan-2019</td>
                 <td>Goke Fola</td>
@@ -91,54 +76,9 @@
                 <td>10,000.00</td>
                 <td>50,000.00</td>
                 <td>
-                  FUNDS DEPOSITED BY
-                  DOYIN OBASANJO
+                  20,000
                 </td>            
-            </tr>
-            <tr class="">
-                <td>12-Jan-2019</td>
-                <td>Goke Fola</td>
-                <td>10,000.00</td>
-                <td></td>
-                <td>40,000.00</td>
-                <td>
-                  WITHDRAWAL ON THE COUNTER BY
-                  YOU DAMILOLA ADEKOYA
-                </td>             
-            </tr>
-            <tr class="">
-                <td>02-Feb-2019</td>
-                <td>Tolu Ogundipe</td>
-                <td>30,000.00</td>
-                <td></td>
-                <td>10,000.00</td>
-                <td>
-                  WITHDRAWAL ON THE COUNTER BY
-                  YOU DAMILOLA ADEKOYA
-                </td>             
-            </tr>
-            <tr class="">
-                <td>20-Feb-2019</td>
-                <td>Goke Fola</td>
-                <td></td>
-                <td>200,000.00</td>
-                <td>210,000.00</td>
-                <td>
-                  FUNDS DEPOSITED BY
-                  ATIKU ABUBAKAR
-                </td>           
-            </tr>
-            <tr class="">
-                <td>04-Mar-2019</td>
-                <td>Goke Fola</td>
-                <td></td>
-                <td>70,000.00</td>
-                <td>280,000.00</td>
-                <td>
-                  FUNDS DEPOSITED BY
-                  SEGUN OBASANJO
-                </td>          
-            </tr>          
+            </tr>      
             </tbody>
             <tfoot>
               <tr>
@@ -159,6 +99,7 @@
 </main>
 
 <script src="js/navbar.js"></script>
+<script src="js/transactionHistory.js"></script>
 </body>
 </html>
 

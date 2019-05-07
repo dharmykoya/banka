@@ -1,4 +1,3 @@
-
 // Get the modal
 const modal = document.getElementById('myModal');
 const modal2 = document.getElementById('myModal2');

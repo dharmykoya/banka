@@ -93,8 +93,37 @@ const signIn = (e) => {
           sessionStorage.setItem('id', response.data.id);
           sessionStorage.setItem('firstName', response.data.firstName);
           localStorage.setItem('email', response.data.email);
+          const getUserDetails = () => {
+            const userId = sessionStorage.getItem('id');
+            const token = sessionStorage.getItem('token');
+            fetch(`${api}/api/v1/user/${userId}`, {
+              method: 'GET', // or 'PUT'
+              mode: 'cors',
+              cache: 'no-cache',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              redirect: 'follow',
+            }).then(res => res.json())
+              .then((resResult) => {
+                if (resResult.status === 200) {
+                  window.location.replace('./dashboard.html');
+                }
 
-          window.location.replace('./dashboard.html');
+                if (resResult.status === 403 || resResult.status === 500) {
+                  window.location.replace('./signin.html');
+                }
+
+                if (resResult.error.search('has no accounts') !== -1) {
+                  window.location.replace('./dashboard.html');
+                }
+
+                window.location.replace('./createAccount.html');
+              })
+              .catch(err => err);
+          };
+          getUserDetails();
         }
       }
     })

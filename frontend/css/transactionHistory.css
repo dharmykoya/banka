@@ -19,10 +19,12 @@ table#transaction-details, th, td {
 }
 table#transaction-summary {
   border-collapse: collapse;
+  margin: 0px auto;
+  width: 100%;
 }
 #transaction-summary td {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 .tran-pagination {
