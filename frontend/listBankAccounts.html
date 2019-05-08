@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/list_bank_accounts.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://momentjs.com/downloads/moment.js"></script>
 
     <!-- // favicon Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
@@ -43,8 +44,10 @@
   <section class="list-account-container">
       <!-- Tab links -->
       <div class="tab-list-account">
-          <button class="tablinks_list_account active" onclick="listAccount(event, 'savings_account')">Savings Account</button>
-          <button class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Current Account</button>
+          <!-- <button id="savings_account" class="tablinks_list_account active" onclick="listAccount(event, 'savings_account')">Savings Account</button>
+          <button id="current_account" class="tablinks_list_account" onclick="listAccount(event, 'current_account')">Current Account</button> -->
+          <button id="savings" class="tablinks_list_account active">Savings Account</button>
+          <button id="current" class="tablinks_list_account">Current Account</button>
       </div>
 
       <!-- Tab content -->
@@ -61,7 +64,7 @@
               </tr>
               </thead>
 
-              <tbody>
+              <tbody id="savings-tbody">
               <tr  class="list-tr-hover">
                   <td>Atiku Abubaka</td>
                   <td>0000000001</td>
@@ -70,25 +73,9 @@
                   <td>Active</td>
                   <td><a href="account.html" class="table-action">view</a></td>
               </tr>
-              <tr class="list-tr-hover">
-                <td>Segun Obasanjo</td>
-                <td>0000000002</td>
-                <td>29th Jan, 2019</td>
-                <td>2,000,000</td>
-                <td>Active</td>
-                <td><a href="account.html" class="table-action">view</a></td>
-            </tr>
-            <tr class="list-tr-hover">
-                <td>Daniel Ogundipe</td>
-                <td>0000000003</td>
-                <td>22nd Feb, 2019</td>
-                <td>1,000,000</td>
-                <td>Active</td>
-                <td><a href="account.html" class="table-action">view</a></td>
-            </tr>
               </tbody>
               <tfoot>
-              <tr>
+              <tr class="last-child">
                 <td colspan="6" class="tran-pagination">
                   <div class="pagination">
                       <a href="#">&laquo;</a>
@@ -116,23 +103,7 @@
             </tr>
             </thead>
 
-            <tbody>
-            <tr  class="list-tr-hover">
-                <td>Shittu Abubaka</td>
-                <td>0100000001</td>
-                <td>31st Jan, 2019</td>
-                <td>0.00</td>
-                <td>Not Active</td>
-                <td><a href="account.html" class="table-action">view</a></td>
-            </tr>
-            <tr  class="list-tr-hover">
-              <td>Doyin Peters</td>
-              <td>0200000002</td>
-              <td>14th Jan, 2019</td>
-              <td>400,000</td>
-              <td>Active</td>
-              <td><a href="account.html" class="table-action">view</a></td>
-          </tr>
+            <tbody id="current-tbody">
             <tr class="list-tr-hover">
               <td>John Igwe</td>
               <td>0300000003</td>
@@ -143,7 +114,7 @@
           </tr>
             </tbody>
             <tfoot>
-            <tr>
+            <tr class="last-child">
               <td colspan="6" class="tran-pagination">
                 <div class="pagination">
                     <a href="#">&laquo;</a>

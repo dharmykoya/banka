@@ -71,7 +71,11 @@ table#listAccount-details, table#listAccount-details th, table#listAccount-detai
   display: none;
 }
 
-.list-tr-hover:hover {background-color: #dd4f05;}
+
+#savings-account-table tr:hover {background-color: #dd4f05;}
+#current-account-table tr:hover {background-color: #dd4f05;}
+table#savings-account-table tr.last-child:hover {background-color: white;}
+table#current-account-table tr.last-child:hover {background-color: white;}
 
 .list-account-table {
   border-collapse: collapse;
