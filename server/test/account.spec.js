@@ -323,7 +323,7 @@ status is not a valid status`, async () => {
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data[0]).to.have
       .key('account_number', 'type', 'status',
-        'balance', 'created_on', 'email');
+        'balance', 'created_on', 'email', 'first_name', 'last_name');
     expect(res.body.data[0].account_number).to.be.equal(2000000000);
     expect(res.body.data[0].email).to.be.equal('martin@gmail.com');
     expect(res.body.data[0].type).to.be.equal('savings');
@@ -500,7 +500,7 @@ No account found/Incorrect account number`, async () => {
     const accountDetails = await AccountService.allAccounts();
     expect(accountDetails[0]).to.have
       .key('account_number', 'type', 'status', 'balance',
-        'created_on', 'email');
+        'created_on', 'email', 'first_name', 'last_name');
     expect(accountDetails[0].account_number).to.be.equal(2000000000);
     expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
     expect(accountDetails[0].type).to.be.equal('savings');
@@ -512,7 +512,7 @@ No account found/Incorrect account number`, async () => {
     const accountDetails = await AccountService.allAccounts();
     expect(accountDetails[0]).to.have
       .key('account_number', 'type', 'status',
-        'balance', 'created_on', 'email');
+        'balance', 'created_on', 'email', 'first_name', 'last_name');
     expect(accountDetails[0].account_number).to.be.equal(2000000000);
     expect(accountDetails[0].email).to.be.equal('martin@gmail.com');
     expect(accountDetails[0].type).to.be.equal('savings');

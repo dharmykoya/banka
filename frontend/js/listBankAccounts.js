@@ -1,13 +1,47 @@
 const api = 'https://banktoday.herokuapp.com';
 const token = sessionStorage.getItem('token');
+const admin = sessionStorage.getItem('admin');
 const savingsButton = document.querySelector('#savings');
 const currentButton = document.querySelector('#current');
 const currentContent = document.querySelector('#current_account');
 const savingsContent = document.querySelector('#savings_account');
 const savingsTbody = document.querySelector('#savings-tbody');
 const currentTbody = document.querySelector('#current-tbody');
+const navBar = document.querySelector('#myTopnav');
 
-
+if (admin) {
+  navBar.innerHTML = `<div class="logo-container">
+      <a href="index.html" class="logo-text">
+      <img class="index-logo" src="img/logo5.png">anka</a>
+    </div>
+    <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
+    <a class="topnav-anchor" href="addstaff.html">New Staff</a>
+    <a  class="topnav-anchor"href="listUsers.html">All Staff</a>
+    <a class="topnav-anchor active" href="listAccounts.html">All Account</a>
+    <a class="icon topnav-anchor" onclick="navToggle()">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="right navbar-right">
+        <a class=" topnav-anchor pointer-none">Admin</a>
+        <a class="topnav-anchor" href="signin.html">Logout</a>
+    </div>`;
+}
+if (admin === 'false') {
+  navBar.innerHTML = `<div class="logo-container">
+    <a href="index.html" class="logo-text">
+    <img class="index-logo" src="img/logo5.png">anka</a>
+    </div>
+    <a class="topnav-anchor" href="staffDashboard.html">Profile</a>        
+    <a class="topnav-anchor" href="transaction.html">Transaction</a>
+    <a  class="topnav-anchor active"href="account.html">All Account</a>
+    <a class="icon topnav-anchor" onclick="navToggle()">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="right navbar-right">
+        <a class=" topnav-anchor pointer-none">Staff</a>
+        <a class="topnav-anchor" href="signin.html">Logout</a>
+    </div>`;
+}
 const listAccount = (e) => {
   const content = e.target.textContent;
 
@@ -60,7 +94,8 @@ window.onload = () => {
           const action = document.createElement('td');
           const a = document.createElement('a');
           if (account.type === 'savings') {
-            const nameNode = document.createTextNode('damilola adekoya');
+            const nameNode = document
+              .createTextNode(`${account.first_name} ${account.last_name}`);
             name.appendChild(nameNode);
             tr.appendChild(name);
 
@@ -95,7 +130,8 @@ window.onload = () => {
             return true;
           }
           if (account.type === 'current') {
-            const nameNode = document.createTextNode('damilola adekoya');
+            const nameNode = document
+              .createTextNode(`${account.first_name} ${account.last_name}`);
             name.appendChild(nameNode);
             tr.appendChild(name);
 

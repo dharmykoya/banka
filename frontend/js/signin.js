@@ -76,6 +76,8 @@ const signIn = (e) => {
           sessionStorage.setItem('id', response.data.id);
           sessionStorage.setItem('firstName', response.data.firstName);
           localStorage.setItem('email', response.data.email);
+          sessionStorage.setItem('type', response.data.type);
+          sessionStorage.setItem('admin', response.data.isAdmin);
 
           window.location.replace('./adminDashboard.html');
         } else if (response.data.type === 'staff') {
@@ -86,6 +88,7 @@ const signIn = (e) => {
           sessionStorage.setItem('lastName', response.data.lastName);
           sessionStorage.setItem('token', response.data.token);
           sessionStorage.setItem('type', response.data.type);
+          sessionStorage.setItem('admin', response.data.isAdmin);
           localStorage.setItem('email', response.data.email);
 
           window.location.replace('./staffDashboard.html');

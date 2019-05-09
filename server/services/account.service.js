@@ -322,9 +322,7 @@ class AccountService {
   /**
    * @description returns a the details of an account
    * @static
-   * @param {Object} req
-   * @param {Object} res
-   * @returns {Object} API response
+   * @returns {Object} all account
    * @memberof AccountService
    */
   static async allAccounts() {

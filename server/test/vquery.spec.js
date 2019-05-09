@@ -166,6 +166,7 @@ describe('Test for queries in the Model', () => {
       .get('/api/v1/user/3')
       .set('Authorization', clientToken);
     expect(res.body.status).to.be.equal(400);
-    expect(res.body.error).to.be.equal('You are not authorized to view another account');
+    expect(res.body.error).to.be
+      .equal('You are not authorized to view another account');
   });
 });

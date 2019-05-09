@@ -174,6 +174,61 @@ class UserController {
       });
     }
   }
+
+  /**
+      * @description to view all staff in the app
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
+      */
+  static async allStaff(req, res) {
+    try {
+      const userAccounts = await UserService.allStaff();
+      if (userAccounts.error) {
+        throw userAccounts;
+      }
+      return res.status(200).send({
+        status: 200,
+        data: userAccounts,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
+
+  /**
+      * @description to view all accounts owned by a user
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
+      */
+  static async userById(req, res) {
+    const paramUserId = req.params.userId;
+    try {
+      const user = await UserService.findUserById(paramUserId);
+      if (user.error) {
+        throw user;
+      }
+      delete user.password;
+      delete user.updated_at;
+      return res.status(200).send({
+        status: 200,
+        data: user,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.message,
+      });
+    }
+  }
 }
 
 export default UserController;
