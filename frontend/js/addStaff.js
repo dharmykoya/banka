@@ -1,40 +1,41 @@
 const api = 'https://banktoday.herokuapp.com';
-const form = document.querySelector('#signupForm');
+const token = sessionStorage.getItem('token');
+const createStaffForm = document.querySelector('#createStaff');
 const message = document.querySelector('.message');
 const alert = document.querySelector('.alert');
 const closeBtn = document.querySelector('#closebtn');
-const signUpBtn = document.querySelector('.signup-button');
+const createStaffBtn = document.querySelector('#createStaff-button');
 const buttonLoader = document.querySelector('.button-loader');
 
 const validate = () => {
-  if (form.firstName.value === '') {
+  if (createStaffForm.firstName.value === '') {
     message.innerText = 'Please provide your First Name!';
     alert.style.display = 'block';
-    form.email.focus();
+    createStaffForm.email.focus();
     return false;
   }
-  if (form.lastName.value === '') {
+  if (createStaffForm.lastName.value === '') {
     message.innerText = 'Please provide your Last Name!';
     alert.style.display = 'block';
-    form.password.focus();
+    createStaffForm.password.focus();
     return false;
   }
-  if (form.email.value === '') {
+  if (createStaffForm.email.value === '') {
     message.innerText = 'Please provide your email!';
     alert.style.display = 'block';
-    form.password.focus();
+    createStaffForm.password.focus();
     return false;
   }
-  if (form.password.value === '') {
+  if (createStaffForm.password.value === '') {
     message.innerText = 'Please provide your password!';
     alert.style.display = 'block';
-    form.password.focus();
+    createStaffForm.password.focus();
     return false;
   }
-  if (form.password.value !== form.password2.value) {
+  if (createStaffForm.password.value !== createStaffForm.password2.value) {
     message.innerText = 'passwords do not match';
     alert.style.display = 'block';
-    form.password.focus();
+    createStaffForm.password.focus();
     return false;
   }
 };
@@ -43,12 +44,11 @@ const errorAlert = () => {
   const span = document.querySelector('.closebtn');
   span.parentElement.style.display = 'none';
 };
-
-// function to sign a user up
-const signUp = (e) => {
+// function to create staff/admin
+const createStaff = (e) => {
   let errors;
   e.preventDefault();
-  signUpBtn.classList.add('hide');
+  createStaffBtn.classList.add('hide');
   buttonLoader.classList.add('loader');
 
   const firstName = document.querySelector('#firstName').value;
@@ -63,19 +63,20 @@ const signUp = (e) => {
     password,
     confirmPassword,
   };
-  fetch(`${api}/api/v1/auth/signup`, {
+  fetch(`${api}/api/v1/auth/addStaff`, {
     method: 'POST', // or 'PUT'
     mode: 'cors',
     cache: 'no-cache',
     body: JSON.stringify(data), // data can be `string` or {object}!
     headers: {
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     },
     redirect: 'follow',
   }).then(res => res.json())
     .then((response) => {
       buttonLoader.classList.remove('loader');
-      signUpBtn.classList.remove('hide');
+      createStaffBtn.classList.remove('hide');
       if (response.status === 422) {
         alert.classList.remove('hide');
         errors = response.error;
@@ -99,20 +100,11 @@ const signUp = (e) => {
         }
         message.appendChild(item);
       } else if (response.status === 201) {
-        setInterval(() => {
-          sessionStorage.setItem('token', response.data.token);
-          sessionStorage.setItem('email', response.data.email);
-          sessionStorage.setItem('id', response.data.id);
-          sessionStorage.setItem('firstName', response.data.firstName);
-          localStorage.setItem('email', response.data.email);
-          window.location.replace('./createAccount.html');
-        }, 1000);
+        window.location.replace('./listUsers.html');
       }
     })
     .catch(error => error);
 };
-
-
-form.addEventListener('submit', validate);
+createStaffForm.addEventListener('submit', validate);
 closeBtn.addEventListener('click', errorAlert);
-form.addEventListener('submit', signUp);
+createStaffForm.addEventListener('submit', createStaff);
