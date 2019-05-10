@@ -1,6 +1,7 @@
 const api = 'https://banktoday.herokuapp.com';
 const token = sessionStorage.getItem('token');
 const tbody = document.querySelector('#staff-tbody');
+const preloader = document.querySelector('#preloader');
 
 
 // getting all the accounts in the app
@@ -65,6 +66,10 @@ window.onload = () => {
           a.classList.add('table-action');
           action.appendChild(a);
           tr.appendChild(action);
+
+          preloader.classList.remove('flex');
+          preloader.classList.add('hide');
+
           return true;
         });
       })
@@ -72,3 +77,10 @@ window.onload = () => {
   };
   getAllStaff();
 };
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

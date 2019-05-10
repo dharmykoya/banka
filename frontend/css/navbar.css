@@ -41,6 +41,21 @@ a {
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
+#preloader {
+  width: 98vw;
+  height: 100vh;
+  position: absolute;
+  background: #f6f4ff;
+}
+
+.preloader-img {
+  margin: auto;
+}
+
 /* Style The Dropdown Button */
 .dropbtn {
   background-color: #dd4f05;

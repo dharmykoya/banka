@@ -7,6 +7,7 @@ const accountBalance = document.querySelector('#accountBalance');
 const accountNumber = document.querySelector('#account-number');
 const accountStatus = document.querySelector('#status');
 const tbody = document.querySelector('.tbody');
+const preloader = document.querySelector('#preloader');
 
 if (!token) {
   window.location.replace('./signin.html');
@@ -115,8 +116,17 @@ window.onload = () => {
           });
         })
         .catch(err => err);
+      preloader.classList.remove('flex');
+      preloader.classList.add('hide');
     }, 5000);
   };
   getUserDetails();
   getUserTransactions();
 };
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

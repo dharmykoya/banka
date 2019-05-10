@@ -8,6 +8,7 @@ const savingsContent = document.querySelector('#savings_account');
 const savingsTbody = document.querySelector('#savings-tbody');
 const currentTbody = document.querySelector('#current-tbody');
 const navBar = document.querySelector('#myTopnav');
+const preloader = document.querySelector('#preloader');
 
 if (admin) {
   navBar.innerHTML = `<div class="logo-container">
@@ -23,7 +24,7 @@ if (admin) {
     </a>
     <div class="right navbar-right">
         <a class=" topnav-anchor pointer-none">Admin</a>
-        <a class="topnav-anchor" href="signin.html">Logout</a>
+        <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
     </div>`;
 }
 if (admin === 'false') {
@@ -39,7 +40,7 @@ if (admin === 'false') {
     </a>
     <div class="right navbar-right">
         <a class=" topnav-anchor pointer-none">Staff</a>
-        <a class="topnav-anchor" href="signin.html">Logout</a>
+        <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
     </div>`;
 }
 const listAccount = (e) => {
@@ -82,6 +83,7 @@ window.onload = () => {
       .then((response) => {
         if (response.status === 403 || response.status === 500) {
           window.location.replace('./signin.html');
+          return true;
         }
         const { data } = response;
         data.forEach((account) => {
@@ -163,6 +165,9 @@ window.onload = () => {
             a.classList.add('table-action');
             action.appendChild(a);
             tr.appendChild(action);
+
+            preloader.classList.remove('flex');
+            preloader.classList.add('hide');
             return true;
           }
         });
@@ -174,3 +179,10 @@ window.onload = () => {
 
 savingsButton.addEventListener('click', listAccount);
 currentButton.addEventListener('click', listAccount);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);
