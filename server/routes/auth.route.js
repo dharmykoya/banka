@@ -18,4 +18,10 @@ router.post('/addstaff',
   UserValidator.signUpValidator,
   UserController.createStaff);
 
+// returns a user detail
+router.get('/:userId',
+  UserValidator.userIdValidator,
+  Auth.getUser,
+  Auth.AdminCheck,
+  UserController.userById);
 export default router;

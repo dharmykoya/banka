@@ -130,7 +130,8 @@ class Model {
       const sql = `
           select accounts.account_number, accounts.type, accounts.created_on, 
           accounts.status, accounts.balance, 
-          users.email  from accounts inner join 
+          users.email, users.first_name, users.last_name 
+          from accounts inner join 
           ${secondTable} on ${this.table}.owner = ${secondTable}.id`;
       const result = await this.pool.query(sql);
       await this.pool.end();
@@ -340,6 +341,27 @@ class Model {
       const sql = `update ${this.table} 
           set ${column} = $1 where ${columnCondition} = $2`;
       const result = await this.pool.query(sql, values);
+      await this.pool.end();
+      return result.rows;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   * @description returns all the accounts
+   * @static
+   * @param {Object} secondTable
+   * @param {Object} param
+   * @returns {Object}  row found
+   * @memberof Model
+   */
+  async FindAllStaff() {
+    try {
+      const sql = `
+          SELECT id, email, first_name, last_name, type, admin, created_at FROM
+          ${this.table} WHERE type = 'staff'`;
+      const result = await this.pool.query(sql);
       await this.pool.end();
       return result.rows;
     } catch (error) {

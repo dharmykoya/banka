@@ -4,12 +4,19 @@ import UserController from '../controllers/user.controller';
 import Auth from '../middleware/Auth';
 import UserValidator from '../validators/user.validator';
 
+
 const router = Router();
 
 // returns all the accounts attached to a user
 router.get('/:email/accounts',
   Auth.getUser, Auth.staffAdminCheck,
   UserController.userAccounts);
+
+// route to get all Staff;
+router.get('/staff',
+  Auth.getUser,
+  Auth.AdminCheck,
+  UserController.allStaff);
 
 // returns all the accounts attached to a user
 router.get('/:userId',

@@ -253,6 +253,19 @@ class UserService {
       return response;
     }
   }
+
+  /**
+   * @description returns all the staff in the app
+   * @static
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async allStaff() {
+    const model = new Model('users');
+    const allStaff = await model.FindAllStaff();
+    const response = allStaff;
+    return response;
+  }
 }
 
 export default UserService;

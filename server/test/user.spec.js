@@ -12,6 +12,7 @@ const email = 'victor@gmil.com';
 const noAccountEmail = 'dharmykoya38@gmail.com';
 const wrongUserEmail = 'arsenal@gmail.com';
 let staffToken;
+let clientToken;
 
 describe('The authentication endpoint test', () => {
   /**
@@ -35,6 +36,7 @@ describe('The authentication endpoint test', () => {
       expect(res.body.data).to.have
         .key('id', 'token', 'email', 'firstName', 'lastName',
           'type', 'isAdmin');
+      clientToken = `Bearer ${res.body.data.token}`;
       expect(res.body.data.email).to.be.equal('dami@gmail.com');
       expect(res.body.data.firstName).to.be.equal('damilola');
       expect(res.body.data.lastName).to.be.equal('koya');
@@ -298,6 +300,27 @@ describe('The authentication endpoint test', () => {
       expect(res.body.data.formatDetail.email).to.be.equal('victor@gmil.com');
       expect(res.body.data.formatDetail.firstName).to.be.equal('victor');
     });
+    it('should return all accounts owned by a user', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/auth/4')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(200);
+      expect(res.body.data.id).to.be.equal(4);
+      expect(res.body.data.type).to.be.equal('client');
+      expect(res.body.data.first_name).to.be.equal('victor');
+      expect(res.body.data.last_name).to.be.equal('fayemi');
+      expect(res.body.data.email).to.be.equal('victor@gmil.com');
+    });
+
+    it('should return no user found for an id not in the app', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/auth/76')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body.error).to.be.equal('No user found');
+    });
     it('should return no user found for an id not in the app', async () => {
       const res = await chai
         .request(app)
@@ -305,6 +328,15 @@ describe('The authentication endpoint test', () => {
         .set('Authorization', staffToken);
       expect(res.body.status).to.be.equal(400);
       expect(res.body.error).to.be.equal('no user found');
+    });
+    it('should return user has no accounts', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/1')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body.error).to.be
+        .equal('user Damilola Adekoya has no accounts');
     });
     it('should return no user found for an id not in the app', async () => {
       const res = await chai
@@ -331,7 +363,22 @@ describe('The authentication endpoint test', () => {
       expect(res.body.error[0]).to.be.equal('Invalid value');
       expect(res.body.error[1]).to.be.equal('User ID must be a number');
     });
-
+    it('should return return all the staff', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/staff')
+        .set('Authorization', staffToken);
+      expect(res.body.status).to.be.equal(200);
+      expect(res.body.data[0]).to.have
+        .key('id', 'email', 'first_name', 'last_name', 'type',
+          'admin', 'created_at');
+      expect(res.body.data[0].id).to.be.equal(1);
+      expect(res.body.data[0].email).to.be.equal('dharmykoya38@gmail.com');
+      expect(res.body.data[0].first_name).to.be.equal('Damilola');
+      expect(res.body.data[0].last_name).to.be.equal('Adekoya');
+      expect(res.body.data[0].type).to.be.equal('staff');
+      expect(res.body.data[0].admin).to.be.equal(true);
+    });
     it('findUserById(id) should return a user', async () => {
       const id = 3;
       const userAccounts = await UserService.findUserById(id);
@@ -360,6 +407,14 @@ describe('The authentication endpoint test', () => {
       expect(res.body.error).to.be.equal('no user found');
     });
 
+    it('should return user has no accounts', async () => {
+      const res = await chai
+        .request(app)
+        .get('/api/v1/user/8')
+        .set('Authorization', clientToken);
+      expect(res.body.status).to.be.equal(400);
+      expect(res.body.error).to.be.equal('user damilola koya has no accounts');
+    });
     it('should upload a picture for a user', async () => {
       const res = await chai
         .request(app)
