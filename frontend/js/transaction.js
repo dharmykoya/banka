@@ -22,16 +22,11 @@ window.onload = () => {
   transactionBox.style.display = 'none';
 };
 
-// eslint-disable-next-line no-alert
-const alertUser = (message => alert(message));
 
 const errorAlert = () => {
   errorContainer.classList.add('hide');
 };
 
-if (!navigator.onLine) {
-  alertUser('Please connect to the internet');
-}
 
 const getAccountDetail = (e) => {
   e.preventDefault();
@@ -191,3 +186,10 @@ const makeTransaction = (e) => {
 check.addEventListener('submit', getAccountDetail);
 closeBtn.addEventListener('click', errorAlert);
 form.addEventListener('submit', makeTransaction);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

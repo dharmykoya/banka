@@ -16,3 +16,10 @@ window.onload = () => {
   staffEmail.textContent = email;
   staffId.textContent = userId;
 };
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

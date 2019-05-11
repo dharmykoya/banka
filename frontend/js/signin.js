@@ -75,6 +75,7 @@ const signIn = (e) => {
           sessionStorage.setItem('email', response.data.email);
           sessionStorage.setItem('id', response.data.id);
           sessionStorage.setItem('firstName', response.data.firstName);
+          sessionStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('email', response.data.email);
           sessionStorage.setItem('type', response.data.type);
           sessionStorage.setItem('admin', response.data.isAdmin);

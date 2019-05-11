@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 import dotenv from 'dotenv';
+import Helper from './helper';
 
 dotenv.config();
 
@@ -10,9 +11,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+const cloudUpload = cloudinary.v2;
 
-exports.uploads = file => new Promise((resolve) => {
-  cloudinary.uploader.upload(file, (result) => {
-    resolve({ url: result.url, id: result.public_id });
-  }, { resource_type: 'auto' });
-});
+const cloud = {
+  uploadToCloud(req, res, next) {
+    const { path } = req.file;
+    cloudUpload.uploader.upload(path,
+      {
+        tags: 'profilePicture',
+        width: 150,
+        height: 150,
+        crop: 'pad',
+      })
+      .then((image) => {
+        req.image = image;
+        return next();
+      });
+  }
+};
+
+export default cloud;

@@ -87,3 +87,10 @@ window.onload = () => {
   getUserDetails();
   getUserTransactions();
 };
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

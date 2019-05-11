@@ -12,19 +12,15 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = async (req, file, callback) => {
-  try {
-    if (file.mimetype === 'image/jpeg'
+  if (file.mimetype === 'image/jpeg'
         || file.mimetype === 'image/jpg'
         || file.mimetype === 'image/png') {
-      callback(null, true);
-    } else {
-      return await callback(
-        { message: 'This image format is not allowed' },
-        false
-      );
-    }
-  } catch (err) {
-    return err;
+    callback(null, true);
+  } else {
+    return callback(
+      { message: 'This image format is not allowed' },
+      false
+    );
   }
   return true;
 };

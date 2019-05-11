@@ -87,3 +87,10 @@ const createAccount = (e) => {
 form.addEventListener('submit', validate);
 closeBtn.addEventListener('click', errorAlert);
 form.addEventListener('click', createAccount);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);
