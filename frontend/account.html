@@ -26,19 +26,10 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <div class="logo-container">
-            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
-        </div>
-        <a class="topnav-anchor" href="staffDashboard.html">Profile</a>
-        <a  class="topnav-anchor"href="transaction.html">Transaction</a>
-        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
-        <a class="icon" onclick="return navToggle()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="right navbar-right">
-            <a class=" topnav-anchor pointer-none">Staff</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
-        </div>
+    </div>
+    <!-- Pre loader div -->
+    <div id="preloader" class="flex">
+        <img src="./img/bankagif.gif" alt="" class="preloader-img">
     </div>
 <main>
   <h5 class="page-title">USER ACCOUNT PROFILE</h5>
@@ -79,7 +70,7 @@
           <h5>ACTIONS</h5>
       </div>         
       <div class="account-card-container">
-        <a href="transaction.html">
+        <a href="transaction.html" id="staff-credit">
           <div class="">
             <div class="account-cards account-credit">
               <i class="fa fa-plus"></i>
@@ -87,7 +78,7 @@
             </div>
           </div>
         </a>
-        <a href="transaction.html">
+        <a href="transaction.html" id="staff-debit">
           <div class="">
             <div class="account-cards account-debit">
               <i class="fa fa-minus"></i>

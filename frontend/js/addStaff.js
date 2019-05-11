@@ -108,3 +108,10 @@ const createStaff = (e) => {
 createStaffForm.addEventListener('submit', validate);
 closeBtn.addEventListener('click', errorAlert);
 createStaffForm.addEventListener('submit', createStaff);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

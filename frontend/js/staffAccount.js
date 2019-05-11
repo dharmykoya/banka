@@ -4,6 +4,7 @@ const staffName = document.querySelector('#staff-name');
 const createdAt = document.querySelector('#date-created');
 const staffEmail = document.querySelector('#staff-email');
 const StaffId = document.querySelector('#staff-Id');
+const preloader = document.querySelector('#preloader');
 
 // Get the modal
 const modal = document.getElementById('myModal');
@@ -80,8 +81,18 @@ window.onload = () => {
         const humanDate = moment(data.created_at)
           .format('MMMM Do, YYYY');
         createdAt.textContent = humanDate;
+
+        preloader.classList.remove('flex');
+        preloader.classList.add('hide');
       })
       .catch(err => err);
   };
   getUserDetails();
 };
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

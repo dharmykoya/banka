@@ -1,5 +1,6 @@
 const api = 'https://banktoday.herokuapp.com';
 const token = sessionStorage.getItem('token');
+const admin = sessionStorage.getItem('admin');
 const clientName = document.querySelector('#client-name');
 const accountBalance = document.querySelector('#account-balance');
 const accountType = document.querySelector('#account-type');
@@ -13,6 +14,50 @@ const buttonLoader = document.querySelector('.button-loader');
 const statusButton = document.querySelector('#status-button');
 const deleteButton = document.querySelector('#delete-button');
 const tbody = document.querySelector('.tbody');
+const navBar = document.querySelector('#myTopnav');
+const preloader = document.querySelector('#preloader');
+const staffCredit = document.querySelector('#staff-credit');
+const staffDebit = document.querySelector('#staff-debit');
+
+if (admin) {
+  navBar.innerHTML = `<div class="logo-container">
+      <a href="index.html" class="logo-text">
+      <img class="index-logo" src="img/logo5.png">anka</a>
+    </div>
+    <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
+    <a class="topnav-anchor" href="addstaff.html">New Staff</a>
+    <a  class="topnav-anchor"href="listUsers.html">All Staff</a>
+    <a class="topnav-anchor" href="listBankAccounts.html">All Account</a>
+    <a class="icon topnav-anchor" onclick="navToggle()">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="right navbar-right">
+        <a class=" topnav-anchor pointer-none">Admin</a>
+        <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
+    </div>`;
+  staffCredit.href = '';
+  staffDebit.href = '';
+
+  staffCredit.classList.add('hide');
+  staffDebit.classList.add('hide');
+}
+if (admin === 'false') {
+  navBar.innerHTML = `<div class="logo-container">
+    <a href="index.html" class="logo-text">
+    <img class="index-logo" src="img/logo5.png">anka</a>
+    </div>
+    <a class="topnav-anchor" href="staffDashboard.html">Profile</a>        
+    <a class="topnav-anchor" href="transaction.html">Transaction</a>
+    <a  class="topnav-anchor" href="listBankAccounts.html">All Account</a>
+    <a class="icon topnav-anchor" onclick="navToggle()">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="right navbar-right">
+        <a class=" topnav-anchor pointer-none">Staff</a>
+        <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
+    </div>`;
+}
+
 
 // Get the modal
 const modal = document.getElementById('myModal');
@@ -163,6 +208,9 @@ window.onload = () => {
 
             tbody.appendChild(tr);
           });
+
+          preloader.classList.remove('flex');
+          preloader.classList.add('hide');
         })
         .catch(err => err);
     }, 5000);
@@ -230,3 +278,10 @@ const deleteAccount = (e) => {
 
 changeStatusForm.addEventListener('submit', changeAccountStatus);
 deleteAccountForm.addEventListener('submit', deleteAccount);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

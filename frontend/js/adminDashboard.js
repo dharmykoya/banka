@@ -14,3 +14,9 @@ window.onload = () => {
   adminEmail.textContent = email;
   adminId.textContent = userId;
 };
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);
