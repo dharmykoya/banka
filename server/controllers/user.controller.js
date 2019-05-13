@@ -98,13 +98,13 @@ class UserController {
   */
   static async uploadPicture(req, res) {
     const { id } = req.decoded.user;
-    const { path } = req.file;
+    const { url } = req.image;
     try {
-      if (path === undefined) {
+      if (url === undefined) {
         const response = 'Please select a file to upload';
         return response;
       }
-      const uploadedPic = await UserService.uploadPicture(path, id);
+      const uploadedPic = await UserService.uploadPicture(url, id);
       if (uploadedPic.error) {
         throw uploadedPic;
       }

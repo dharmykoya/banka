@@ -427,6 +427,18 @@ describe('The authentication endpoint test', () => {
       expect(res.body.data).to.be.equal('file uploaded successfully');
     });
 
+    it('should upload a picture for a user', async () => {
+      const res = await chai
+        .request(app)
+        .patch('/api/v1/user/upload')
+        .set('Authorization', staffToken)
+        .attach('profileImage',
+          ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg');
+      expect(res).to.have.status(200);
+      expect(res.body.status).to.be.equal(200);
+      expect(res.body.data).to.be.equal('file uploaded successfully');
+    });
+
     it('should return error for wrong format uploaded', async () => {
       const res = await chai
         .request(app)
