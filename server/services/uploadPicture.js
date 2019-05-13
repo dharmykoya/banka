@@ -1,6 +1,5 @@
 import cloudinary from 'cloudinary';
 import dotenv from 'dotenv';
-import Helper from './helper';
 
 dotenv.config();
 
