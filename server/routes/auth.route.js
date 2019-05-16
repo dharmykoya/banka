@@ -19,6 +19,12 @@ router.post('/addstaff',
   UserController.createStaff);
 
 // returns a user detail
+router.patch('/password',
+  Auth.getUser,
+  UserValidator.passwordValidator,
+  UserController.updatePassword);
+
+// update a user password
 router.get('/:userId',
   UserValidator.userIdValidator,
   Auth.getUser,

@@ -266,6 +266,37 @@ class UserService {
     const response = allStaff;
     return response;
   }
+
+  /**
+   * @description update a user password
+   * @static
+   * @param {Object} oldPassword
+   * @param {Object} newPassword
+   * @param {Object} userId
+   * @returns {Object} API response
+   * @memberof AccountService
+   */
+  static async updatePassword(oldPassword, newPassword, userId) {
+    let response;
+    try {
+      const model = new Model('users');
+      const user = await this.findUserById(userId);
+      const { password } = user;
+      const hashPassword = Helper.comparePassword(oldPassword, password);
+      if (!hashPassword) {
+        response = 'Please enter your old password';
+        throw response;
+      }
+      const newHashPassword = Helper.hashPassword(newPassword);
+      await model.Update('password', 'id', newHashPassword, userId);
+
+      response = 'password changed successfully';
+      return response;
+    } catch (err) {
+      response = { error: true, err };
+      return response;
+    }
+  }
 }
 
 export default UserService;

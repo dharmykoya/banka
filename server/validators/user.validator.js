@@ -68,5 +68,30 @@ const UserValidator = {
     }
     return next();
   },
+
+  passwordValidator(req, res, next) {
+    if (req.body.password !== req.body.confirmPassword) {
+      const error = 'passwords must match';
+      return Helper.errorResponse(res, 422, error);
+    }
+    req.check('password')
+      .not().isEmpty()
+      .isLength({ min: 8 })
+      .withMessage('Pasword can not be less than 8 characters')
+      .matches('[0-9]')
+      .withMessage('Password must contain a number')
+      .matches('[a-z]')
+      .withMessage('Password must contain a lower case letter')
+      .matches('[A-Z]')
+      .withMessage('Password must contain an upper case letter')
+      .matches('[~, !, @, #, $, %, ^, &, *, (, ), -, _, +, =, <, >, ?]')
+      .withMessage('Password must contain a special char');
+    const errors = req.validationErrors();
+    if (errors) {
+      const err = Helper.validationError(errors);
+      return Helper.errorResponse(res, 422, err);
+    }
+    return next();
+  },
 };
 export default UserValidator;

@@ -229,6 +229,36 @@ class UserController {
       });
     }
   }
+
+  /**
+      * @description to view all accounts owned by a user
+      * @static
+      * @param {Object} req
+      * @param {Object} res
+      * @returns {Object} API response
+      * @memberof UserController
+      */
+  static async updatePassword(req, res) {
+    const userId = req.decoded.user.id;
+    const { oldPassword, password } = req.body;
+    try {
+      const user = await UserService.updatePassword(oldPassword, password, userId);
+      if (user.error) {
+        throw user;
+      }
+      delete user.password;
+      delete user.updated_at;
+      return res.status(200).send({
+        status: 200,
+        data: user,
+      });
+    } catch (err) {
+      return res.status(400).send({
+        status: 400,
+        error: err.err,
+      });
+    }
+  }
 }
 
 export default UserController;
