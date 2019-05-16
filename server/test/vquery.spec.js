@@ -169,4 +169,86 @@ describe('Test for queries in the Model', () => {
     expect(res.body.error).to.be
       .equal('You are not authorized to view another account');
   });
+  it('should return error when oldpassword does not macth', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Damilol@',
+        password: 'Adekoya1@',
+        confirmPassword: 'Adekoya1@',
+      });
+    expect(res.body.status).to.be.equal(400);
+    expect(res.body.error).to.be.equal('Please enter your old password');
+  });
+  it('should return error when oldpassword does not macth', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Damilol@',
+        password: 'Adekoya1@',
+        confirmPassword: 'Adekoya@',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error).to.be.equal('passwords must match');
+  });
+  it('should error when changing password with no number', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Bankappclient1!',
+        password: 'Adekoya@',
+        confirmPassword: 'Adekoya@',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be.equal('Password must contain a number');
+  });
+  it('should error when changing password with no special char', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Bankappclient1!',
+        password: 'adekoya1',
+        confirmPassword: 'adekoya1',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('Password must contain an upper case letter');
+    expect(res.body.error[1]).to.be
+      .equal('Password must contain a special char');
+  });
+  it('should error when chaning password with less than 8 chars', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Bankappclient1!',
+        password: 'Adek1@',
+        confirmPassword: 'Adek1@',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error[0]).to.be
+      .equal('Pasword can not be less than 8 characters');
+  });
+  it('should change the password of a user', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Bankappclient1!',
+        password: 'Adekoya1@',
+        confirmPassword: 'Adekoya1@',
+      });
+    expect(res.body.status).to.be.equal(200);
+    expect(res.body.data).to.be.equal('password changed successfully');
+  });
 });
