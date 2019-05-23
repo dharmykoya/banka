@@ -5,7 +5,7 @@ const SQL = {
     first_name varchar(128) NOT NULL,
     last_name varchar(128) NOT NULL,
     password varchar(256) NOT NULL,
-    profile_image varchar(256) NULL,
+    imageurl varchar(256) NULL,
     type varchar(10) NOT NULL,
     admin BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
