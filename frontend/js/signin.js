@@ -78,6 +78,7 @@ const signIn = (e) => {
           sessionStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('email', response.data.email);
           sessionStorage.setItem('type', response.data.type);
+          localStorage.setItem('imageURL', response.data.imageURL);
           sessionStorage.setItem('admin', response.data.isAdmin);
 
           window.location.replace('./adminDashboard.html');
@@ -90,6 +91,7 @@ const signIn = (e) => {
           sessionStorage.setItem('token', response.data.token);
           sessionStorage.setItem('type', response.data.type);
           sessionStorage.setItem('admin', response.data.isAdmin);
+          localStorage.setItem('imageURL', response.data.imageURL);
           localStorage.setItem('email', response.data.email);
 
           window.location.replace('./staffDashboard.html');
@@ -98,6 +100,7 @@ const signIn = (e) => {
           sessionStorage.setItem('email', response.data.email);
           sessionStorage.setItem('id', response.data.id);
           sessionStorage.setItem('firstName', response.data.firstName);
+          localStorage.setItem('imageURL', response.data.imageURL);
           localStorage.setItem('email', response.data.email);
           const getUserDetails = () => {
             const userId = sessionStorage.getItem('id');

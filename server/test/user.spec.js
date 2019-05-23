@@ -189,7 +189,7 @@ describe('The authentication endpoint test', () => {
         expect(res.body.status).to.be.equal(200);
         expect(res.body.data).to.have
           .key('id', 'token', 'email', 'firstName',
-            'lastName', 'type', 'isAdmin');
+            'lastName', 'type', 'isAdmin', 'imageURL');
         expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
         expect(res.body.data.firstName).to.be.equal('Damilola');
         expect(res.body.data.lastName).to.be.equal('Adekoya');
@@ -385,7 +385,7 @@ describe('The authentication endpoint test', () => {
       expect(userAccounts.id).to.be.equal(3);
       expect(userAccounts).to.have
         .key('id', 'email', 'first_name', 'last_name', 'type',
-          'profile_image', 'admin', 'created_at', 'updated_at', 'password');
+          'imageurl', 'admin', 'created_at', 'updated_at', 'password');
       expect(userAccounts.email).to.be.equal('martin@gmail.com');
       expect(userAccounts.first_name).to.be.equal('Martins');
       expect(userAccounts.last_name).to.be.equal('Oguns');
@@ -424,7 +424,7 @@ describe('The authentication endpoint test', () => {
           ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg');
       expect(res).to.have.status(200);
       expect(res.body.status).to.be.equal(200);
-      expect(res.body.data).to.be.equal('file uploaded successfully');
+      expect(res.body.data.message).to.be.equal('file uploaded successfully');
     });
 
     it('should upload a picture for a user', async () => {
@@ -436,7 +436,7 @@ describe('The authentication endpoint test', () => {
           ('./server/test/testImages/git_pic.jpeg'), 'image.jpeg');
       expect(res).to.have.status(200);
       expect(res.body.status).to.be.equal(200);
-      expect(res.body.data).to.be.equal('file uploaded successfully');
+      expect(res.body.data.message).to.be.equal('file uploaded successfully');
     });
 
     it('should return error for wrong format uploaded', async () => {

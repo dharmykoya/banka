@@ -30,7 +30,7 @@ describe('Transaction Resource', () => {
     expect(res).to.have.status(200);
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have.key('id', 'token', 'email',
-      'firstName', 'lastName', 'type', 'isAdmin');
+      'firstName', 'lastName', 'type', 'isAdmin', 'imageURL');
     expect(res.body.data.email).to.be.equal('dharmykoya38@gmail.com');
     expect(res.body.data.firstName).to.be.equal('Damilola');
     expect(res.body.data.lastName).to.be.equal('Adekoya');

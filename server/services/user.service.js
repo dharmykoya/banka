@@ -106,7 +106,7 @@ class UserService {
       }
       const userToken = { ...Helper.tokenReturn(foundUser) };
       const token = Helper.generateToken(userToken);
-      return { token, ...Helper.userReturn(foundUser) };
+      return { token, ...Helper.userReturn(foundUser), imageURL: foundUser.imageurl };
     } catch (err) {
       response = { error: true, err };
       return response;
@@ -208,12 +208,12 @@ class UserService {
     let response;
     try {
       const model = new Model('users');
-      const uploadedPicture = await model.Update('profile_image', 'id', path, id);
+      const uploadedPicture = await model.Update('imageurl', 'id', path, id);
       if (uploadedPicture === undefined || uploadedPicture.name === 'error') {
         response = 'upload failed';
         throw response;
       }
-      response = 'file uploaded successfully';
+      response = { message: 'file uploaded successfully', imageURL: path };
       return response;
     } catch (err) {
       response = { error: true, err };

@@ -47,7 +47,8 @@
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
             <div class="user-photo">
-                <img class="profilepic" src="https://via.placeholder.com/150">
+                <img id="profilePic" class="profilepic" src="http://res.cloudinary.com/banka/image/upload/v1558630728/aubpurx78zlxhycupxdp.jpg">
+                <!-- <img class="profilepic" src="https://via.placeholder.com/150"> -->
             </div>
         </div>
 
@@ -77,15 +78,53 @@
         <div class="dashboard-main-item-1">
             <h5>CONTROL PANEL</h5>
             <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+                <li id="upload-picture" class="list-inline-item cursor"><i class="fa fa-envelope"></i>upload picture</li>
+                <li id="change-password" class="list-inline-item cursor"><i class="fa fa-lock"></i>change password</li>
+                <li class="list-inline-item"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</li>
             </ul>
         </div>
     </div>
   </section>    
 </main>
+<div class="modal" id="myModal">
+  <div class="container modal-content">
+          <span class="close" id="close-image">&times;</span>
+      <form action="" class="form" id="profileImageForm" method="post" enctype="multipart/form-data">   
+          <div class="container">
+            <p>Upload Image</p>
+            <hr>
+          <div class="image-input">
+              <input type="file" accept="image/*" id="profileImage">
+          </div>             
+  
+              <div class="clearfix">
+                  <button type="submit" class="image-confirm" id="imageConfirm">Confirm</button>
+                  <div class="button-loader"></div>
+              </div>
+          </div>
+      </form>
+  </div>    
+</div>
 
+<div class="modal" id="myModal2">
+  <div class="container modal-content">
+          <span class="close" id="close-password">&times;</span>
+      <form action="" class="form">   
+          <div class="container">
+            <p>Upload Image</p>
+            <hr>
+          <div>
+              <input type="file">
+          </div>             
+  
+              <div class="clearfix">
+                  <button type="submit" class="account-confirm confirm">Confirm</button>
+                  <div class="button-loader"></div>
+              </div>
+          </div>
+      </form>
+  </div>    
+</div>
 <script src="js/navbar.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
