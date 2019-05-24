@@ -32,26 +32,27 @@
         </div>
         <a class="active topnav-anchor" href="adminDashboard.html">Profile</a>        
         <a class="topnav-anchor" href="addstaff.html">New Staff</a>
-        <a  class="topnav-anchor"href="listUsers.html">All Staffs</a>
+        <a  class="topnav-anchor"href="listUsers.html">All Staff</a>
+        <a class="topnav-anchor" href="listBankAccounts.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
             <a class=" topnav-anchor pointer-none">Admin</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
+            <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
         </div>
-    </div>
+    </div>    
 <main>
   <section class="dashboard-container">
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
             <div class="user-photo">
-                <img class="profilepic" src="https://via.placeholder.com/150">
+                <img id="profilePic" class="profilepic" src="https://via.placeholder.com/150">
             </div>
         </div>
 
         <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Doyin Samuel</h4>
+            <h4 id="admin-name"></h4>
         </div>
 
 
@@ -64,8 +65,8 @@
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item">Email: doyinsamuel@banka.com</li>                
-                <li class="list-inline-item">Admin ID: 231</li>
+                <li class="list-inline-item">Email: <span id="admin-email"></li>                
+                <li class="list-inline-item">Admin ID: <span id="admin-Id"></li>
                 <li class="list-inline-item">Phone No: 08039224233</li>
             </ul>
         </div>
@@ -75,9 +76,9 @@
         <div class="dashboard-main-item-1">
             <h5>CONTROL PANEL</h5>
             <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+              <li id="upload-picture" class="list-inline-item"><i class="fa fa-envelope"></i>Update Picture</li>
+              <li id="change-password" class="list-inline-item"><i class="fa fa-lock"></i>Change Password</li>
+              <li class="list-inline-item"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</li>
             </ul>
         </div>
         <div class="staff-dashboard-action">
@@ -93,125 +94,61 @@
           </div>
     </div>
       
-    <section class="list-staff-container">
-      <p>NB: To Change activate or deactivate a staff please click on the view button.</p>
-        <!-- Tab links -->
-        <div class="tab-list-account">
-            <button class="tablinks_list_account active" onclick="listAccount(event, 'current_account')">Bank Users</button>
-            <button class="tablinks_list_account" onclick="listAccount(event, 'savings_account')">Staff/Admin</button>
-        </div>
-  
-        <!-- Tab content -->
-        <div id="savings_account" class="tabcontent-list-account hide-tabcontent">
-            <table id="savings-account-table" class="list-account-table">
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>Staff ID</th>
-                    <th>Date Created</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-  
-                <tbody>
-                <tr  class="list-tr-hover">
-                    <td>Yinka Ogunsola</td>
-                    <td>Admin</td>
-                    <td>021</td>
-                    <td>22nd Jan, 2019</td>
-                    <td>Active</td>
-                    <td><a href="staffAccount.html" class="table-action">view</a></td>
-                </tr>
-                <tr class="list-tr-hover">
-                  <td>Segun Obasanjo</td>
-                  <td>Staff</td>
-                  <td>034</td>
-                  <td>29th Jan, 2019</td>
-                  <td>Active</td>
-                  <td><a href="staffAccount.html" class="table-action">view</a></td>
-              </tr>
-              <tr class="list-tr-hover">
-                  <td>Daniel Ogundipe</td>
-                  <td>Staff</td>
-                  <td>051</td>
-                  <td>22nd Feb, 2019</td>
-                  <td>Active</td>
-                  <td><a href="staffAccount.html" class="table-action">view</a></td>
-              </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="6" class="tran-pagination">
-                            <div class="recent-tran-footer">
-                                <a href="listUsers.html">See More >>></a>
-                            </div>
-                        </td>
-                      </tr>
-                </tfoot>
-            </table>
-        </div>
-  
-        <div id="current_account" class="tabcontent-list-account show-tabcontent">
-          <table id="current-account-table" class="list-account-table">
-              <thead>
-              <tr>
-                  <th>Account Name</th>
-                  <th>Account No.</th>
-                  <th>Date Created</th>
-                  <th>Balance</th>
-                  <th>Status</th>
-                  <th>Action</th>
-              </tr>
-              </thead>
-  
-              <tbody>
-              <tr  class="list-tr-hover">
-                  <td>Shittu Abubaka</td>
-                  <td>0100000001</td>
-                  <td>31st Jan, 2019</td>
-                  <td>0.00</td>
-                  <td>Not Active</td>
-                  <td><a href="" class="table-action">view</a></td>
-              </tr>
-              <tr  class="list-tr-hover">
-                <td>Doyin Peters</td>
-                <td>0200000002</td>
-                <td>14th Jan, 2019</td>
-                <td>400,000.00</td>
-                <td>Active</td>
-                <td><a href="" class="table-action">view</a></td>
-            </tr>
-              <tr class="list-tr-hover">
-                <td>John Igwe</td>
-                <td>0300000003</td>
-                <td>5th Feb, 2019</td>
-                <td>300,000.00</td>
-                <td>Active</td>
-                <td><a href="" class="table-action">view</a></td>
-            </tr>
-              </tbody>
-              <tfoot>
-                  <tr>
-                      <td colspan="6" class="tran-pagination">
-                        <div class="pagination">
-                            <a href="#">&laquo;</a>
-                            <a href="#"  class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">&raquo;</a>
-                          </div>
-                      </td>
-                    </tr>
-              </tfoot>
-          </table>          
-        </div>
-    </section>
   </section>    
 </main>
 
+<div class="modal" id="myModal">
+  <div class="container modal-content">
+          <span class="close" id="close-image">&times;</span>
+      <form action="" class="form" id="profileImageForm" method="post" enctype="multipart/form-data">   
+          <div class="container">
+            <p>Upload Image</p>
+            <hr>
+          <div class="image-input">
+              <input type="file" accept="image/*" id="profileImage">
+          </div>             
+  
+              <div class="clearfix">
+                  <button type="submit" class="image-confirm" id="imageConfirm">Confirm</button>
+                  <div class="button-loader"></div>
+              </div>
+          </div>
+      </form>
+  </div>    
+</div>
+
+<div class="successMessage hide">
+    <span class="closebtn" id="closebtn">&times;</span> 
+    <h3 class="message white"></h3>
+</div>
+
+<div class="modal" id="myModal2">
+    <div class="container modal-content">
+            <span class="close" id="close-password">&times;</span>
+        <form action="" class="form" id="changePasswordForm">   
+            <div class="container">
+              <p>Change Password</p>
+              <hr>
+            
+            <div class="alert hide staffMessage">
+                <span class="closebtn2 closebtn" id="closebtn">&times;</span> 
+                <h3 class="message white message2"></h3>
+            </div>  
+            <div class="image-input">
+                <input type="password" placeholder="Old Password" id="oldPassword" required>
+                <input type="password" placeholder="New Password" id="newPassword" required>
+                <input type="password" placeholder="Confirm Password"  id="confirmPassword" required>
+            </div>             
+    
+                <div class="clearfix">
+                    <button type="submit" id="password-confirm" class="image-confirm">Confirm</button>
+                    <div class="button-loader2"></div>
+                </div>
+            </div>
+        </form>
+    </div>    
+</div>
 <script src="js/navbar.js"></script>
-<script src="js/listBankAccounts.js"></script> 
+<script src="js/adminDashboard.js"></script> 
 </body>
 </html>

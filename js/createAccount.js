@@ -6,15 +6,18 @@ const closeBtn = document.querySelector('#closebtn');
 const welcomeName = document.querySelector('.welcome-name');
 const name = sessionStorage.getItem('firstName');
 const token = sessionStorage.getItem('token');
+const buttonLoader = document.querySelector('.button-loader');
+const postButton = document.querySelector('#create-button');
+
+if (!token) {
+  window.location.replace('./signin.html');
+}
 
 window.onload = () => {
   welcomeName.innerText = name.toUpperCase();
 };
 
 const validate = () => {
-  const accountsType = ['savings', 'current'];
-  const check = accountsType.includes(form.role.value);
-
   if (form.role.value === 'Account type') {
     message.innerText = 'Please select an account type';
     alert.style.display = 'block';
@@ -31,6 +34,10 @@ const errorAlert = () => {
 // function to create an account for a user
 const createAccount = (e) => {
   e.preventDefault();
+  postButton.classList.add('hide');
+  buttonLoader.classList.add('loader');
+
+
   const option = document.querySelector('#accountType');
   const type = option.options[option.selectedIndex].value;
 
@@ -47,19 +54,31 @@ const createAccount = (e) => {
     redirect: 'follow',
   }).then(res => res.json())
     .then((response) => {
-      if (response.status === 403) {
-        return 'You must be logged in to create an account';
+      buttonLoader.classList.remove('loader');
+      postButton.classList.remove('hide');
+      let errors;
+      if (response.status === 403 || response.status === 500) {
+        window.location.replace('./signin.html');
       }
       if (response.status === 400) {
-        return 'Something went wrong';
+        window.location.replace('./signin.html');
       }
       if (response.status === 422) {
-        return 'Please select an appropriate account type';
+        alert.classList.remove('hide');
+        errors = response.error;
+        while (message.firstChild) {
+          message.removeChild(message.firstChild);
+        }
+        errors.map((error) => {
+          const item = document.createElement('li');
+          const newContent = document.createTextNode(`${error}`);
+          item.appendChild(newContent);
+          message.appendChild(item);
+          return true;
+        });
       }
       if (response.status === 201) {
-        setInterval(() => {
-          window.location.replace('./dashboard.html');
-        }, 1000);
+        window.location.replace('./dashboard.html');
       }
     })
     .catch(error => error);
@@ -68,3 +87,10 @@ const createAccount = (e) => {
 form.addEventListener('submit', validate);
 closeBtn.addEventListener('click', errorAlert);
 form.addEventListener('click', createAccount);
+
+const logoutButton = document.querySelector('#logout');
+const logout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+};
+logoutButton.addEventListener('click', logout);

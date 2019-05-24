@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/list_bank_accounts.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
+    <script src="https://momentjs.com/downloads/moment.js"></script>
 
     <!-- // favicon Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
@@ -32,14 +32,19 @@
         </div>
         <a class="topnav-anchor" href="adminDashboard.html">Profile</a>        
         <a class="topnav-anchor" href="addstaff.html">New Staff</a>
-        <a  class="topnav-anchor"href="listUsers.html">All Staffs</a>
+        <a  class="topnav-anchor"href="listUsers.html">All Staff</a>
+        <a class="topnav-anchor" href="listBankAccounts.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
             <a class=" topnav-anchor pointer-none">Admin</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
+            <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
         </div>
+    </div>
+    <!-- Pre loader div -->
+    <div id="preloader" class="flex">
+        <img src="./img/bankagif.gif" alt="" class="preloader-img">
     </div>
   <main>
       <h5 class="page-title">STAFF PROFILE</h5>
@@ -52,7 +57,7 @@
           </div>
 
           <div class="dashboard-header-item-2" style="align-self: center">
-              <h4>Yinka Ogunsola</h4>
+              <h4 id="staff-name"></h4>
           </div>
 
 
@@ -63,25 +68,26 @@
 
       <div class="dashboard-profile">
           <div class="dashboard-profile-item" >
-              <h5>ACCOUNT DETAILS</h5>
+              <h5>PERSONAL DETAILS</h5>
               <ul class="list-account-item">
-                  <li class="list-inline-item">Email: yinka@banka.com</li>                
-                  <li class="list-inline-item">Staff ID: 178</li>
+                  <li class="list-inline-item">Email: <span id="staff-email"></span></li>                
+                  <li class="list-inline-item">Staff ID: <span id="staff-Id"></span></li>
                   <li class="list-inline-item">Phone No: 0708934564</li>
                   <li class="list-inline-item">Status: <span class="status-active-badge">Active</span></li>
+                  <li class="list-inline-item">Created At: <span id="date-created"></span></li>
               </ul>
           </div>
       </div>
 
       <div class="dashboard-main">
-          <div class="dashboard-main-item-1">
+          <!-- <div class="dashboard-main-item-1">
               <h5>CONTROL PANEL</h5>
               <ul class="list-inline-item">
                   <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
                   <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
                   <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
               </ul>
-          </div>
+          </div> -->
           <div class="staff-dashboard-action">
               <h5>ACTIONS</h5>
             <div class="account-card-container">
@@ -109,15 +115,15 @@
   </main>
   <div class="modal" id="myModal">
       <div class="container modal-content">
-              <span class="close">&times;</span>
-          <form action="/action_page.php" class="form">   
+              <span class="close" id="close-status">&times;</span>
+          <form action="" class="form">   
               <div class="container">
                 <p>Change Status.</p>
                 <hr>
               <div>
                   <!-- <label for="status"><b>Select</b></label> -->
                   <input type="radio" name="status" value="activate" checked="checked"> Activate <br>
-                  <input type="radio" name="status" value="deactivate"> Deactivate
+                  <input type="radio" name="status" value="activate" checked="checked"> Deactivate <br>
               </div>             
       
                   <div class="clearfix">
@@ -131,8 +137,8 @@
 
   <div class="modal" id="myModal2">
       <div class="container modal-content">
-              <span class="close">&times;</span>
-          <form action="/action_page.php" class="form">   
+              <span class="close" id="close-delete">&times;</span>
+          <form action="" class="form">   
               <div class="container">
                 <p>Delete</p>
                 <hr>
@@ -150,7 +156,6 @@
 
 
     <script src="js/navbar.js"></script>
-    <script src="js/account.js"></script> 
-    <script src="js/listBankAccounts.js"></script> 
+    <script src="js/staffAccount.js"></script> 
   </body>
 </html>

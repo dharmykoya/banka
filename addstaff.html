@@ -30,40 +30,43 @@
         <a  class="topnav-anchor"href="adminDashboard.html">Profile</a>        
         <a class="topnav-anchor active" href="addstaff.html">New Staff</a>
         <a  class="topnav-anchor"href="listUsers.html">All Staff</a>
+        <a class="topnav-anchor" href="listBankAccounts.html">All Account</a>
         <a class="icon topnav-anchor" onclick="navToggle()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
             <a class=" topnav-anchor pointer-none">Admin</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
+            <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
         </div>
     </div>
 <main>  
     <div class="signup-container">
       <h2>Add Staff/Admin</h2>
-      <form class="register-form" action="adminDashboard.html" id="signupForm" onsubmit="return validate()"  method="POST">
+      <form class="register-form" action="" id="createStaff" method="POST">
         <div class="form">
-            <div class="alert hide">
-                <span class="closebtn" onclick="return errorAlert()">&times;</span> 
-                <h3 class="message"></h3>
-            </div>
-          <input type="text" placeholder="Name" name="name" required/>
-          <input type="text" placeholder="Phone Number" name="phone" required/>
-          <input type="text" placeholder="Email address" name="email" required/>
+          <div class="alert hide">
+            <span class="closebtn" id="closebtn">&times;</span> 
+            <div class="clearfix"></div>
+            <ul class="message white"></ul>
+          </div>
+            <input type="text" id="firstName" placeholder="First Name" name="firstName" required/>
+            <input type="text" id="lastName" placeholder="Last Name" name="lastName" required/>
+            <input type="email" id="email" placeholder="Email address" name="email" required/>
           <select name="role" aria-placeholder="Role Level">
               <option selected="selected">Select Role level</option>
               <option value="admin">Admin</option>
               <option value="staff">Staff</option>
           </select>
-          <input type="password" placeholder="password" name="password" required/>
-          <input type="password" placeholder="confirm password" name="password2" required/>
-          <a href=""><button>Create User</button></a>
+          <input type="password" id="password" placeholder="password" name="password" required/>
+          <input type="password" id="confirm_password" placeholder="confirm password" name="password2" required/>
+          <button id="createStaff-button">Create User</button>
+          <div class="button-loader"></div>
         </div>
       </form>
     </div>
 </main>
 
 <script src="js/navbar.js"></script>
-<script src="js/signup.js"></script>
+<script src="js/addStaff.js"></script>
 </body>
 </html>

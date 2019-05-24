@@ -15,7 +15,7 @@ body {
 }
 
 .navbar-right {
-  margin-right: 115px;
+  margin-right: 200px;
 }
 
 .clearfix {
@@ -37,10 +37,78 @@ a {
   width: 80%;
   margin: 0px auto;
 }
+
+.image-input input {
+  padding: 10px;
+  margin: 5px;
+}
+
 .hide {
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
+#preloader {
+  width: 98vw;
+  height: 100vh;
+  position: absolute;
+  background: #f6f4ff;
+}
+
+.preloader-img {
+  margin: auto;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #dd4f05;
+  color: red;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: absolute;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9722e;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+  margin-top: 48px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #f9722e;
+}
 .index-logo {
   width: 30px;
   height: 22px;
@@ -105,10 +173,52 @@ a {
   text-align: center;
 }
 
+/* loader from w3Schools */
+.loader {
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #dd4f05;
+  width: 20px;
+  height: 20px;
+  margin: 0px auto;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* fadeout css script from https://www.tutorialspoint.com/css/css_animation_fade_out.htm */
+.animated {
+  -webkit-animation-duration: 10s;animation-duration: 10s;
+  -webkit-animation-fill-mode: both;animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+@keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
 
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 715px) {
   .topnav a:not(:first-child) {display: none;}
   .topnav a.icon {
     float: right;
@@ -130,7 +240,7 @@ a {
 }
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 715px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive a.icon {
     position: absolute;

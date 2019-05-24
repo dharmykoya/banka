@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/account.css">
     <link rel="stylesheet" href="css/transactionHistory.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://momentjs.com/downloads/moment.js"></script>
 
     <!-- // favicon Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon.png">
@@ -25,19 +26,10 @@
 </head>
 <body>
     <div class="topnav" id="myTopnav">
-        <div class="logo-container">
-            <a href="index.html" class="logo-text"><img class="index-logo" src="img/logo5.png">anka</a>
-        </div>
-        <a class="topnav-anchor" href="staffDashboard.html">Profile</a>
-        <a  class="topnav-anchor"href="transaction.html">Transaction</a>
-        <a  class="topnav-anchor"href="listBankAccounts.html">All Account</a>
-        <a class="icon" onclick="return navToggle()">
-            <i class="fa fa-bars"></i>
-        </a>
-        <div class="right navbar-right">
-            <a class=" topnav-anchor pointer-none">Staff</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
-        </div>
+    </div>
+    <!-- Pre loader div -->
+    <div id="preloader" class="flex">
+        <img src="./img/bankagif.gif" alt="" class="preloader-img">
     </div>
 <main>
   <h5 class="page-title">USER ACCOUNT PROFILE</h5>
@@ -50,24 +42,24 @@
         </div>
 
         <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Damilola Adekoya</h4>
+            <h4 id="client-name"></h4>
         </div>
 
 
         <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">&#8358; 280,000.00<br><small>Savings Balance</small></li>
+            <li class="list-inline-item list-small">&#8358; <span id="account-balance"></span><br><small>Balance</small></li>
         </ul>
     </div> 
     <div class="dashboard-profile">
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item">Account No: 0003423233</li>
-                <li class="list-inline-item">Account Type: Savings</li>
+                <li class="list-inline-item">Account No: <span id="account-no"></span></li>
+                <li class="list-inline-item">Account Type: <span id="account-type"></span></li>
                 <li class="list-inline-item">Phone No: 08037145164</li>
-                <li class="list-inline-item">Date Created: Dec 22, 2019</li>
-                <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
-                <li class="list-inline-item">Status: <span class="status-active-badge">Active</span></li>
+                <li class="list-inline-item">Date Created: <span id="account-created"></span></li>
+                <li class="list-inline-item">Email: <span id="account-email"></span></li>
+                <li class="list-inline-item">Status: <span class="status-active-badge"></span></li>
             </ul>
         </div>
     </div>
@@ -78,7 +70,7 @@
           <h5>ACTIONS</h5>
       </div>         
       <div class="account-card-container">
-        <a href="transaction.html">
+        <a href="transaction.html" id="staff-credit">
           <div class="">
             <div class="account-cards account-credit">
               <i class="fa fa-plus"></i>
@@ -86,7 +78,7 @@
             </div>
           </div>
         </a>
-        <a href="transaction.html">
+        <a href="transaction.html" id="staff-debit">
           <div class="">
             <div class="account-cards account-debit">
               <i class="fa fa-minus"></i>
@@ -116,109 +108,65 @@
   </section>
   
   <section>
-      <div class="transaction-table">
-          <p class="text-center">Transaction Details</p>
-          <table id="transaction-summary" class="user-profile-table">
-              <thead>
-              <tr>
-                  <th class="transaction-date">Date</th>
-                  <th class="text-center">Transaction By</th>
-                  <th class="text-center">Debits (&#8358;)</th>
-                  <th class="text-center">Credits (&#8358;)</th>
-                  <th class="text-center">Balance (&#8358;)</th>
-                  <th class="text-center">Remarks</th>
-              </tr>
-              </thead>
-    
-              <tbody>
-              <tr class="">
-                  <td>02-Jan-2019</td>
-                  <td>Goke Fola</td>
-                  <td></td>
-                  <td>10,000.00</td>
-                  <td>50,000.00</td>
-                  <td>
-                    FUNDS DEPOSITED BY
-                    DOYIN OBASANJO
-                  </td>            
-              </tr>
-              <tr class="">
-                  <td>12-Jan-2019</td>
-                  <td>Goke Fola</td>
-                  <td>10,000.00</td>
-                  <td></td>
-                  <td>40,000.00</td>
-                  <td>
-                    WITHDRAWAL ON THE COUNTER BY
-                    YOU DAMILOLA ADEKOYA
-                  </td>             
-              </tr>
-              <tr class="">
-                  <td>02-Feb-2019</td>
-                  <td>Tolu Ogundipe</td>
-                  <td>30,000.00</td>
-                  <td></td>
-                  <td>10,000.00</td>
-                  <td>
-                    WITHDRAWAL ON THE COUNTER BY
-                    YOU DAMILOLA ADEKOYA
-                  </td>             
-              </tr>
-              <tr class="">
-                  <td>20-Feb-2019</td>
-                  <td>Goke Fola</td>
-                  <td></td>
-                  <td>200,000.00</td>
-                  <td>210,000.00</td>
-                  <td>
-                    FUNDS DEPOSITED BY
-                    ATIKU ABUBAKAR
-                  </td>           
-              </tr>
-              <tr class="">
-                  <td>04-Mar-2019</td>
-                  <td>Goke Fola</td>
-                  <td></td>
-                  <td>70,000.00</td>
-                  <td>280,000.00</td>
-                  <td>
-                    FUNDS DEPOSITED BY
-                    SEGUN OBASANJO
-                  </td>          
-              </tr>          
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="6">
-                      <div class="pagination">
-                          <a href="#">&laquo;</a>
-                          <a href="#"  class="active">1</a>
-                          <a href="#">2</a>
-                          <a href="#">3</a>
-                          <a href="#">&raquo;</a>
-                      </div>
-                  </td>
-                </tr>
-              </tfoot>
-          </table>
-        </div>    
-  </section>
+    <div class="transaction-table">
+      <p class="text-center">Transaction Details</p>
+      <table id="transaction-summary">
+          <thead>
+          <tr>
+              <th class="transaction-date">Date</th>
+              <th class="text-center">Cashier</th>
+              <th class="text-center">Debit (&#8358;)</th>
+              <th class="text-center">Credit (&#8358;)</th>
+              <th class="text-center">Old Balance (&#8358;)</th>
+              <th class="text-center">New Balance (&#8358;)</th>
+          </tr>
+          </thead>
+
+          <tbody class="tbody">
+          <tr class="">
+              <td>02-Jan-2019</td>
+              <td>Goke Fola</td>
+              <td></td>
+              <td>10,000.00</td>
+              <td>50,000.00</td>
+              <td>
+                20,000
+              </td>            
+          </tr>      
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6" class="tran-pagination">
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#"  class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">&raquo;</a>
+                  </div>
+              </td>
+            </tr>
+          </tfoot>
+      </table>
+    </div>
+</section>
 </main>
 <div class="modal" id="myModal">
     <div class="container modal-content">
-            <span class="close">&times;</span>
-        <form action="/action_page.php" class="form">   
+            <span class="close" id="close-status">&times;</span>
+        <form action="" class="form" id="change-status">   
             <div class="container">
               <p>Change Status.</p>
               <hr>
             <div>
                 <!-- <label for="status"><b>Select</b></label> -->
-                <input type="radio" name="status" value="activate" checked="checked"> Activate <br>
-                <input type="radio" name="status" value="deactivate"> Deactivate
+                <input type="radio" name="status" value="active" checked="checked"> Activate <br>
+                <input type="radio" name="status" value="dormant"> Deactivate
             </div>             
     
                 <div class="clearfix">
-                    <button type="submit" class="account-confirm confirm">Confirm</button>
+                    <button type="submit" class="account-confirm confirm" id="status-button">Confirm</button>
+                    <div class="button-loader"></div>
                 </div>
             </div>
         </form>
@@ -228,8 +176,8 @@
 
 <div class="modal" id="myModal2">
     <div class="container modal-content">
-            <span class="close">&times;</span>
-        <form action="/action_page.php" class="form">   
+            <span class="close" id="close-delete">&times;</span>
+        <form class="form" id="delete-account">   
             <div class="container">
               <p>Delete</p>
               <hr>
@@ -238,7 +186,8 @@
             </div>             
     
                 <div class="clearfix">
-                    <button type="submit" class="account-confirm confirm">Confirm</button>
+                    <button type="submit" class="account-confirm confirm" id="delete-button">Confirm</button>
+                    <div class="button-loader"></div>                    
                 </div>
             </div>
         </form>

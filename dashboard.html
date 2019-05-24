@@ -33,26 +33,31 @@
             <i class="fa fa-bars"></i>
         </a>
         <div class="right navbar-right">
-            <a class=" topnav-anchor pointer-none">Client</a>
-            <a class="topnav-anchor" href="signin.html">Logout</a>
+          <a class="topnav-anchor" href="signin.html" id="logout">Logout</a>
+          <div class="dropdown">
+            <a class=" topnav-anchor pointer-none dropbtn">Client<i class="far fa-sort-down"></i></a>
+            <div class="dropdown-content">
+            </div>
+          </div>  
         </div>
     </div>
+    
 <main>
   <section class="dashboard-container">
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
-            <div class="user-photo">
-                <img class="profilepic" src="https://via.placeholder.com/150">
+            <div class="user-photo">          
+              <img id="profilePic" class="profilepic" src="https://via.placeholder.com/150">
             </div>
         </div>
 
         <div class="dashboard-header-item-2" style="align-self: center">
-            <h4>Damilola Adekoya</h4>
+            <h4 id="accountName"></h4>
         </div>
 
 
         <ul class="dashboard-header-item-3">
-            <li class="list-inline-item list-small">&#8358; 280,000.00<br><small>Savings Balance</small></li>
+            <li class="list-inline-item list-small">&#8358;<div id="accountBalance"></div><small>Savings Balance</small></li>
         </ul>
     </div>
 
@@ -60,8 +65,9 @@
         <div class="dashboard-profile-item" >
             <h5>ACCOUNT DETAILS</h5>
             <ul class="list-account-item">
-                <li class="list-inline-item">Account No: 0003423233</li>
-                <li class="list-inline-item">Email: dharmykoya38@gmail.com</li>
+                <li class="list-inline-item" id="account-number"></li>
+                <li class="list-inline-item" id="email"></li>
+                <li class="list-inline-item" id="status"></li>
                 <li class="list-inline-item">Phone No: 08037145164</li>
             </ul>
         </div>
@@ -71,51 +77,64 @@
         <div class="dashboard-main-item-1">
             <h5>CONTROL PANEL</h5>
             <ul class="list-inline-item">
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-envelope"></i>update profile</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-lock"></i>change password</a></li>
-                <li class="list-inline-item"><a href="index.html"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</a></li>
+                <li id="upload-picture" class="list-inline-item cursor"><i class="fa fa-envelope"></i>upload picture</li>
+                <li id="change-password" class="list-inline-item cursor"><i class="fa fa-lock"></i>change password</li>
+                <li class="list-inline-item"><i class="fa fa-comments" aria-hidden="true"></i>Open Ticket</li>
             </ul>
         </div>
     </div>
-  </section> 
-  <section>
-      <div class="recent-transaction">
-          <div class="recent-tran-head">
-              <p>Recent Transactions</p>
-          </div>
-          <div class="recent-tran-body">
-                <div class="recent-date">
-                    <p class="date">Jan 20, 2019</p>
-                    <div class="transaction">
-                        <p>ACCOUNT MAINTENANCE</p>
-                        <p class="transaction-debit">&#8358 550.00</p>
-                    </div>
-                    <div class="transaction">
-                        <p>POS PAYMENT AT SHOPRITE</p>
-                        <p class="transaction-credit">&#8358 1400.00</p>
-                    </div>
-                </div>
-          </div>
-          <div class="recent-tran-body">
-                <div class="recent-date">
-                    <p class="date">Jan 9, 2019</p>
-                    <div class="transaction">
-                        <p>ATM WITHDRAWAL AT YABA</p>
-                        <p class="transaction-debit">&#8358 10,000.00</p>
-                    </div>
-                    <div class="transaction">
-                        <p>COUNTER WITHDRAWAL BY DAMILOLA ADEKOYA</p>
-                        <p class="transaction-credit">&#8358 5,000.00</p>
-                    </div>
-                </div>
-          </div>
-          <div class="recent-tran-footer">
-            <a href="transactionHistory.html">More >>></a>
-          </div>
-      </div>
-  </section>   
+  </section>    
 </main>
-
+<div class="modal" id="myModal">
+  <div class="container modal-content">
+          <span class="close" id="close-image">&times;</span>
+      <form action="" class="form" id="profileImageForm" method="post" enctype="multipart/form-data">   
+          <div class="container">
+            <p>Upload Image</p>
+            <hr>
+          <div class="image-input">
+              <input type="file" accept="image/*" id="profileImage" required>
+          </div>             
+  
+              <div class="clearfix">
+                  <button type="submit" class="image-confirm" id="imageConfirm">Confirm</button>
+                  <div class="button-loader"></div>
+              </div>
+          </div>
+      </form>
+  </div>    
+</div>
+<div class="successMessage hide">
+    <span class="closebtn" id="closebtn">&times;</span> 
+    <h3 class="message white"></h3>
+</div>
+<div class="modal" id="myModal2">
+  <div class="container modal-content">
+          <span class="close" id="close-password">&times;</span>
+      <form action="" class="form" id="changePasswordForm">   
+          <div class="container">
+            <p>Change Password</p>
+            <hr>
+          
+          <div class="alert hide">
+              <span class="closebtn" id="closebtn">&times;</span> 
+              <h3 class="message white"></h3>
+          </div>  
+          <div class="image-input">
+              <input type="password" placeholder="Old Password" id="oldPassword" required>
+              <input type="password" placeholder="New Password" id="newPassword" required>
+              <input type="password" placeholder="Confirm Password"  id="confirmPassword" required>
+          </div>             
+  
+              <div class="clearfix">
+                  <button type="submit" id="password-confirm" class="image-confirm">Confirm</button>
+                  <div class="button-loader2"></div>
+              </div>
+          </div>
+      </form>
+  </div>    
+</div>
 <script src="js/navbar.js"></script>
+<script src="js/dashboard.js"></script>
 </body>
 </html>
