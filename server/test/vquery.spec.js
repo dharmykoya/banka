@@ -182,6 +182,19 @@ describe('Test for queries in the Model', () => {
     expect(res.body.status).to.be.equal(400);
     expect(res.body.error).to.be.equal('Please enter your old password');
   });
+  it('should return error when oldpassword matches new password', async () => {
+    const res = await chai
+      .request(app)
+      .patch('/api/v1/auth/password')
+      .set('Authorization', clientToken)
+      .send({
+        oldPassword: 'Adekoya1@',
+        password: 'Adekoya1@',
+        confirmPassword: 'Adekoya1@',
+      });
+    expect(res.body.status).to.be.equal(422);
+    expect(res.body.error).to.be.equal('you have used this password earlier');
+  });
   it('should return error when oldpassword does not macth', async () => {
     const res = await chai
       .request(app)

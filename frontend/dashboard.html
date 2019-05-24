@@ -46,9 +46,8 @@
   <section class="dashboard-container">
     <div class="dashboard-header">
         <div class="dashboard-header-item-1">
-            <div class="user-photo">
-                <img id="profilePic" class="profilepic" src="http://res.cloudinary.com/banka/image/upload/v1558630728/aubpurx78zlxhycupxdp.jpg">
-                <!-- <img class="profilepic" src="https://via.placeholder.com/150"> -->
+            <div class="user-photo">          
+              <img id="profilePic" class="profilepic" src="https://via.placeholder.com/150">
             </div>
         </div>
 
@@ -94,7 +93,7 @@
             <p>Upload Image</p>
             <hr>
           <div class="image-input">
-              <input type="file" accept="image/*" id="profileImage">
+              <input type="file" accept="image/*" id="profileImage" required>
           </div>             
   
               <div class="clearfix">
@@ -105,21 +104,31 @@
       </form>
   </div>    
 </div>
-
+<div class="successMessage hide">
+    <span class="closebtn" id="closebtn">&times;</span> 
+    <h3 class="message white"></h3>
+</div>
 <div class="modal" id="myModal2">
   <div class="container modal-content">
           <span class="close" id="close-password">&times;</span>
-      <form action="" class="form">   
+      <form action="" class="form" id="changePasswordForm">   
           <div class="container">
-            <p>Upload Image</p>
+            <p>Change Password</p>
             <hr>
-          <div>
-              <input type="file">
+          
+          <div class="alert hide">
+              <span class="closebtn" id="closebtn">&times;</span> 
+              <h3 class="message white"></h3>
+          </div>  
+          <div class="image-input">
+              <input type="password" placeholder="Old Password" id="oldPassword" required>
+              <input type="password" placeholder="New Password" id="newPassword" required>
+              <input type="password" placeholder="Confirm Password"  id="confirmPassword" required>
           </div>             
   
               <div class="clearfix">
-                  <button type="submit" class="account-confirm confirm">Confirm</button>
-                  <div class="button-loader"></div>
+                  <button type="submit" id="password-confirm" class="image-confirm">Confirm</button>
+                  <div class="button-loader2"></div>
               </div>
           </div>
       </form>

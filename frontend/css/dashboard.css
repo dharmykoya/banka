@@ -99,6 +99,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   color: #dd4f05;
+  cursor: pointer;
 }
 
 .dashboard-main-item-1 * a {
@@ -248,7 +249,7 @@ body {
   margin: auto;
   left: 0;
   right: 0;
-  top: 100px;
+  top: 80px;
 }
 
 .modal-content {
@@ -284,6 +285,38 @@ body {
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 15px;
+  font-size: 10px;
+}
+
+.successMessage {
+  padding: 20px;
+  background-color: #66bb6a;
+  color: white;
+  margin-bottom: 15px;
+  font-size: 20px;
+  bottom: 311px;
+  position: relative;
+  width: 50%;
+  margin: auto;
+}
+
+.closebtn {
+  font-size: 15px;
+  float: right;
+  cursor: pointer;
+}
+
+
+
+.closebtn:hover {
+  color: black;
 }
 
 .close:hover,

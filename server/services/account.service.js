@@ -307,10 +307,10 @@ class AccountService {
       const { email } = user;
       const fName = user.first_name;
       const lName = user.last_name;
-
+      const imageURL = user.imageurl;
 
       response = {
-        ...accountDetails, email, fName, lName,
+        ...accountDetails, email, fName, lName, imageURL,
       };
       return response;
     } catch (err) {

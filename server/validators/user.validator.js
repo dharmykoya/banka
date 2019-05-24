@@ -70,6 +70,10 @@ const UserValidator = {
   },
 
   passwordValidator(req, res, next) {
+    if (req.body.oldPassword === req.body.password) {
+      const error = 'you have used this password earlier';
+      return Helper.errorResponse(res, 422, error);
+    }
     if (req.body.password !== req.body.confirmPassword) {
       const error = 'passwords must match';
       return Helper.errorResponse(res, 422, error);

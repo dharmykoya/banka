@@ -12,9 +12,16 @@ const accountNumber = document.querySelector('#account-number');
 const accountStatus = document.querySelector('#status');
 const drpDown = document.querySelector('.dropdown-content');
 const profileImageForm = document.getElementById('profileImageForm');
+const changePasswordForm = document.getElementById('changePasswordForm');
 const profilePic = document.querySelector('#profilePic');
 const buttonLoader = document.querySelector('.button-loader');
+const buttonLoader2 = document.querySelector('.button-loader2');
 const uploadBtn = document.querySelector('#imageConfirm');
+const changePasswordBtn = document.querySelector('#password-confirm');
+const alert = document.querySelector('.alert');
+const successMessage = document.querySelector('.successMessage');
+const message = document.querySelector('.message');
+const closeBtn = document.querySelector('.closebtn');
 
 
 // Get the modal
@@ -33,6 +40,12 @@ const closePassword = document.querySelector('#close-password');
 const closeModal = () => {
   modal.style.display = 'none';
   modal2.style.display = 'none';
+};
+
+// close the alert message
+const errorAlert = () => {
+  alert.classList.add('hide');
+  successMessage.classList.add('hide');
 };
 
 // Get the <span> element that closes the modal
@@ -60,6 +73,33 @@ btn.addEventListener('click', openStatusModal);
 btn2.addEventListener('click', openDeleteModal);
 closeImage.addEventListener('click', closeModal);
 closePassword.addEventListener('click', closeModal);
+
+// Show Message
+const showMessage = (errors) => {
+  if (Array.isArray(errors)) {
+    alert.classList.remove('hide');
+    alert.style.backgroundColor = '#f44336';
+    while (message.firstChild) {
+      message.removeChild(message.firstChild);
+    }
+    return errors.map((error) => {
+      const item = document.createElement('li');
+      const newContent = document.createTextNode(`${error}`);
+      item.appendChild(newContent);
+      message.appendChild(item);
+      return true;
+    });
+  }
+  alert.classList.remove('hide');
+  alert.style.backgroundColor = '#f44336';
+  while (message.firstChild) {
+    message.removeChild(message.firstChild);
+  }
+  const item = document.createElement('li');
+  const newContent = document.createTextNode(`${errors}`);
+  item.appendChild(newContent);
+  message.appendChild(item);
+};
 
 
 if (!token) {
@@ -183,6 +223,60 @@ const uploadPic = (e) => {
     .catch(err => err);
 };
 
+const changePassword = (e) => {
+  e.preventDefault();
+  changePasswordBtn.classList.add('hide');
+  buttonLoader2.classList.add('loader');
+
+  const oldPassword = document.querySelector('#oldPassword').value;
+  const password = document.querySelector('#newPassword').value;
+  const confirmPassword = document.querySelector('#confirmPassword').value;
+  const data = {
+    oldPassword,
+    password,
+    confirmPassword
+  };
+
+  fetch(`${api}/api/v1/auth/password`, {
+    method: 'PATCH', // or 'PUT'
+    mode: 'cors',
+    cache: 'no-cache',
+    body: JSON.stringify(data),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+  }).then(res => res.json())
+    .then((response) => {
+      buttonLoader2.classList.remove('loader');
+      changePasswordBtn.classList.remove('hide');
+      if (response.status === 403) {
+        window.location.replace('./signin.html');
+      }
+
+      if (response.status === 422 || response.status === 400) {
+        showMessage(response.error);
+      }
+
+      if (response.status === 200) {
+        changePasswordForm.reset();
+        closeModal();
+        successMessage.classList.remove('hide');
+        while (message.firstChild) {
+          message.removeChild(message.firstChild);
+        }
+        const item = document.createElement('li');
+        const newContent = document.createTextNode(`${response.data}`);
+        item.appendChild(newContent);
+        message.appendChild(item);
+      }
+    })
+    .catch(err => err);
+};
+
 
 logoutButton.addEventListener('click', logout);
 profileImageForm.addEventListener('submit', uploadPic);
+closeBtn.addEventListener('click', errorAlert);
+changePasswordForm.addEventListener('submit', changePassword);
