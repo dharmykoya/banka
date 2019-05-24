@@ -294,7 +294,7 @@ status is not a valid status`, async () => {
     expect(res.body.status).to.be.equal(200);
     expect(res.body.data).to.have
       .key('id', 'account_number', 'email', 'owner', 'type', 'fName', 'lName',
-        'status', 'balance', 'created_on', 'updated_at');
+        'status', 'balance', 'created_on', 'updated_at', 'imageURL');
     expect(res.body.data.account_number).to.be.equal(2000000000);
     expect(res.body.data.email).to.be.equal('martin@gmail.com');
     expect(res.body.data.owner).to.be.equal(3);

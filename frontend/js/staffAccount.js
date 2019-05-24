@@ -5,6 +5,7 @@ const createdAt = document.querySelector('#date-created');
 const staffEmail = document.querySelector('#staff-email');
 const StaffId = document.querySelector('#staff-Id');
 const preloader = document.querySelector('#preloader');
+const profilePic = document.querySelector('.profilepic');
 
 // Get the modal
 const modal = document.getElementById('myModal');
@@ -81,7 +82,7 @@ window.onload = () => {
         const humanDate = moment(data.created_at)
           .format('MMMM Do, YYYY');
         createdAt.textContent = humanDate;
-
+        profilePic.src = response.data.imageurl;
         preloader.classList.remove('flex');
         preloader.classList.add('hide');
       })

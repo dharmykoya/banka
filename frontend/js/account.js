@@ -18,6 +18,7 @@ const navBar = document.querySelector('#myTopnav');
 const preloader = document.querySelector('#preloader');
 const staffCredit = document.querySelector('#staff-credit');
 const staffDebit = document.querySelector('#staff-debit');
+const profilePic = document.querySelector('.profilepic');
 
 if (admin) {
   navBar.innerHTML = `<div class="logo-container">
@@ -133,6 +134,7 @@ window.onload = () => {
         accountNo.textContent = accountNumber;
         accountEmail.textContent = data.email;
         accountStatus.textContent = data.status;
+        profilePic.src = data.imageURL;
 
         const humanDate = moment(data.created_on)
           .format('MMMM Do, YYYY');

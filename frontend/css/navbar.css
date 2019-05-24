@@ -37,6 +37,12 @@ a {
   width: 80%;
   margin: 0px auto;
 }
+
+.image-input input {
+  padding: 10px;
+  margin: 5px;
+}
+
 .hide {
   display: none;
 }
